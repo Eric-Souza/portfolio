@@ -47,8 +47,8 @@ export interface CaseStudy {
   id: string;
   title: string;
   company: string;
-  companyUrl: string;
-  companyLinkedIn: string;
+  companyUrl?: string;
+  companyLinkedIn?: string;
   productName?: string;
   productUrl?: string;
   relatedLinks?: RelatedLink[];

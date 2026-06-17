@@ -10,12 +10,12 @@ export const profile: Profile = {
   whatsappUrl: 'https://wa.me/5531989191411',
   location: 'Belo Horizonte, Brazil',
   availability:
-    'Brazilian engineer · Open to senior and lead remote roles · Flexible US business hours',
+    'Open to senior and lead remote roles · Flexible US business hours',
   avatarSrc: '/avatar.jpg',
   about: [
-    "I'm a Brazilian tech lead and founding engineer. I like owning products end to end, from system design and infra to the UI. Over 8 years I've worked in banking, healthcare, e-commerce, AI, legal, and internal tools.",
-    "Lately I've built legal-tech products from scratch, healthcare systems that integrate with medical APIs, and fintech backends with event-driven microservices. I'm happy leading a team or writing code myself.",
-    "I've been working with LLMs and RAG for document processing, mostly on AWS. I work well with distributed US teams.",
+    "I'm a tech lead and founding engineer based in Brazil. I like owning products end to end, from system design and infra to the UI. Over 8 years I've worked in banking, healthcare, e-commerce, AI, legal, and internal tools.",
+    "Lately I've built legal-tech products from scratch, healthcare systems that integrate with medical APIs, and fintech backends with event-driven microservices. I'm comfortable leading a team and writing code at the same time.",
+    "I have experience with AI integrations, using LLMs (OpenAI), RAG, and related tooling. Document processing is one example, but there is plenty more you can do with AI in a product.",
   ],
   links: {
     linkedin: 'https://www.linkedin.com/in/ericdeoliveira/',

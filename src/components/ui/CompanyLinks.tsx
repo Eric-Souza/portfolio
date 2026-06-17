@@ -1,4 +1,4 @@
-import { Box, Chip, IconButton, Link, Tooltip } from '@mui/material';
+import { Box, Chip, IconButton, Link, Tooltip, Typography } from '@mui/material';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import { alpha } from '@mui/material/styles';
@@ -6,8 +6,8 @@ import type { RelatedLink } from '../../data/types';
 
 interface CompanyLinksProps {
   company: string;
-  companyUrl: string;
-  companyLinkedIn: string;
+  companyUrl?: string;
+  companyLinkedIn?: string;
   productName?: string;
   productUrl?: string;
   relatedLinks?: RelatedLink[];
@@ -56,32 +56,44 @@ export function CompanyLinks({
         mt: variant === 'compact' ? 0 : 0.5,
       }}
     >
-      <Link
-        href={companyUrl}
-        target="_blank"
-        rel="noopener noreferrer"
-        underline="hover"
-        color="primary"
-        sx={{ fontWeight: 600, fontSize: variant === 'compact' ? '0.95rem' : '1rem' }}
-        aria-label={`Visit ${company} website`}
-      >
-        {company}
-      </Link>
-
-      <Tooltip title={`${company} on LinkedIn`}>
-        <IconButton
-          component="a"
-          href={companyLinkedIn}
+      {companyUrl ? (
+        <Link
+          href={companyUrl}
           target="_blank"
           rel="noopener noreferrer"
-          size="small"
+          underline="hover"
           color="primary"
-          aria-label={`${company} on LinkedIn`}
-          sx={{ p: 0.5 }}
+          sx={{ fontWeight: 600, fontSize: variant === 'compact' ? '0.95rem' : '1rem' }}
+          aria-label={`Visit ${company} website`}
         >
-          <LinkedInIcon fontSize="small" />
-        </IconButton>
-      </Tooltip>
+          {company}
+        </Link>
+      ) : (
+        <Typography
+          component="span"
+          color="primary"
+          sx={{ fontWeight: 600, fontSize: variant === 'compact' ? '0.95rem' : '1rem' }}
+        >
+          {company}
+        </Typography>
+      )}
+
+      {companyLinkedIn && (
+        <Tooltip title={`${company} on LinkedIn`}>
+          <IconButton
+            component="a"
+            href={companyLinkedIn}
+            target="_blank"
+            rel="noopener noreferrer"
+            size="small"
+            color="primary"
+            aria-label={`${company} on LinkedIn`}
+            sx={{ p: 0.5 }}
+          >
+            <LinkedInIcon fontSize="small" />
+          </IconButton>
+        </Tooltip>
+      )}
 
       {productName && productUrl && <LinkChip name={productName} url={productUrl} />}
 

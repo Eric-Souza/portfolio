@@ -141,4 +141,30 @@ export const caseStudies: CaseStudy[] = [
       'PostgreSQL',
     ],
   },
+  {
+    id: 'college-internal',
+    title: 'Post-Grad Course Enrollment',
+    company: 'College (internal project)',
+    tags: ['Internal', 'Full Stack'],
+    problem:
+      'Students and teachers needed a simpler way to sign up for post-graduate courses, instead of manual paperwork and back-and-forth emails.',
+    approach:
+      'Built an internal web app during college so students could enroll and teachers could manage signups in one place.',
+    impact:
+      'Reduced admin work for staff and made enrollment clearer for students.',
+    stack: ['React', 'Node.js', 'PostgreSQL'],
+  },
+  {
+    id: 'workplace-internal',
+    title: 'Internal Tools Across Roles',
+    company: 'Various employers',
+    tags: ['Internal', 'Team Enablement'],
+    problem:
+      'Teams often need internal apps, dashboards, or automations that do not get the same attention as customer-facing products.',
+    approach:
+      'Built internal tools throughout my jobs, from reporting helpers to workflows that made day-to-day work easier for the wider team.',
+    impact:
+      'Saved time for teammates and improved how we handled recurring operational tasks.',
+    stack: ['React', 'TypeScript', 'Node.js', 'PostgreSQL', 'Automation'],
+  },
 ];
