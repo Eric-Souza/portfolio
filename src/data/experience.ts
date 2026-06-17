@@ -48,6 +48,12 @@ export const experience: Experience[] = [
     companyLinkedIn: 'https://www.linkedin.com/company/zroglobal',
     productName: 'Z.ro Bank',
     productUrl: 'https://zrobank.com/en',
+    relatedLinks: [
+      {
+        name: 'Zro Bank App',
+        url: 'https://play.google.com/store/apps/details?id=br.com.zrobank.app&hl=en',
+      },
+    ],
     period: 'Jul 2020 – Jun 2022',
     domain: 'Fintech',
     bullets: [

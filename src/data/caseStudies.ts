@@ -63,6 +63,12 @@ export const caseStudies: CaseStudy[] = [
     companyLinkedIn: 'https://www.linkedin.com/company/zroglobal',
     productName: 'Z.ro Bank',
     productUrl: 'https://zrobank.com/en',
+    relatedLinks: [
+      {
+        name: 'Zro Bank App',
+        url: 'https://play.google.com/store/apps/details?id=br.com.zrobank.app&hl=en',
+      },
+    ],
     tags: ['Architecture', 'Performance'],
     problem:
       'Zro Bank required a backend capable of handling high-volume financial transactions with low latency and reliable remittance workflows across its multi-currency digital banking platform.',
