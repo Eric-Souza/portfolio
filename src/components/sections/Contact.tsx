@@ -1,6 +1,9 @@
-import { Box, Button, Card, CardContent, Fab, Typography } from '@mui/material';
+import { Box, Button, Card, CardContent, Fab, Snackbar, Alert, Typography } from '@mui/material';
 import DownloadIcon from '@mui/icons-material/Download';
 import EmailIcon from '@mui/icons-material/Email';
+import WhatsAppIcon from '@mui/icons-material/WhatsApp';
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { alpha } from '@mui/material/styles';
 import { profile } from '../../data/profile';
@@ -11,6 +14,17 @@ import { monoFont } from '../../theme/theme';
 import { scrollToSection } from '../../hooks/useActiveSection';
 
 export function Contact() {
+  const [phoneCopied, setPhoneCopied] = useState(false);
+
+  const handleCopyPhone = async () => {
+    try {
+      await navigator.clipboard.writeText(profile.whatsapp);
+      setPhoneCopied(true);
+    } catch {
+      window.open(profile.whatsappUrl, '_blank', 'noopener,noreferrer');
+    }
+  };
+
   return (
     <>
       <Section
@@ -49,6 +63,18 @@ export function Contact() {
                 {profile.email}
               </Typography>
 
+              <Typography
+                variant="h6"
+                component="p"
+                sx={{
+                  fontFamily: monoFont,
+                  color: 'text.primary',
+                  mb: 1,
+                }}
+              >
+                {profile.whatsapp}
+              </Typography>
+
               <Typography variant="body1" color="text.secondary" sx={{ mb: 3 }}>
                 {profile.location} · {profile.availability}
               </Typography>
@@ -63,7 +89,39 @@ export function Contact() {
                 }}
               >
                 <CopyEmailButton email={profile.email} size="large" />
+                <Button
+                  variant="contained"
+                  size="large"
+                  href={profile.whatsappUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  startIcon={<WhatsAppIcon />}
+                  aria-label={`Message Eric on WhatsApp at ${profile.whatsapp}`}
+                  sx={{ bgcolor: '#25D366', '&:hover': { bgcolor: '#1DA851' } }}
+                >
+                  WhatsApp
+                </Button>
+                <Button
+                  variant="outlined"
+                  size="large"
+                  onClick={handleCopyPhone}
+                  startIcon={<ContentCopyIcon />}
+                  aria-label={`Copy phone number ${profile.whatsapp}`}
+                >
+                  Copy Phone
+                </Button>
               </Box>
+
+              <Snackbar
+                open={phoneCopied}
+                autoHideDuration={2500}
+                onClose={() => setPhoneCopied(false)}
+                anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+              >
+                <Alert severity="success" variant="filled" onClose={() => setPhoneCopied(false)}>
+                  Phone number copied to clipboard!
+                </Alert>
+              </Snackbar>
 
               <Box sx={{ display: 'flex', justifyContent: 'center', mb: 3 }}>
                 <SocialLinks links={profile.links} size="large" />

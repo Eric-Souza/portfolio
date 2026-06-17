@@ -6,6 +6,8 @@ export const profile: Profile = {
   tagline:
     '8+ years building production systems across legal-tech, healthcare, fintech, and AI — from architecture to deployment.',
   email: 'eric.bh18souza@gmail.com',
+  whatsapp: '+55 31 98919 1411',
+  whatsappUrl: 'https://wa.me/5531989191411',
   location: 'Belo Horizonte, Brazil',
   availability:
     'Open to senior and lead remote roles · Flexible US business hours',

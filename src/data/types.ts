@@ -14,6 +14,8 @@ export interface Profile {
   title: string;
   tagline: string;
   email: string;
+  whatsapp: string;
+  whatsappUrl: string;
   location: string;
   availability: string;
   avatarSrc: string;
