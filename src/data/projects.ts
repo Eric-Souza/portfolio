@@ -6,7 +6,7 @@ export const projects: Project[] = [
     name: 'Eric Portfolio',
     description:
       'Personal portfolio built with React, TypeScript, Material UI, and Framer Motion — recruiter-focused with case studies and live project demos.',
-    githubUrl: 'https://github.com/Eric-Souza/eric-portfolio',
+    githubUrl: 'https://github.com/Eric-Souza/portfolio',
     stack: ['React', 'TypeScript', 'MUI', 'Framer Motion', 'Vite'],
   },
   {

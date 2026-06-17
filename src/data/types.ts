@@ -22,6 +22,11 @@ export interface Profile {
   stats: Stat[];
 }
 
+export interface RelatedLink {
+  name: string;
+  url: string;
+}
+
 export interface Experience {
   id: string;
   role: string;
@@ -30,6 +35,7 @@ export interface Experience {
   companyLinkedIn: string;
   productName?: string;
   productUrl?: string;
+  relatedLinks?: RelatedLink[];
   period: string;
   domain: string;
   bullets: string[];
@@ -43,6 +49,7 @@ export interface CaseStudy {
   companyLinkedIn: string;
   productName?: string;
   productUrl?: string;
+  relatedLinks?: RelatedLink[];
   tags: string[];
   problem: string;
   approach: string;

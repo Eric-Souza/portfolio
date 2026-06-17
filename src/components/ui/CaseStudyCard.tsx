@@ -59,6 +59,7 @@ export function CaseStudyCard({ study, index }: CaseStudyCardProps) {
             companyLinkedIn={study.companyLinkedIn}
             productName={study.productName}
             productUrl={study.productUrl}
+            relatedLinks={study.relatedLinks}
           />
         </Box>
 

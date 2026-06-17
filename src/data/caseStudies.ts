@@ -56,12 +56,13 @@ export const caseStudies: CaseStudy[] = [
     id: 'fintech',
     title: 'Zro Bank — High-Volume Fintech Platform',
     company: 'Zro Bank',
-    companyUrl: 'https://www.zrobank.com.br',
+    companyUrl: 'https://zrobank.com/en',
     companyLinkedIn: 'https://www.linkedin.com/company/zroglobal',
-    productName: 'Z.ro financial app',
+    productName: 'Z.ro Bank',
+    productUrl: 'https://zrobank.com/en',
     tags: ['Architecture', 'Performance'],
     problem:
-      'Zro Bank required a backend capable of handling high-volume financial transactions with low latency and reliable remittance workflows.',
+      'Zro Bank required a backend capable of handling high-volume financial transactions with low latency and reliable remittance workflows across its multi-currency digital banking platform.',
     approach:
       'Implemented NestJS microservices with Apache Kafka for event-driven transaction processing on the Z.ro financial app. Built React/Next/MUI remittance and client management interfaces with Sequelize ORM on PostgreSQL.',
     impact:
@@ -75,6 +76,59 @@ export const caseStudies: CaseStudy[] = [
       'Kafka',
       'Sequelize',
       'Node.js',
+    ],
+  },
+  {
+    id: 'geospatial',
+    title: 'Kognita — GeoEdge Geospatial Intelligence',
+    company: 'Kognita',
+    companyUrl: 'https://kognita.com.br',
+    companyLinkedIn: 'https://www.linkedin.com/company/kognita-lab',
+    productName: 'GeoEdge',
+    productUrl: 'https://app.geoedge.com.br/',
+    tags: ['AI', 'Architecture'],
+    problem:
+      'Kognita needed a production web platform to deliver AI-driven heatmaps and location intelligence, helping enterprise clients identify optimal business locations from real-time geospatial data.',
+    approach:
+      'Built the GeoEdge platform with React, Next, and Material UI on the frontend and Node, Nest, and PostgreSQL on the backend. Bridged AI R&D workflows with the web product and used AWS S3 for large-scale geospatial data storage.',
+    impact:
+      'Enabled accurate geospatial insights at scale, optimized data processing pipelines between the AI team and the platform, and delivered a seamless interface for location-based decision making.',
+    stack: [
+      'React',
+      'Next.js',
+      'MUI',
+      'NestJS',
+      'PostgreSQL',
+      'AWS S3',
+      'Node.js',
+      'Geospatial AI',
+    ],
+  },
+  {
+    id: 'ecommerce',
+    title: 'Mundiale — Telecom E-commerce Platforms',
+    company: 'Mundiale',
+    companyUrl: 'https://www.mundiale.ai',
+    companyLinkedIn: 'https://www.linkedin.com/company/mundiale',
+    relatedLinks: [
+      { name: 'Americanet', url: 'https://americanet.com.br/' },
+      { name: 'Claro', url: 'https://www.claro.com.br/' },
+    ],
+    tags: ['Performance', 'Architecture'],
+    problem:
+      'Major telecom providers in South America needed modern e-commerce and customer management systems to improve online plan purchases and internal operations at scale.',
+    approach:
+      'Developed and maintained e-commerce platforms with React, Next, and Material UI, backed by Node, Express, and PostgreSQL. Built a separate customer and plan management system with React, Next, and Bootstrap for efficient user and plan administration.',
+    impact:
+      'Improved the online purchase experience for internet and telephone services and streamlined customer listing and plan visualization for operations teams.',
+    stack: [
+      'React',
+      'Next.js',
+      'MUI',
+      'Bootstrap',
+      'Node.js',
+      'Express',
+      'PostgreSQL',
     ],
   },
 ];

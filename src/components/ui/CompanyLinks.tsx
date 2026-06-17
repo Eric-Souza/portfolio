@@ -2,6 +2,7 @@ import { Box, Chip, IconButton, Link, Tooltip } from '@mui/material';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import { alpha } from '@mui/material/styles';
+import type { RelatedLink } from '../../data/types';
 
 interface CompanyLinksProps {
   company: string;
@@ -9,7 +10,31 @@ interface CompanyLinksProps {
   companyLinkedIn: string;
   productName?: string;
   productUrl?: string;
+  relatedLinks?: RelatedLink[];
   variant?: 'default' | 'compact';
+}
+
+function LinkChip({ name, url }: RelatedLink) {
+  return (
+    <Chip
+      component="a"
+      href={url}
+      target="_blank"
+      rel="noopener noreferrer"
+      clickable
+      label={name}
+      size="small"
+      icon={<OpenInNewIcon sx={{ fontSize: '14px !important' }} />}
+      sx={{
+        borderColor: alpha('#8B5CF6', 0.3),
+        backgroundColor: alpha('#8B5CF6', 0.1),
+        color: 'secondary.light',
+        '& .MuiChip-icon': { color: 'secondary.light' },
+      }}
+      variant="outlined"
+      aria-label={`Visit ${name}`}
+    />
+  );
 }
 
 export function CompanyLinks({
@@ -18,6 +43,7 @@ export function CompanyLinks({
   companyLinkedIn,
   productName,
   productUrl,
+  relatedLinks,
   variant = 'default',
 }: CompanyLinksProps) {
   return (
@@ -57,39 +83,24 @@ export function CompanyLinks({
         </IconButton>
       </Tooltip>
 
-      {productName && (
-        productUrl ? (
-          <Chip
-            component="a"
-            href={productUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            clickable
-            label={productName}
-            size="small"
-            icon={<OpenInNewIcon sx={{ fontSize: '14px !important' }} />}
-            sx={{
-              borderColor: alpha('#8B5CF6', 0.3),
-              backgroundColor: alpha('#8B5CF6', 0.1),
-              color: 'secondary.light',
-              '& .MuiChip-icon': { color: 'secondary.light' },
-            }}
-            variant="outlined"
-            aria-label={`Visit ${productName}`}
-          />
-        ) : (
-          <Chip
-            label={productName}
-            size="small"
-            sx={{
-              borderColor: alpha('#8B5CF6', 0.3),
-              backgroundColor: alpha('#8B5CF6', 0.1),
-              color: 'secondary.light',
-            }}
-            variant="outlined"
-          />
-        )
+      {productName && productUrl && <LinkChip name={productName} url={productUrl} />}
+
+      {productName && !productUrl && (
+        <Chip
+          label={productName}
+          size="small"
+          sx={{
+            borderColor: alpha('#8B5CF6', 0.3),
+            backgroundColor: alpha('#8B5CF6', 0.1),
+            color: 'secondary.light',
+          }}
+          variant="outlined"
+        />
       )}
+
+      {relatedLinks?.map((link) => (
+        <LinkChip key={link.url} name={link.name} url={link.url} />
+      ))}
     </Box>
   );
 }

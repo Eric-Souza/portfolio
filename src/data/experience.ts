@@ -41,9 +41,10 @@ export const experience: Experience[] = [
     id: 'zro',
     role: 'Full Stack Engineer',
     company: 'Zro Bank',
-    companyUrl: 'https://www.zrobank.com.br',
+    companyUrl: 'https://zrobank.com/en',
     companyLinkedIn: 'https://www.linkedin.com/company/zroglobal',
-    productName: 'Z.ro financial app',
+    productName: 'Z.ro Bank',
+    productUrl: 'https://zrobank.com/en',
     period: 'Jul 2020 – Jun 2022',
     domain: 'Fintech',
     bullets: [
@@ -60,7 +61,7 @@ export const experience: Experience[] = [
     companyUrl: 'https://kognita.com.br',
     companyLinkedIn: 'https://www.linkedin.com/company/kognita-lab',
     productName: 'GeoEdge',
-    productUrl: 'https://kognita.com.br/plataformas/geoedge/',
+    productUrl: 'https://app.geoedge.com.br/',
     period: 'Dec 2018 – Jul 2020',
     domain: 'GeoEdge · AI / Geospatial',
     bullets: [
@@ -75,7 +76,11 @@ export const experience: Experience[] = [
     company: 'Mundiale',
     companyUrl: 'https://www.mundiale.ai',
     companyLinkedIn: 'https://www.linkedin.com/company/mundiale',
-    productName: 'Telecom e-commerce & customer management',
+    productName: 'Telecom e-commerce platforms',
+    relatedLinks: [
+      { name: 'Americanet', url: 'https://americanet.com.br/' },
+      { name: 'Claro', url: 'https://www.claro.com.br/' },
+    ],
     period: 'Jan 2018 – Dec 2018',
     domain: 'E-commerce',
     bullets: [

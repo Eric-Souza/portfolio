@@ -75,6 +75,7 @@ export function TimelineItem({ item, defaultExpanded = false }: TimelineItemProp
               companyLinkedIn={item.companyLinkedIn}
               productName={item.productName}
               productUrl={item.productUrl}
+              relatedLinks={item.relatedLinks}
               variant="compact"
             />
             <Typography color="text.secondary" sx={{ fontWeight: 500, mt: 0.5 }}>
