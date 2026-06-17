@@ -27,6 +27,8 @@ export const experience: Experience[] = [
     company: 'Remedy Product',
     companyUrl: 'https://www.remedyproduct.com',
     companyLinkedIn: 'https://www.linkedin.com/company/remedyproduct',
+    productName: 'MeRT',
+    productUrl: 'https://mert.wavesynchrony.com/en/',
     period: 'Jun 2022 – Feb 2025',
     domain: 'Healthcare · Patient & EEG tracking',
     bullets: [

@@ -34,6 +34,8 @@ export const caseStudies: CaseStudy[] = [
     company: 'Remedy Product',
     companyUrl: 'https://www.remedyproduct.com',
     companyLinkedIn: 'https://www.linkedin.com/company/remedyproduct',
+    productName: 'MeRT',
+    productUrl: 'https://mert.wavesynchrony.com/en/',
     tags: ['Architecture', 'Performance'],
     problem:
       'Remedy Product needed reliable patient and EEG data tracking with medical API integrations and optimized treatment workflows for healthcare partners.',
