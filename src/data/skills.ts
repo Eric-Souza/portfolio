@@ -71,8 +71,12 @@ export const skillGroups: SkillGroup[] = [
   },
   {
     category: 'AI',
+    description:
+      'Experience with AI integrations using LLMs (OpenAI), RAG, and related tooling. Document processing is one example, but there is plenty more you can do with AI in a product.',
     skills: [
+      'AI Integrations',
       'LLMs',
+      'OpenAI',
       'RAG',
       'Claude',
       'ChatGPT',

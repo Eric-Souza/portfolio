@@ -20,9 +20,18 @@ export function Skills() {
             viewport={{ once: true }}
             transition={{ duration: 0.4, delay: index * 0.06 }}
           >
-            <Typography variant="h6" component="h3" sx={{ mb: 1.5 }}>
+            <Typography variant="h6" component="h3" sx={{ mb: group.description ? 1 : 1.5 }}>
               {group.category}
             </Typography>
+            {group.description && (
+              <Typography
+                variant="body2"
+                color="text.secondary"
+                sx={{ mb: 1.5, lineHeight: 1.7, maxWidth: 720 }}
+              >
+                {group.description}
+              </Typography>
+            )}
             <TechChips items={group.skills} size="medium" />
           </motion.div>
         ))}

@@ -14,8 +14,7 @@ export const profile: Profile = {
   avatarSrc: '/avatar.jpg',
   about: [
     "I'm a tech lead and founding engineer based in Brazil. I like owning products end to end, from system design and infra to the UI. I also leverage AI tools to enhance all aspects of work, using Claude, Cursor with multiple models, Cursor Bugbot, ChatGPT, and similar tools. Over 8 years I've worked in banking, healthcare, e-commerce, AI, legal, and internal tools.",
-    "Lately I've built legal-tech products from scratch, healthcare systems that integrate with medical APIs, and fintech backends with event-driven microservices. I'm comfortable leading a team and writing code at the same time.",
-    "I have experience with AI integrations, using LLMs (OpenAI), RAG, and related tooling. Document processing is one example, but there is plenty more you can do with AI in a product.",
+    "I've worked with small and large teams, at big companies and startups, on B2B and B2C products across web and cloud. I'm comfortable talking to clients directly, and leading a team while writing code at the same time.",
   ],
   links: {
     linkedin: 'https://www.linkedin.com/in/ericdeoliveira/',

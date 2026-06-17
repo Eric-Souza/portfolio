@@ -70,6 +70,7 @@ export interface Project {
 export interface SkillGroup {
   category: string;
   skills: string[];
+  description?: string;
 }
 
 export interface Article {
