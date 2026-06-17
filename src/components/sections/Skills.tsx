@@ -9,7 +9,7 @@ export function Skills() {
     <Section
       id="skills"
       title="Skills & Tools"
-      subtitle="Technologies I use to design, build, and ship production software."
+      subtitle="What I reach for to design, build, and ship software."
     >
       <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
         {skillGroups.map((group, index) => (

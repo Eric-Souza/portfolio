@@ -5,7 +5,7 @@ export const projects: Project[] = [
     id: 'eric-portfolio',
     name: 'Eric Portfolio',
     description:
-      'Personal portfolio built with React, TypeScript, Material UI, and Framer Motion — recruiter-focused with case studies and project highlights.',
+      'This site. React, TypeScript, Material UI, and Framer Motion, with case studies and project highlights.',
     githubUrl: 'https://github.com/Eric-Souza/portfolio',
     stack: ['React', 'TypeScript', 'MUI', 'Framer Motion', 'Vite'],
   },
@@ -69,7 +69,7 @@ export const projects: Project[] = [
     id: 'express-pg-api',
     name: 'Express PostgreSQL API',
     description:
-      'REST API with Express, PostgreSQL, and Sequelize ORM — migrations, relations, and complex queries.',
+      'REST API with Express, PostgreSQL, and Sequelize ORM, including migrations, relations, and complex queries.',
     githubUrl: 'https://github.com/Eric-Souza/express-pg-api',
     stack: ['Node.js', 'Express', 'PostgreSQL', 'Sequelize'],
   },

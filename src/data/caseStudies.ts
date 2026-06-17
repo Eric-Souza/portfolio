@@ -3,7 +3,7 @@ import type { CaseStudy } from './types';
 export const caseStudies: CaseStudy[] = [
   {
     id: 'legal-tech',
-    title: 'Essential Estates — 0 to Production',
+    title: 'Essential Estates, 0 to Production',
     company: 'Summerall Law',
     companyUrl: 'https://www.summeralllaw.com',
     companyLinkedIn: 'https://www.linkedin.com/company/summerall-law',
@@ -11,11 +11,11 @@ export const caseStudies: CaseStudy[] = [
     productUrl: 'https://www.essentialestates.com',
     tags: ['Leadership', 'Architecture', 'AI'],
     problem:
-      'Summerall Law, a Silicon Valley law firm, needed a production-grade platform to manage estate planning workflows through Essential Estates — replacing manual processes with a scalable digital product.',
+      'Summerall Law, a Silicon Valley law firm, needed a real platform for estate planning workflows in Essential Estates, replacing manual work with something they could run in production.',
     approach:
-      'As founding engineer, I architected and built Essential Estates from scratch — React/TypeScript frontend, NestJS API with PostgreSQL, AWS infrastructure (S3, EC2, RDS, CloudFront, ACM), and AI features using Python/FastAPI with LLMs and RAG for intelligent document processing.',
+      'As founding engineer, I built Essential Estates from scratch: React/TypeScript frontend, NestJS API with PostgreSQL, AWS (S3, EC2, RDS, CloudFront, ACM), and AI features in Python/FastAPI with LLMs and RAG for document processing.',
     impact:
-      'Delivered Essential Estates to production end-to-end: recruited and led the engineering team, established code review standards and CI/CD with GitHub Actions, and implemented GA4 analytics to drive product and marketing decisions.',
+      'Shipped Essential Estates to production, hired and led the engineering team, set up code review and CI/CD with GitHub Actions, and added GA4 to track how people use the product.',
     stack: [
       'React',
       'TypeScript',
@@ -30,7 +30,7 @@ export const caseStudies: CaseStudy[] = [
   },
   {
     id: 'healthcare',
-    title: 'Remedy Product — Healthcare Data Platform',
+    title: 'Remedy Product, Healthcare Data Platform',
     company: 'Remedy Product',
     companyUrl: 'https://www.remedyproduct.com',
     companyLinkedIn: 'https://www.linkedin.com/company/remedyproduct',
@@ -39,11 +39,11 @@ export const caseStudies: CaseStudy[] = [
     relatedLinks: [{ name: 'Wave Neuroscience', url: 'https://www.waveneuro.com/' }],
     tags: ['Leadership', 'Architecture', 'Performance'],
     problem:
-      'Remedy Product needed reliable patient and EEG data tracking with medical API integrations and optimized treatment workflows for healthcare partners.',
+      'Remedy Product needed reliable patient and EEG data tracking, medical API integrations, and smoother treatment workflows for healthcare partners.',
     approach:
       'Built React/Next/MUI interfaces for clinical data management and scalable Nest/Node backends on AWS with PostgreSQL and DynamoDB. Integrated medical APIs for TMS session validation and EEG automation.',
     impact:
-      'Reduced admin overhead through optimized EEG workflows, improved patient management, and cut report processing time with Redis caching and query optimization.',
+      'Cut admin work with better EEG workflows, improved patient management, and faster reports thanks to Redis caching and query tuning.',
     stack: [
       'React',
       'Next.js',
@@ -57,7 +57,7 @@ export const caseStudies: CaseStudy[] = [
   },
   {
     id: 'fintech',
-    title: 'Zro Bank — High-Volume Fintech Platform',
+    title: 'Zro Bank, High-Volume Fintech Platform',
     company: 'Zro Bank',
     companyUrl: 'https://zrobank.com/en',
     companyLinkedIn: 'https://www.linkedin.com/company/zroglobal',
@@ -71,11 +71,11 @@ export const caseStudies: CaseStudy[] = [
     ],
     tags: ['Architecture', 'Performance'],
     problem:
-      'Zro Bank required a backend capable of handling high-volume financial transactions with low latency and reliable remittance workflows across its multi-currency digital banking platform.',
+      'Zro Bank needed a backend that could handle high-volume transactions with low latency and reliable remittance flows across its multi-currency banking app.',
     approach:
       'Implemented NestJS microservices with Apache Kafka for event-driven transaction processing on the Z.ro financial app. Built React/Next/MUI remittance and client management interfaces with Sequelize ORM on PostgreSQL.',
     impact:
-      'Improved scalability and reduced latency for high-volume transactions. Automated reporting workflows via Jira-to-Google Sheets integration, streamlining operations.',
+      'Handled more transaction volume with less latency. Automated reporting with a Jira-to-Google Sheets integration so ops spent less time on spreadsheets.',
     stack: [
       'React',
       'Next.js',
@@ -89,7 +89,7 @@ export const caseStudies: CaseStudy[] = [
   },
   {
     id: 'geospatial',
-    title: 'Kognita — GeoEdge Geospatial Intelligence',
+    title: 'Kognita, GeoEdge Geospatial Intelligence',
     company: 'Kognita',
     companyUrl: 'https://kognita.com.br',
     companyLinkedIn: 'https://www.linkedin.com/company/kognita-lab',
@@ -97,11 +97,11 @@ export const caseStudies: CaseStudy[] = [
     productUrl: 'https://app.geoedge.com.br/',
     tags: ['AI', 'Architecture'],
     problem:
-      'Kognita needed a production web platform to deliver AI-driven heatmaps and location intelligence, helping enterprise clients identify optimal business locations from real-time geospatial data.',
+      'Kognita needed a web platform for AI heatmaps and location data, so clients could compare sites and pick where to open a business.',
     approach:
-      'Built the GeoEdge platform with React, Next, and Material UI on the frontend and Node, Nest, and PostgreSQL on the backend. Bridged AI R&D workflows with the web product and used AWS S3 for large-scale geospatial data storage.',
+      'Built GeoEdge with React, Next, and Material UI on the frontend and Node, Nest, and PostgreSQL on the backend. Connected the AI team\'s workflows to the product and used AWS S3 for large geospatial files.',
     impact:
-      'Enabled accurate geospatial insights at scale, optimized data processing pipelines between the AI team and the platform, and delivered a seamless interface for location-based decision making.',
+      'Got geospatial insights working at scale, sped up data handoffs between the AI team and the platform, and gave clients a clear UI for location decisions.',
     stack: [
       'React',
       'Next.js',
@@ -115,7 +115,7 @@ export const caseStudies: CaseStudy[] = [
   },
   {
     id: 'ecommerce',
-    title: 'Mundiale — Telecom E-commerce Platforms',
+    title: 'Mundiale, Telecom E-commerce Platforms',
     company: 'Mundiale',
     companyUrl: 'https://www.mundiale.ai',
     companyLinkedIn: 'https://www.linkedin.com/company/mundiale',
@@ -125,11 +125,11 @@ export const caseStudies: CaseStudy[] = [
     ],
     tags: ['Performance', 'Architecture'],
     problem:
-      'Major telecom providers in South America needed modern e-commerce and customer management systems to improve online plan purchases and internal operations at scale.',
+      'Major telecom providers in South America needed updated e-commerce and customer management systems for online plan sales and day-to-day ops.',
     approach:
       'Developed and maintained e-commerce platforms with React, Next, and Material UI, backed by Node, Express, and PostgreSQL. Built a separate customer and plan management system with React, Next, and Bootstrap for efficient user and plan administration.',
     impact:
-      'Improved the online purchase experience for internet and telephone services and streamlined customer listing and plan visualization for operations teams.',
+      'Made it easier to buy internet and phone plans online and gave ops teams a simpler way to browse customers and plans.',
     stack: [
       'React',
       'Next.js',

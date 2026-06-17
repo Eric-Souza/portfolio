@@ -1,36 +1,23 @@
-import { Box, Button, Card, CardContent, Fab, Snackbar, Alert, Typography } from '@mui/material';
+import { Box, Button, Card, CardContent, Fab, Typography } from '@mui/material';
 import DownloadIcon from '@mui/icons-material/Download';
 import EmailIcon from '@mui/icons-material/Email';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
-import ContentCopyIcon from '@mui/icons-material/ContentCopy';
-import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { alpha } from '@mui/material/styles';
 import { profile } from '../../data/profile';
 import { Section } from '../layout/Section';
-import { CopyEmailButton } from '../ui/CopyEmailButton';
+import { CopyIconButton } from '../ui/CopyIconButton';
 import { SocialLinks } from '../ui/SocialLinks';
 import { monoFont } from '../../theme/theme';
 import { scrollToSection } from '../../hooks/useActiveSection';
 
 export function Contact() {
-  const [phoneCopied, setPhoneCopied] = useState(false);
-
-  const handleCopyPhone = async () => {
-    try {
-      await navigator.clipboard.writeText(profile.whatsapp);
-      setPhoneCopied(true);
-    } catch {
-      window.open(profile.whatsappUrl, '_blank', 'noopener,noreferrer');
-    }
-  };
-
   return (
     <>
       <Section
         id="contact"
         title="Get In Touch"
-        subtitle="Let's talk about your next project or opportunity."
+        subtitle="Reach out if you want to talk."
       >
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -50,30 +37,56 @@ export function Contact() {
                 textAlign: 'center',
               }}
             >
-              <Typography
-                variant="h4"
-                component="p"
+              <Box
                 sx={{
-                  fontFamily: monoFont,
-                  color: 'primary.main',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
                   mb: 1,
-                  wordBreak: 'break-all',
                 }}
               >
-                {profile.email}
-              </Typography>
+                <Typography
+                  variant="h4"
+                  component="p"
+                  sx={{
+                    fontFamily: monoFont,
+                    color: 'primary.main',
+                    wordBreak: 'break-all',
+                  }}
+                >
+                  {profile.email}
+                </Typography>
+                <CopyIconButton
+                  value={profile.email}
+                  label="email address"
+                  successMessage="Email copied to clipboard!"
+                />
+              </Box>
 
-              <Typography
-                variant="h6"
-                component="p"
+              <Box
                 sx={{
-                  fontFamily: monoFont,
-                  color: 'text.primary',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
                   mb: 1,
                 }}
               >
-                {profile.whatsapp}
-              </Typography>
+                <Typography
+                  variant="h6"
+                  component="p"
+                  sx={{
+                    fontFamily: monoFont,
+                    color: 'text.primary',
+                  }}
+                >
+                  {profile.whatsapp}
+                </Typography>
+                <CopyIconButton
+                  value={profile.whatsapp}
+                  label="phone number"
+                  successMessage="Phone number copied to clipboard!"
+                />
+              </Box>
 
               <Typography variant="body1" color="text.secondary" sx={{ mb: 3 }}>
                 {profile.location} · {profile.availability}
@@ -88,7 +101,15 @@ export function Contact() {
                   mb: 3,
                 }}
               >
-                <CopyEmailButton email={profile.email} size="large" />
+                <Button
+                  variant="outlined"
+                  size="large"
+                  href={`mailto:${profile.email}`}
+                  startIcon={<EmailIcon />}
+                  aria-label={`Send email to ${profile.email}`}
+                >
+                  Email Me
+                </Button>
                 <Button
                   variant="contained"
                   size="large"
@@ -101,27 +122,7 @@ export function Contact() {
                 >
                   WhatsApp
                 </Button>
-                <Button
-                  variant="outlined"
-                  size="large"
-                  onClick={handleCopyPhone}
-                  startIcon={<ContentCopyIcon />}
-                  aria-label={`Copy phone number ${profile.whatsapp}`}
-                >
-                  Copy Phone
-                </Button>
               </Box>
-
-              <Snackbar
-                open={phoneCopied}
-                autoHideDuration={2500}
-                onClose={() => setPhoneCopied(false)}
-                anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-              >
-                <Alert severity="success" variant="filled" onClose={() => setPhoneCopied(false)}>
-                  Phone number copied to clipboard!
-                </Alert>
-              </Snackbar>
 
               <Box sx={{ display: 'flex', justifyContent: 'center', mb: 3 }}>
                 <SocialLinks links={profile.links} size="large" />

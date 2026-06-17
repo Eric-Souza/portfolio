@@ -5,8 +5,6 @@ import { SocialLinks } from '../ui/SocialLinks';
 import { scrollToSection } from '../../hooks/useActiveSection';
 
 export function Footer() {
-  const year = new Date().getFullYear();
-
   return (
     <Box
       component="footer"
@@ -27,7 +25,7 @@ export function Footer() {
         }}
       >
         <Typography variant="body2" color="text.secondary">
-          © {year} {profile.name}. Built with React, MUI & Framer Motion.
+          Built with React, MUI & Framer Motion.
         </Typography>
 
         <SocialLinks links={profile.links} size="small" />

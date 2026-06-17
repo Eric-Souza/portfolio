@@ -16,7 +16,7 @@ export const experience: Experience[] = [
       'Built the platform from zero to production using React and TypeScript on the frontend, with NestJS, PostgreSQL, and TypeORM on the backend.',
       'Led architecture and system design across API design, data modeling, scalability, maintainability, and reliable frontend/backend contracts.',
       'Designed and managed AWS infrastructure using S3, EC2, RDS, CloudFront, and ACM, with GitHub Actions CI/CD for automated deployments and reliability.',
-      'Developed AI-powered features using Python and FastAPI, integrating LLMs and Retrieval-Augmented Generation (RAG) for intelligent document processing, automation, and knowledge-driven workflows.',
+      'Developed AI features using Python and FastAPI, integrating LLMs and RAG for document processing and automation.',
       'Recruited, onboarded, and led the engineering team; defined coding standards, code review practices, and delivery processes.',
       'Implemented Google Analytics 4 (GA4) to track user behavior, funnels, and product metrics, informing product and marketing decisions.',
     ],
@@ -58,7 +58,7 @@ export const experience: Experience[] = [
     domain: 'Fintech',
     bullets: [
       'Developed and scaled the backend of the main financial app using Node, Nest, and PostgreSQL, implementing microservices with Apache Kafka to improve performance, reduce latency, and enhance scalability for high-volume transactions.',
-      'Leveraged Sequelize ORM to simplify database interactions, reduce query complexity, and improve API response times.',
+      'Used Sequelize ORM to simplify database work, cut down on awkward queries, and speed up API responses.',
       'Built a financial remittance and client management system with React, Next, and Material UI on the frontend and Node, Nest, and PostgreSQL on the backend.',
       'Automated reporting workflows by generating Jira-based reports in Google Sheets through a Node/Express integration.',
     ],
@@ -74,9 +74,9 @@ export const experience: Experience[] = [
     period: 'Dec 2018 – Jul 2020',
     domain: 'GeoEdge · AI / Geospatial',
     bullets: [
-      'Developed a web platform integrating AI-driven heatmaps to help clients identify optimal business locations based on real-time data analysis.',
-      'Built a full stack system using React, Next, and Material UI for a seamless UI, with Node, Nest, and PostgreSQL for scalable data management.',
-      'Optimized AI data processing workflows and integration between the AI R&D team and the web platform, enabling accurate geospatial insights using AWS S3 as storage.',
+      'Built a web platform with AI heatmaps so clients could compare locations using real-time data.',
+      'Built the full stack with React, Next, and Material UI on the frontend and Node, Nest, and PostgreSQL on the backend.',
+      'Improved how the AI R&D team\'s data flowed into the web platform and stored large geospatial files on AWS S3.',
     ],
   },
   {
@@ -94,7 +94,7 @@ export const experience: Experience[] = [
     domain: 'E-commerce',
     bullets: [
       'Developed and maintained an e-commerce platform for an internet and telephone service provider in South America, improving the online purchase experience with a React, Next, and Material UI frontend and Node, Express, and PostgreSQL backend.',
-      'Built a customer and plan management system, enabling efficient user listing and plan details visualization with a React, Next, and Bootstrap frontend and Node, Express, and PostgreSQL backend.',
+      'Built a customer and plan management system for listing users and viewing plan details, with React, Next, and Bootstrap on the frontend and Node, Express, and PostgreSQL on the backend.',
     ],
   },
 ];

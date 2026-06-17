@@ -8,7 +8,7 @@ export function Projects() {
     <Section
       id="projects"
       title="Featured Projects"
-      subtitle="Curated open-source work showcasing UI craft, APIs, and full-stack patterns."
+      subtitle="Open-source work: UI clones, APIs, and side projects."
     >
       <Grid container spacing={3}>
         {projects.map((project, index) => (

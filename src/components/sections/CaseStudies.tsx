@@ -8,7 +8,7 @@ export function CaseStudies() {
     <Section
       id="case-studies"
       title="Case Studies"
-      subtitle="Selected impact stories from recent roles."
+      subtitle="A few projects I'm proud of."
     >
       <Grid container spacing={3}>
         {caseStudies.map((study, index) => (

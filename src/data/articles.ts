@@ -8,7 +8,7 @@ export const articles: Article[] = [
     date: 'Nov 2024',
     url: 'https://medium.com/remedy-product-studio/building-a-secure-and-scalable-back-end-with-nestjs-typescript-and-typeorm-ad8ae5c9c0c0',
     teaser:
-      'Explores a robust backend application with NestJS, TypeScript, and TypeORM for secure, scalable systems.',
+      'Explores a backend app with NestJS, TypeScript, and TypeORM for secure, scalable systems.',
     claps: 20,
   },
   {
@@ -28,7 +28,7 @@ export const articles: Article[] = [
     date: 'Jan 2025',
     url: 'https://medium.com/remedy-product-studio/understanding-aws-essential-concepts-for-software-engineers-07b114954bd2',
     teaser:
-      'Core AWS concepts every software engineer should understand to leverage cloud infrastructure.',
+      'Core AWS concepts for software engineers who want to get more out of the cloud.',
   },
   {
     id: 'youtube-rnw',
