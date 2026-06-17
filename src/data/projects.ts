@@ -2,6 +2,14 @@ import type { Project } from './types';
 
 export const projects: Project[] = [
   {
+    id: 'eric-portfolio',
+    name: 'Eric Portfolio',
+    description:
+      'Personal portfolio built with React, TypeScript, Material UI, and Framer Motion — recruiter-focused with case studies and live project demos.',
+    githubUrl: 'https://github.com/Eric-Souza/eric-portfolio',
+    stack: ['React', 'TypeScript', 'MUI', 'Framer Motion', 'Vite'],
+  },
+  {
     id: 'car-sales-api',
     name: 'Car Sales API',
     description:
