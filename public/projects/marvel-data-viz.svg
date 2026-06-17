@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 200" fill="none">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="480" y2="200"><stop stop-color="#0B0F19"/><stop offset="1" stop-color="#1a0a14"/></linearGradient>
+    <radialGradient id="glow" cx="70%" cy="30%" r="55%"><stop stop-color="#ED1D24" stop-opacity="0.25"/><stop offset="1" stop-opacity="0"/></radialGradient>
+  </defs>
+  <rect width="480" height="200" fill="url(#bg)"/>
+  <rect width="480" height="200" fill="url(#glow)"/>
+  <rect x="36" y="50" width="80" height="100" rx="6" fill="#ED1D24" fill-opacity="0.15" stroke="#ED1D24" stroke-opacity="0.4"/>
+  <rect x="130" y="50" width="80" height="100" rx="6" fill="#00E5FF" fill-opacity="0.1" stroke="#00E5FF" stroke-opacity="0.3"/>
+  <rect x="224" y="50" width="80" height="100" rx="6" fill="#8B5CF6" fill-opacity="0.1" stroke="#8B5CF6" stroke-opacity="0.3"/>
+  <rect x="318" y="50" width="126" height="100" rx="6" fill="#111" fill-opacity="0.5" stroke="#fff" stroke-opacity="0.1"/>
+  <polyline points="330,120 350,90 370,110 390,70 420,100" stroke="#00E5FF" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <circle cx="350" cy="90" r="4" fill="#00E5FF"/>
+  <circle cx="390" cy="70" r="4" fill="#8B5CF6"/>
+</svg>

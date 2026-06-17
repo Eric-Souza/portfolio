@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 200" fill="none">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="480" y2="200"><stop stop-color="#0B0F19"/><stop offset="1" stop-color="#0a1628"/></linearGradient>
+    <radialGradient id="glow" cx="60%" cy="40%" r="50%"><stop stop-color="#0A66C2" stop-opacity="0.3"/><stop offset="1" stop-opacity="0"/></radialGradient>
+  </defs>
+  <rect width="480" height="200" fill="url(#bg)"/>
+  <rect width="480" height="200" fill="url(#glow)"/>
+  <rect x="36" y="40" width="408" height="120" rx="12" fill="#0A66C2" fill-opacity="0.08" stroke="#0A66C2" stroke-opacity="0.25"/>
+  <rect x="56" y="60" width="48" height="48" rx="24" fill="#0A66C2" fill-opacity="0.4"/>
+  <rect x="120" y="68" width="120" height="10" rx="5" fill="#E8ECF4" fill-opacity="0.5"/>
+  <rect x="120" y="88" width="200" height="6" rx="3" fill="#94A3B8" fill-opacity="0.3"/>
+  <rect x="120" y="102" width="160" height="6" rx="3" fill="#94A3B8" fill-opacity="0.2"/>
+  <rect x="56" y="130" width="360" height="1" fill="#fff" fill-opacity="0.08"/>
+  <rect x="56" y="142" width="80" height="6" rx="3" fill="#00E5FF" fill-opacity="0.4"/>
+  <rect x="150" y="142" width="60" height="6" rx="3" fill="#8B5CF6" fill-opacity="0.3"/>
+</svg>

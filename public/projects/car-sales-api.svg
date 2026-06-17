@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 200" fill="none">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="480" y2="200"><stop stop-color="#0B0F19"/><stop offset="1" stop-color="#1a1040"/></linearGradient>
+    <radialGradient id="glow" cx="30%" cy="70%" r="55%"><stop stop-color="#E0234E" stop-opacity="0.2"/><stop offset="1" stop-opacity="0"/></radialGradient>
+    <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r="1" fill="#fff" fill-opacity="0.08"/></pattern>
+  </defs>
+  <rect width="480" height="200" fill="url(#bg)"/>
+  <rect width="480" height="200" fill="url(#grid)"/>
+  <rect width="480" height="200" fill="url(#glow)"/>
+  <text x="36" y="44" fill="#E0234E" font-family="monospace" font-size="12">@nestjs/api</text>
+  <rect x="36" y="58" width="408" height="110" rx="10" stroke="#E0234E" stroke-opacity="0.35" fill="#E0234E" fill-opacity="0.05"/>
+  <text x="56" y="88" fill="#00E5FF" font-family="monospace" font-size="11">POST /auth/login</text>
+  <text x="56" y="110" fill="#94A3B8" font-family="monospace" font-size="10">GET  /reports</text>
+  <text x="56" y="132" fill="#94A3B8" font-family="monospace" font-size="10">POST /cars/price</text>
+  <rect x="340" y="78" width="80" height="28" rx="6" fill="#00E5FF" fill-opacity="0.15" stroke="#00E5FF" stroke-opacity="0.4"/>
+  <text x="352" y="97" fill="#00E5FF" font-family="monospace" font-size="10">JWT</text>
+</svg>
