@@ -26,6 +26,7 @@ export const profile: Profile = {
     { label: 'Years Experience', value: '8+' },
     { label: 'Domains', value: '6+' },
     { label: 'Core Stack', value: 'React/TS' },
+    { label: 'Python', value: 'FastAPI/Flask' },
     { label: 'Cloud', value: 'AWS' },
     { label: 'Leadership', value: 'Tech Lead' },
   ],

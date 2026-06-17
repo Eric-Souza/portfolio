@@ -24,6 +24,7 @@ export const skillGroups: SkillGroup[] = [
       'Express',
       'Python',
       'FastAPI',
+      'Flask',
       'RESTful APIs',
       'WebSockets',
     ],

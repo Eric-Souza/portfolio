@@ -16,7 +16,7 @@ export const experience: Experience[] = [
       'Built the platform from zero to production using React and TypeScript on the frontend, with NestJS, PostgreSQL, and TypeORM on the backend.',
       'Led architecture and system design across API design, data modeling, scalability, maintainability, and reliable frontend/backend contracts.',
       'Designed and managed AWS infrastructure using S3, EC2, RDS, CloudFront, and ACM, with GitHub Actions CI/CD for automated deployments and reliability.',
-      'Developed AI features using Python and FastAPI, integrating LLMs and RAG for document processing and automation.',
+      'Developed AI features in Python with FastAPI and Flask, integrating LLMs and RAG for document processing and automation.',
       'Recruited, onboarded, and led the engineering team; defined coding standards, code review practices, and delivery processes.',
       'Implemented Google Analytics 4 (GA4) to track user behavior, funnels, and product metrics, informing product and marketing decisions.',
     ],

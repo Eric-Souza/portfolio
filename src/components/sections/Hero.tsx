@@ -2,6 +2,7 @@ import { Box, Button, Chip, Container, Stack, Typography } from '@mui/material';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import DownloadIcon from '@mui/icons-material/Download';
 import EmailIcon from '@mui/icons-material/Email';
+import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import { motion } from 'framer-motion';
 import { profile } from '../../data/profile';
 import { AnimatedBackground } from '../ui/AnimatedBackground';
@@ -105,7 +106,7 @@ export function Hero() {
           </motion.div>
 
           <motion.div variants={itemVariants}>
-            <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
+            <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} sx={{ flexWrap: 'wrap' }}>
               <Button
                 variant="contained"
                 size="large"
@@ -113,6 +114,18 @@ export function Hero() {
                 onClick={() => scrollToSection('contact')}
               >
                 Contact Me
+              </Button>
+              <Button
+                variant="contained"
+                size="large"
+                href={profile.whatsappUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                startIcon={<WhatsAppIcon />}
+                aria-label={`Message Eric on WhatsApp at ${profile.whatsapp}`}
+                sx={{ bgcolor: '#25D366', '&:hover': { bgcolor: '#1DA851' } }}
+              >
+                WhatsApp
               </Button>
               <Button
                 variant="outlined"
