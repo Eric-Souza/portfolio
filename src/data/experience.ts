@@ -29,6 +29,7 @@ export const experience: Experience[] = [
     companyLinkedIn: 'https://www.linkedin.com/company/remedyproduct',
     productName: 'MeRT',
     productUrl: 'https://mert.wavesynchrony.com/en/',
+    relatedLinks: [{ name: 'Wave Neuroscience', url: 'https://www.waveneuro.com/' }],
     period: 'Jun 2022 – Feb 2025',
     domain: 'Healthcare · Patient & EEG tracking',
     bullets: [

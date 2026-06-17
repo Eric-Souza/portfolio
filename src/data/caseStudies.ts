@@ -36,6 +36,7 @@ export const caseStudies: CaseStudy[] = [
     companyLinkedIn: 'https://www.linkedin.com/company/remedyproduct',
     productName: 'MeRT',
     productUrl: 'https://mert.wavesynchrony.com/en/',
+    relatedLinks: [{ name: 'Wave Neuroscience', url: 'https://www.waveneuro.com/' }],
     tags: ['Architecture', 'Performance'],
     problem:
       'Remedy Product needed reliable patient and EEG data tracking with medical API integrations and optimized treatment workflows for healthcare partners.',
