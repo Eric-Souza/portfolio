@@ -4,7 +4,7 @@ export const profile: Profile = {
   name: 'Eric de Oliveira Souza',
   title: 'Sr Full Stack Engineer & Tech Lead',
   tagline:
-    '8+ years building production software in legal-tech, healthcare, fintech, and AI, from architecture through deployment.',
+    '8+ years building production software in legal-tech, healthcare, fintech, AI, and internal systems, from architecture through deployment.',
   email: 'eric.bh18souza@gmail.com',
   whatsapp: '+55 31 98919 1411',
   whatsappUrl: 'https://wa.me/5531989191411',
@@ -13,8 +13,8 @@ export const profile: Profile = {
     'Open to senior and lead remote roles · Flexible US business hours',
   avatarSrc: '/avatar.jpg',
   about: [
-    "I'm a Sr Full Stack Engineer and Tech Lead based in Brazil. My latest experience has been as a founding engineer, but that is one role, not the whole picture or my general title. I like owning products end to end, from system design and infra to the UI. I also leverage AI tools to enhance all aspects of work, using Claude, Cursor with multiple models, Cursor Bugbot, ChatGPT, and similar tools. Over 8 years I've worked in banking, healthcare, e-commerce, AI, legal, and internal tools.",
-    "I've worked with small and large teams, at big companies and startups, on B2B and B2C products across web and cloud. I'm comfortable talking to clients directly, and leading tech decisions and teams and/or writing hands-on code.",
+    "I'm a Sr Full Stack Engineer based in Brazil. I'm effective at owning products end to end, from system design and infrastructure to the UI. I also leverage AI tools to enhance all aspects of work, using Claude, Cursor with multiple models, Cursor Bugbot, ChatGPT, and similar tools. Over 8 years I've worked in banking, healthcare, e-commerce, AI, legal, and internal tools.",
+    "I've worked with small and large teams, at big companies and startups, on B2B and B2C products across web and cloud. I'm comfortable talking to clients directly and turning their concerns and requests into actionable solutions, from technical trade-offs and architecture to metrics and shippable features. I do more than write code.",
   ],
   links: {
     linkedin: 'https://www.linkedin.com/in/ericdeoliveira/',
@@ -27,7 +27,7 @@ export const profile: Profile = {
     { label: 'Core Stack', value: 'React/TS' },
     { label: 'Python', value: 'FastAPI/Flask' },
     { label: 'Cloud', value: 'AWS' },
-    { label: 'Leadership', value: 'Tech Lead' },
+    { label: 'Leading', value: 'Technical' },
   ],
 };
 
