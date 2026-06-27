@@ -2,7 +2,7 @@ import type { NavItem, Profile } from './types';
 
 export const profile: Profile = {
   name: 'Eric de Oliveira Souza',
-  title: 'Senior Full Stack Engineer & Tech Lead',
+  title: 'Sr Full Stack Engineer & Tech Lead',
   tagline:
     '8+ years building production software in legal-tech, healthcare, fintech, and AI, from architecture through deployment.',
   email: 'eric.bh18souza@gmail.com',
@@ -13,8 +13,8 @@ export const profile: Profile = {
     'Open to senior and lead remote roles · Flexible US business hours',
   avatarSrc: '/avatar.jpg',
   about: [
-    "I'm a tech lead and founding engineer based in Brazil. I like owning products end to end, from system design and infra to the UI. I also leverage AI tools to enhance all aspects of work, using Claude, Cursor with multiple models, Cursor Bugbot, ChatGPT, and similar tools. Over 8 years I've worked in banking, healthcare, e-commerce, AI, legal, and internal tools.",
-    "I've worked with small and large teams, at big companies and startups, on B2B and B2C products across web and cloud. I'm comfortable talking to clients directly, and leading a team while writing code at the same time.",
+    "I'm a Sr Full Stack Engineer and Tech Lead based in Brazil. My latest experience has been as a founding engineer, but that is one role, not the whole picture or my general title. I like owning products end to end, from system design and infra to the UI. I also leverage AI tools to enhance all aspects of work, using Claude, Cursor with multiple models, Cursor Bugbot, ChatGPT, and similar tools. Over 8 years I've worked in banking, healthcare, e-commerce, AI, legal, and internal tools.",
+    "I've worked with small and large teams, at big companies and startups, on B2B and B2C products across web and cloud. I'm comfortable talking to clients directly, and leading tech decisions and teams and/or writing hands-on code.",
   ],
   links: {
     linkedin: 'https://www.linkedin.com/in/ericdeoliveira/',
