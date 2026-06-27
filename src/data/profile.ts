@@ -4,7 +4,7 @@ export const profile: Profile = {
   name: 'Eric de Oliveira Souza',
   title: 'Sr Full Stack Engineer & Tech Lead',
   tagline:
-    '8+ years building production software in legal-tech, healthcare, fintech, AI, and internal systems, from architecture through deployment.',
+    '8+ years building production software and solutions in legal-tech, healthcare, fintech, AI, and internal systems, from architecture through deployment.',
   email: 'eric.bh18souza@gmail.com',
   whatsapp: '+55 31 98919 1411',
   whatsappUrl: 'https://wa.me/5531989191411',
