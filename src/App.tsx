@@ -13,18 +13,18 @@ import { Contact } from './components/sections/Contact';
 
 function App() {
   const description =
-    'Sr Full Stack Engineer and Tech Lead with 8+ years building software in legal-tech, healthcare, fintech, and AI.';
+    'Sr. Full Stack & AI Engineer with 8+ years building software and solutions in legal-tech, healthcare, fintech, AI, and internal systems.';
 
   return (
     <>
       <Helmet>
         <title>Eric Portfolio</title>
         <meta name="description" content={description} />
-        <meta property="og:title" content="Eric Portfolio, Sr Full Stack Engineer & Tech Lead" />
+        <meta property="og:title" content="Eric Portfolio, Sr. Full Stack & AI Engineer" />
         <meta property="og:description" content={description} />
         <meta property="og:type" content="website" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Eric Portfolio, Sr Full Stack Engineer & Tech Lead" />
+        <meta name="twitter:title" content="Eric Portfolio, Sr. Full Stack & AI Engineer" />
         <meta name="twitter:description" content={description} />
       </Helmet>
 

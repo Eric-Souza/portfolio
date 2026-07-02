@@ -13,7 +13,7 @@ export const caseStudies: CaseStudy[] = [
     problem:
       'Summerall Law, a Silicon Valley law firm, needed a real platform for estate planning workflows in Essential Estates, replacing manual work with something they could run in production.',
     approach:
-      'As founding engineer, I built Essential Estates from scratch: React/TypeScript frontend, NestJS API with PostgreSQL, AWS (S3, EC2, RDS, CloudFront, ACM), and AI features in Python with FastAPI and Flask, plus LLMs and RAG for document processing.',
+      'As founding Full Stack & AI Engineer, I built Essential Estates from scratch: React/TypeScript frontend, NestJS API with PostgreSQL, AWS (S3, EC2, RDS, CloudFront, ACM), and AI features in Python with FastAPI and Flask, plus LLMs and RAG for document processing.',
     impact:
       'Shipped Essential Estates to production, hired and led the engineering team, set up code review and CI/CD with GitHub Actions, and added GA4 to track how people use the product.',
     stack: [

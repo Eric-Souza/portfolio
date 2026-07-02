@@ -3,7 +3,7 @@ import type { Experience } from './types';
 export const experience: Experience[] = [
   {
     id: 'summerall',
-    role: 'Founding Engineer & Tech Lead',
+    role: 'Founding Full Stack & AI Engineer',
     company: 'Summerall Law',
     companyUrl: 'https://www.summeralllaw.com',
     companyLinkedIn: 'https://www.linkedin.com/company/summerall-law',
@@ -12,7 +12,7 @@ export const experience: Experience[] = [
     period: 'Feb 2025 – Present',
     domain: 'Essential Estates · Legal-tech',
     bullets: [
-      'Founding engineer responsible for building, scaling, and operating Essential Estates, a production legal-tech platform owned by a Silicon Valley law firm; owned product, engineering, people, and infrastructure end-to-end.',
+      'Founding Full Stack & AI Engineer responsible for building, scaling, and operating Essential Estates, a production legal-tech platform owned by a Silicon Valley law firm; owned product, engineering, people, and infrastructure end-to-end.',
       'Built the platform from zero to production using React and TypeScript on the frontend, with NestJS, PostgreSQL, and TypeORM on the backend.',
       'Led architecture and system design across API design, data modeling, scalability, maintainability, and reliable frontend/backend contracts.',
       'Designed and managed AWS infrastructure using S3, EC2, RDS, CloudFront, and ACM, with GitHub Actions CI/CD for automated deployments and reliability.',

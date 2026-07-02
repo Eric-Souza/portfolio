@@ -47,7 +47,7 @@ export function Hero() {
               color="primary"
               sx={{ fontFamily: monoFont, letterSpacing: '0.15em', fontWeight: 600 }}
             >
-              // senior_full_stack_engineer
+              // sr_full_stack_and_ai_engineer
             </Typography>
           </motion.div>
 

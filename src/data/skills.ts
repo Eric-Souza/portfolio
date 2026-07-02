@@ -70,20 +70,29 @@ export const skillGroups: SkillGroup[] = [
     skills: ['Jest', 'Vitest', 'Code Review', 'E2E Testing'],
   },
   {
-    category: 'AI',
+    category: 'AI Workflow Tools',
     description:
-      'Experience with AI integrations using LLMs (OpenAI), RAG, and related tooling. Document processing is one example, but there is plenty more you can do with AI in a product.',
+      'Using AI to enhance day-to-day engineering workflows, from coding and review to planning and delivery.',
+    skills: [
+      'Cursor',
+      'Claude',
+      'ChatGPT',
+      'Cursor Bugbot',
+      'AI-Assisted Development',
+    ],
+  },
+  {
+    category: 'AI Engineering',
+    description:
+      'Building AI integrations with LLMs (OpenAI), RAG, and related tooling. Document processing is one example, but there is plenty more you can do with AI in a product.',
     skills: [
       'AI Integrations',
       'LLMs',
       'OpenAI',
       'RAG',
-      'Claude',
-      'ChatGPT',
-      'Cursor',
-      'Cursor Bugbot',
+      'LangChain',
+      'FastAPI',
       'Document Processing',
-      'AI-Assisted Development',
     ],
   },
   {

@@ -6,7 +6,7 @@ import { alpha } from '@mui/material/styles';
 
 export function About() {
   return (
-    <Section id="about" title="About Me" subtitle="Sr Full Stack Engineer comfortable in tech leading and development.">
+    <Section id="about" title="About Me" subtitle="Sr. Full Stack & AI Engineer comfortable in tech leading and development.">
       <Grid container spacing={4} sx={{ alignItems: 'center' }}>
         <Grid size={{ xs: 12, md: 4 }}>
           <motion.div
