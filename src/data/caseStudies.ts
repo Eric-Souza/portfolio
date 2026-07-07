@@ -32,17 +32,20 @@ export const caseStudies: CaseStudy[] = [
   {
     id: 'healthcare',
     title: 'Remedy Product, Healthcare Data Platform',
-    company: 'Remedy Product',
-    companyUrl: 'https://www.remedyproduct.com',
-    companyLinkedIn: 'https://www.linkedin.com/company/remedyproduct',
-    productName: 'MeRT',
-    productUrl: 'https://mert.wavesynchrony.com/en/',
-    relatedLinks: [{ name: 'Wave Neuroscience', url: 'https://www.waveneuro.com/' }],
+    company: 'EXIT83',
+    companyUrl: 'https://exit83.com/',
+    companyLinkedIn: 'https://www.linkedin.com/company/exit83-consulting',
+    productName: 'Remedy Product',
+    productUrl: 'https://www.remedyproduct.com',
+    relatedLinks: [
+      { name: 'MeRT', url: 'https://mert.wavesynchrony.com/en/' },
+      { name: 'Wave Neuroscience', url: 'https://www.waveneuro.com/' },
+    ],
     tags: ['Leadership', 'Architecture', 'Performance'],
     problem:
-      'Remedy Product needed reliable patient and EEG data tracking, medical API integrations, and smoother treatment workflows for healthcare partners.',
+      'Remedy Product, an EXIT83 client, needed reliable patient and EEG data tracking, medical API integrations, and smoother treatment workflows for healthcare partners.',
     approach:
-      'Built React/Next/MUI interfaces for clinical data management and scalable Nest/Node backends on AWS with PostgreSQL and DynamoDB. Integrated medical APIs for TMS session validation and EEG automation.',
+      'While at EXIT83, built React/Next/MUI interfaces for clinical data management and scalable Nest/Node backends on AWS with PostgreSQL and DynamoDB for Remedy Product. Integrated medical APIs for TMS session validation and EEG automation.',
     impact:
       'Cut admin work with better EEG workflows, improved patient management, and faster reports thanks to Redis caching and query tuning.',
     stack: [
