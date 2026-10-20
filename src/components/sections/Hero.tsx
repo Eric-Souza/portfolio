@@ -118,9 +118,10 @@ export function Hero() {
                 <Chip
                   key={highlight}
                   label={highlight}
+                  size="small"
                   sx={{
                     fontFamily: monoFont,
-                    fontSize: '0.8rem',
+                    fontSize: '0.72rem',
                     borderColor: 'primary.dark',
                   }}
                   variant="outlined"
