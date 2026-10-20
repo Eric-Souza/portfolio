@@ -11,28 +11,31 @@ export function Skills() {
       title="Skills & Tools"
       subtitle="What I reach for to design, build, and ship software."
     >
-      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
+      <Box
+        sx={{
+          display: 'grid',
+          gridTemplateColumns: { xs: '1fr', md: 'repeat(2, 1fr)' },
+          columnGap: 4,
+          rowGap: 2.5,
+        }}
+      >
         {skillGroups.map((group, index) => (
           <motion.div
             key={group.category}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.4, delay: index * 0.06 }}
+            transition={{ duration: 0.4, delay: index * 0.04 }}
           >
-            <Typography variant="h6" component="h3" sx={{ mb: group.description ? 1 : 1.5 }}>
+            <Typography variant="subtitle1" component="h3" sx={{ fontWeight: 700, mb: 0.75 }}>
               {group.category}
             </Typography>
             {group.description && (
-              <Typography
-                variant="body2"
-                color="text.secondary"
-                sx={{ mb: 1.5, lineHeight: 1.7, maxWidth: 720 }}
-              >
+              <Typography variant="body2" color="text.secondary" sx={{ mb: 1, lineHeight: 1.6 }}>
                 {group.description}
               </Typography>
             )}
-            <TechChips items={group.skills} size="medium" />
+            <TechChips items={group.skills} />
           </motion.div>
         ))}
       </Box>

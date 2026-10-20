@@ -2,17 +2,37 @@ import { Box, Chip, IconButton, Link, Tooltip, Typography } from '@mui/material'
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import { alpha } from '@mui/material/styles';
-import type { RelatedLink } from '../../data/types';
+import type { ClientLink, RelatedLink } from '../../data/types';
 import { colors } from '../../theme/theme';
 
 interface CompanyLinksProps {
   company: string;
   companyUrl?: string;
   companyLinkedIn?: string;
+  clients?: ClientLink[];
   productName?: string;
   productUrl?: string;
   relatedLinks?: RelatedLink[];
   variant?: 'default' | 'compact';
+}
+
+function LinkedInButton({ name, url }: { name: string; url: string }) {
+  return (
+    <Tooltip title={`${name} on LinkedIn`}>
+      <IconButton
+        component="a"
+        href={url}
+        target="_blank"
+        rel="noopener noreferrer"
+        size="small"
+        color="primary"
+        aria-label={`${name} on LinkedIn`}
+        sx={{ p: 0.5 }}
+      >
+        <LinkedInIcon fontSize="small" />
+      </IconButton>
+    </Tooltip>
+  );
 }
 
 function LinkChip({ name, url }: RelatedLink) {
@@ -42,6 +62,7 @@ export function CompanyLinks({
   company,
   companyUrl,
   companyLinkedIn,
+  clients,
   productName,
   productUrl,
   relatedLinks,
@@ -79,22 +100,27 @@ export function CompanyLinks({
         </Typography>
       )}
 
-      {companyLinkedIn && (
-        <Tooltip title={`${company} on LinkedIn`}>
-          <IconButton
-            component="a"
-            href={companyLinkedIn}
+      {companyLinkedIn && <LinkedInButton name={company} url={companyLinkedIn} />}
+
+      {clients?.map((client) => (
+        <Box key={client.url} component="span" sx={{ display: 'inline-flex', alignItems: 'center', gap: 0.5 }}>
+          <Typography component="span" variant="body2" color="text.secondary">
+            · {client.label}:
+          </Typography>
+          <Link
+            href={client.url}
             target="_blank"
             rel="noopener noreferrer"
-            size="small"
-            color="primary"
-            aria-label={`${company} on LinkedIn`}
-            sx={{ p: 0.5 }}
+            underline="hover"
+            color="text.primary"
+            sx={{ fontWeight: 600, fontSize: variant === 'compact' ? '0.95rem' : '1rem' }}
+            aria-label={`Visit ${client.name} website`}
           >
-            <LinkedInIcon fontSize="small" />
-          </IconButton>
-        </Tooltip>
-      )}
+            {client.name}
+          </Link>
+          {client.linkedIn && <LinkedInButton name={client.name} url={client.linkedIn} />}
+        </Box>
+      ))}
 
       {productName && productUrl && <LinkChip name={productName} url={productUrl} />}
 

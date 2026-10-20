@@ -74,6 +74,7 @@ export function TimelineItem({ item, defaultExpanded = false }: TimelineItemProp
                 company={item.company}
                 companyUrl={item.companyUrl}
                 companyLinkedIn={item.companyLinkedIn}
+                clients={item.clients}
                 productName={item.productName}
                 productUrl={item.productUrl}
                 relatedLinks={item.relatedLinks}

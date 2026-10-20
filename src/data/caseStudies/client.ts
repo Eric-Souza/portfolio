@@ -72,15 +72,23 @@ export const clientCaseStudies: CaseStudy[] = [
     year: 2025,
     ongoing: true,
     title: 'Essential Estates, 0 to Production',
-    company: 'Summerall Law',
-    companyUrl: 'https://www.summeralllaw.com',
-    companyLinkedIn: 'https://www.linkedin.com/company/summerall-law',
+    company: 'TeamEx',
+    companyUrl: 'https://teamex.io/',
+    companyLinkedIn: 'https://www.linkedin.com/company/teamex-io',
+    clients: [
+      {
+        label: 'Client',
+        name: 'Summerall Law',
+        url: 'https://www.summeralllaw.com',
+        linkedIn: 'https://www.linkedin.com/company/summerall-law',
+      },
+    ],
     productName: 'Essential Estates',
     productUrl: 'https://www.essentialestates.com',
     tags: ['Leadership', 'Architecture', 'AI'],
     headline:
       "Turned a law firm's manual estate planning service into a production software platform, as its first engineer.",
-    role: 'Founding Full Stack & AI Engineer · owned product, engineering, hiring, and infrastructure',
+    role: 'Founding Full Stack & AI Engineer at TeamEx, for Summerall Law · owned product, engineering, hiring, and infrastructure',
     challenge:
       'Summerall Law, a Silicon Valley law firm, ran estate planning workflows by hand. There was no product, no engineering team, and no infrastructure, and they needed a platform clients could rely on in production.',
     outcomes: [
@@ -118,22 +126,26 @@ export const clientCaseStudies: CaseStudy[] = [
     tech: ['TypeScript', 'AWS', 'Docker'],
     year: 2022,
     updated: '2025-02-28',
-    title: 'Remedy Product, Healthcare Data Platform',
+    title: 'Wave Neuroscience, Healthcare Data Platform',
     company: 'EXIT83',
     companyUrl: 'https://exit83.com/',
     companyLinkedIn: 'https://www.linkedin.com/company/exit83-consulting',
-    productName: 'Remedy Product',
-    productUrl: 'https://www.remedyproduct.com',
-    relatedLinks: [
-      { name: 'MeRT', url: 'https://mert.wavesynchrony.com/en/' },
-      { name: 'Wave Neuroscience', url: 'https://www.waveneuro.com/' },
+    clients: [
+      {
+        label: 'Client',
+        name: 'Remedy Product Studio',
+        url: 'https://www.remedyproduct.com',
+        linkedIn: 'https://www.linkedin.com/company/remedyproduct',
+      },
+      { label: 'End client', name: 'Wave Neuroscience', url: 'https://www.waveneuro.com/' },
     ],
+    relatedLinks: [{ name: 'MeRT', url: 'https://mert.wavesynchrony.com/en/' }],
     tags: ['Leadership', 'Architecture', 'Performance'],
     headline:
       'Gave healthcare partners reliable patient and EEG tracking, with less admin work and faster reports.',
-    role: 'Sr. Full Stack Engineer at EXIT83 · Remedy Product client engagement',
+    role: 'Sr. Full Stack Engineer at EXIT83 · for Remedy Product Studio and its client Wave Neuroscience',
     challenge:
-      'Remedy Product, an EXIT83 healthcare client, needed reliable patient and EEG data tracking, integrations with medical systems, and less admin overhead in its treatment workflows.',
+      'Wave Neuroscience, served by EXIT83 through its client Remedy Product Studio, needed reliable patient and EEG data tracking, integrations with medical systems, and less admin overhead in its treatment workflows.',
     outcomes: [
       'Cut admin overhead in EEG and treatment workflows.',
       'Improved data accuracy by automating TMS session validation and EEG data handling.',

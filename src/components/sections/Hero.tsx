@@ -7,6 +7,7 @@ import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import { motion } from 'framer-motion';
 import { profile } from '../../data/profile';
 import { AnimatedBackground } from '../ui/AnimatedBackground';
+import { NextSectionButton } from '../ui/NextSectionButton';
 import { scrollToSection } from '../../hooks/useActiveSection';
 import { colors, monoFont } from '../../theme/theme';
 
@@ -158,6 +159,7 @@ export function Hero() {
           </motion.div>
         </motion.div>
       </Container>
+      <NextSectionButton from="hero" />
     </Box>
   );
 }
