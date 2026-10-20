@@ -8,11 +8,13 @@ import { Skills } from './components/sections/Skills';
 import { Articles } from './components/sections/Articles';
 import { Contact } from './components/sections/Contact';
 import { NextSectionButton } from './components/ui/NextSectionButton';
+import { AnimatedBackground } from './components/ui/AnimatedBackground';
 
 // SEO and social meta tags live in index.html so crawlers that don't run JS still see them.
 function App() {
   return (
     <Box sx={{ minHeight: '100vh' }}>
+      <AnimatedBackground />
       <Navbar />
       <main>
         <Hero />

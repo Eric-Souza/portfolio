@@ -6,11 +6,10 @@ import { monoFont } from '../../theme/theme';
 interface SectionProps {
   id: string;
   title: string;
-  subtitle?: string;
   children: ReactNode;
 }
 
-export function Section({ id, title, subtitle, children }: SectionProps) {
+export function Section({ id, title, children }: SectionProps) {
   return (
     <Box
       id={id}
@@ -44,16 +43,11 @@ export function Section({ id, title, subtitle, children }: SectionProps) {
               letterSpacing: '0.15em',
               fontWeight: 600,
               lineHeight: 1.6,
-              mb: subtitle ? 1 : 3,
+              mb: 3,
             }}
           >
             // {id.replace('-', '_')}
           </Typography>
-          {subtitle && (
-            <Typography variant="body1" color="text.secondary" sx={{ mb: 3, maxWidth: 640 }}>
-              {subtitle}
-            </Typography>
-          )}
         </motion.div>
         {children}
       </Container>

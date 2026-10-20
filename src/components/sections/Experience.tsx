@@ -7,7 +7,6 @@ export function Experience() {
     <Section
       id="experience"
       title="Experience"
-      subtitle="Where I've shipped real products."
     >
       {experience.map((item, index) => (
         <TimelineItem key={item.id} item={item} defaultExpanded={index === 0} />

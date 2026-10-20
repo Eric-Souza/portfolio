@@ -15,7 +15,6 @@ export function Contact() {
     <Section
         id="contact"
         title="Get In Touch"
-        subtitle="Reach out if you want to talk."
       >
         <motion.div
           initial={{ opacity: 0, y: 30 }}
