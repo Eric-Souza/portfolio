@@ -11,9 +11,11 @@ export const profile: Profile = {
   location: 'Belo Horizonte, Brazil',
   availability:
     'Open to senior and lead remote roles · Flexible US business hours',
-  avatarSrc: '/avatar.jpg',
+  avatarSrc: '/avatar.webp',
+  sourceUrl: 'https://github.com/Eric-Souza/portfolio',
   about: [
-    "I'm a Sr. Full Stack & AI Engineer based in Brazil. I'm effective at owning products end to end, from system design and infrastructure to the UI. I also leverage AI tools to enhance all aspects of work, using Claude, Cursor with multiple models, Cursor Bugbot, ChatGPT, and similar tools. Over 8 years I've worked in banking, healthcare, e-commerce, AI, legal, and internal tools.",
+    "I'm a Sr. Full Stack & AI Engineer based in Brazil. I own products end to end, from system design and infrastructure to the UI, and I've done it across banking, healthcare, e-commerce, AI, legal, and internal tools over 8+ years. Right now I'm the founding engineer at Essential Estates, where I took a legal-tech platform from zero to production and hired the team behind it.",
+    "I build AI into products, not just into my workflow: LLM and RAG document processing in production, plus open-source agents and RAG apps you can read on GitHub. Day to day I use Claude, Cursor, and similar tools to move faster on coding, review, and planning.",
     "I've worked with small and large teams, at big companies and startups, on B2B and B2C products across web and cloud. I'm comfortable talking to clients directly and turning their concerns and requests into actionable solutions, from technical trade-offs and architecture to metrics and shippable features. I do more than write code.",
   ],
   links: {
@@ -21,13 +23,13 @@ export const profile: Profile = {
     github: 'https://github.com/Eric-Souza',
     medium: 'https://medium.com/@eric.bh18souza',
   },
-  stats: [
-    { label: 'Years Experience', value: '8+' },
-    { label: 'Domains', value: '6+' },
-    { label: 'Core Stack', value: 'React/TS' },
-    { label: 'Python', value: 'FastAPI/Flask' },
-    { label: 'Cloud', value: 'AWS' },
-    { label: 'Leading', value: 'Technical' },
+  highlights: [
+    '8+ years in production',
+    'Founding engineer',
+    'LLMs & RAG in production',
+    'AWS, end to end',
+    'Hired & led a team',
+    '6 industries',
   ],
 };
 

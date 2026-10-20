@@ -1,8 +1,3 @@
-export interface Stat {
-  label: string;
-  value: string;
-}
-
 export interface SocialLinks {
   linkedin: string;
   github: string;
@@ -19,9 +14,10 @@ export interface Profile {
   location: string;
   availability: string;
   avatarSrc: string;
+  sourceUrl: string;
   about: string[];
   links: SocialLinks;
-  stats: Stat[];
+  highlights: string[];
 }
 
 export interface RelatedLink {
@@ -43,8 +39,56 @@ export interface Experience {
   bullets: string[];
 }
 
+export interface Metric {
+  value: string;
+  label: string;
+}
+
+export interface StackLayer {
+  layer: string;
+  items: string[];
+}
+
+export interface TechnicalBreakdown {
+  architecture: string;
+  howItWasBuilt: string[];
+  stack: StackLayer[];
+}
+
+export type CaseStudyKind = 'client' | 'side-project' | 'challenge' | 'learning';
+
+export type Industry =
+  | 'legal-tech'
+  | 'health-tech'
+  | 'fintech'
+  | 'geospatial'
+  | 'e-commerce'
+  | 'internal-tools'
+  | 'travel'
+  | 'home-services'
+  | 'automotive'
+  | 'industrial'
+  | 'media'
+  | 'productivity'
+  | 'marketing'
+  | 'developer-platform'
+  | 'cs-fundamentals';
+
+/** Filterable tech: the languages the work is written in, plus whether it uses AI/LLMs. */
+export type LanguageTag = 'TypeScript' | 'JavaScript' | 'Python' | 'AI';
+
+/** Filterable cloud and delivery work. 'CI/CD' means pipelines that build, test or deploy on push. */
+export type PlatformTag = 'AWS' | 'Azure' | 'Docker' | 'CI/CD' | 'Vercel' | 'Netlify' | 'Firebase' | 'Heroku';
+
+export type TechTag = LanguageTag | PlatformTag;
+
 export interface CaseStudy {
   id: string;
+  kind: CaseStudyKind;
+  industry: Industry;
+  tech: TechTag[];
+  /** Year the work started; omitted when it spans several roles. */
+  year?: number;
   title: string;
   company: string;
   companyUrl?: string;
@@ -53,17 +97,28 @@ export interface CaseStudy {
   productUrl?: string;
   relatedLinks?: RelatedLink[];
   tags: string[];
-  problem: string;
-  approach: string;
-  impact: string;
-  stack: string[];
+  /** One-sentence business result, written for recruiters. */
+  headline: string;
+  role: string;
+  challenge: string;
+  outcomes: string[];
+  /** Hard numbers shown above the outcomes, e.g. { value: '-60%', label: 'report time' }. */
+  metrics?: Metric[];
+  technical: TechnicalBreakdown;
+  /** Source code and live demo links. */
+  links?: ProjectLink[];
+}
+
+export interface ProjectLink {
+  label: string;
+  url: string;
 }
 
 export interface Project {
   id: string;
   name: string;
   description: string;
-  githubUrl: string;
+  links: ProjectLink[];
   stack: string[];
 }
 
@@ -80,7 +135,6 @@ export interface Article {
   date: string;
   url: string;
   teaser: string;
-  claps?: number;
 }
 
 export interface NavItem {

@@ -1,4 +1,4 @@
-import { Box, Button, Card, CardContent, Fab, Typography } from '@mui/material';
+import { Box, Button, Card, CardContent, Typography } from '@mui/material';
 import DownloadIcon from '@mui/icons-material/Download';
 import EmailIcon from '@mui/icons-material/Email';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
@@ -8,13 +8,11 @@ import { profile } from '../../data/profile';
 import { Section } from '../layout/Section';
 import { CopyIconButton } from '../ui/CopyIconButton';
 import { SocialLinks } from '../ui/SocialLinks';
-import { monoFont } from '../../theme/theme';
-import { scrollToSection } from '../../hooks/useActiveSection';
+import { colors, monoFont, whatsappButtonSx } from '../../theme/theme';
 
 export function Contact() {
   return (
-    <>
-      <Section
+    <Section
         id="contact"
         title="Get In Touch"
         subtitle="Reach out if you want to talk."
@@ -27,8 +25,8 @@ export function Contact() {
         >
           <Card
             sx={{
-              background: `linear-gradient(135deg, ${alpha('#12182A', 0.9)} 0%, ${alpha('#1a1040', 0.6)} 100%)`,
-              border: `1px solid ${alpha('#00E5FF', 0.15)}`,
+              background: `linear-gradient(135deg, ${alpha(colors.surface, 0.9)} 0%, ${alpha(colors.surfaceViolet, 0.6)} 100%)`,
+              border: `1px solid ${alpha(colors.cyan, 0.15)}`,
             }}
           >
             <CardContent
@@ -118,7 +116,7 @@ export function Contact() {
                   rel="noopener noreferrer"
                   startIcon={<WhatsAppIcon />}
                   aria-label={`Message Eric on WhatsApp at ${profile.whatsapp}`}
-                  sx={{ bgcolor: '#25D366', '&:hover': { bgcolor: '#1DA851' } }}
+                  sx={whatsappButtonSx}
                 >
                   WhatsApp
                 </Button>
@@ -142,21 +140,6 @@ export function Contact() {
             </CardContent>
           </Card>
         </motion.div>
-      </Section>
-
-      <Fab
-        color="primary"
-        aria-label="Go to contact section"
-        onClick={() => scrollToSection('contact')}
-        sx={{
-          position: 'fixed',
-          bottom: 24,
-          right: 24,
-          display: { xs: 'flex', md: 'none' },
-        }}
-      >
-        <EmailIcon />
-      </Fab>
-    </>
+    </Section>
   );
 }

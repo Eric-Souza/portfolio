@@ -23,7 +23,7 @@ export const experience: Experience[] = [
   },
   {
     id: 'exit83',
-    role: 'Sr Full-Stack Engineer',
+    role: 'Sr. Full Stack Engineer',
     company: 'EXIT83',
     companyUrl: 'https://exit83.com/',
     companyLinkedIn: 'https://www.linkedin.com/company/exit83-consulting',

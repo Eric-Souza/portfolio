@@ -1,7 +1,19 @@
 import { createTheme, alpha } from '@mui/material/styles';
 
-const cyan = '#00E5FF';
-const violet = '#8B5CF6';
+export const colors = {
+  cyan: '#00E5FF',
+  violet: '#8B5CF6',
+  background: '#0B0F19',
+  surface: '#12182A',
+  surfaceViolet: '#1A1040',
+  textPrimary: '#E8ECF4',
+  textSecondary: '#94A3B8',
+  white: '#FFFFFF',
+  whatsapp: '#25D366',
+  whatsappHover: '#1DA851',
+};
+
+const { cyan, violet } = colors;
 
 export const theme = createTheme({
   palette: {
@@ -9,14 +21,14 @@ export const theme = createTheme({
     primary: { main: cyan, light: '#66EEFF', dark: '#00B8CC' },
     secondary: { main: violet, light: '#A78BFA', dark: '#6D28D9' },
     background: {
-      default: '#0B0F19',
-      paper: alpha('#12182A', 0.85),
+      default: colors.background,
+      paper: alpha(colors.surface, 0.85),
     },
     text: {
-      primary: '#E8ECF4',
-      secondary: '#94A3B8',
+      primary: colors.textPrimary,
+      secondary: colors.textSecondary,
     },
-    divider: alpha('#FFFFFF', 0.08),
+    divider: alpha(colors.white, 0.08),
   },
   shape: { borderRadius: 12 },
   typography: {
@@ -32,13 +44,16 @@ export const theme = createTheme({
   components: {
     MuiCssBaseline: {
       styleOverrides: {
-        html: { scrollBehavior: 'smooth' },
+        html: {
+          scrollBehavior: 'smooth',
+          '@media (prefers-reduced-motion: reduce)': { scrollBehavior: 'auto' },
+        },
         '::selection': {
           backgroundColor: alpha(cyan, 0.3),
-          color: '#FFFFFF',
+          color: colors.white,
         },
         body: {
-          backgroundColor: '#0B0F19',
+          backgroundColor: colors.background,
           minHeight: '100vh',
         },
       },
@@ -46,9 +61,9 @@ export const theme = createTheme({
     MuiAppBar: {
       styleOverrides: {
         root: {
-          backgroundColor: alpha('#0B0F19', 0.75),
+          backgroundColor: alpha(colors.background, 0.75),
           backdropFilter: 'blur(12px)',
-          borderBottom: `1px solid ${alpha('#FFFFFF', 0.08)}`,
+          borderBottom: `1px solid ${alpha(colors.white, 0.08)}`,
           boxShadow: 'none',
         },
       },
@@ -70,7 +85,7 @@ export const theme = createTheme({
       styleOverrides: {
         root: {
           backgroundImage: 'none',
-          border: `1px solid ${alpha('#FFFFFF', 0.08)}`,
+          border: `1px solid ${alpha(colors.white, 0.08)}`,
           backdropFilter: 'blur(12px)',
         },
       },
@@ -83,21 +98,14 @@ export const theme = createTheme({
         },
       },
     },
-    MuiFab: {
-      styleOverrides: {
-        primary: {
-          boxShadow: `0 0 20px ${alpha(cyan, 0.3)}`,
-        },
-      },
-    },
   },
 });
 
-export const glassCardSx = {
-  backgroundColor: alpha('#12182A', 0.6),
-  backdropFilter: 'blur(12px)',
-  border: `1px solid ${alpha('#FFFFFF', 0.08)}`,
-  borderRadius: 3,
-};
-
 export const monoFont = '"JetBrains Mono", monospace';
+
+// Dark label on WhatsApp green: white text fails WCAG AA contrast (1.98:1 vs 9.66:1).
+export const whatsappButtonSx = {
+  bgcolor: colors.whatsapp,
+  color: colors.background,
+  '&:hover': { bgcolor: colors.whatsappHover },
+};

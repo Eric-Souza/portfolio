@@ -9,7 +9,6 @@ export const articles: Article[] = [
     url: 'https://medium.com/remedy-product-studio/building-a-secure-and-scalable-back-end-with-nestjs-typescript-and-typeorm-ad8ae5c9c0c0',
     teaser:
       'Explores a backend app with NestJS, TypeScript, and TypeORM for secure, scalable systems.',
-    claps: 20,
   },
   {
     id: 'github-finder-article',
@@ -19,7 +18,6 @@ export const articles: Article[] = [
     url: 'https://medium.com/remedy-product-studio/building-a-global-github-profile-search-app-with-react-tailwind-css-daisy-ui-and-axios-e854158bb7b2',
     teaser:
       'A responsive GitHub profile search tool powered by the GitHub API.',
-    claps: 33,
   },
   {
     id: 'aws-concepts',
@@ -56,7 +54,6 @@ export const articles: Article[] = [
     url: 'https://medium.com/remedy-product-studio/mastering-object-oriented-programming-in-javascript-es2022-a-guide-for-engineers-5a89ebc0996e',
     teaser:
       'A practical guide to OOP patterns in modern JavaScript.',
-    claps: 15,
   },
   {
     id: 'express-sequelize',
@@ -66,6 +63,5 @@ export const articles: Article[] = [
     url: 'https://medium.com/stackademic/building-an-effective-node-api-using-express-and-sequelize-9b875b7d7795',
     teaser:
       'A clear and simple structure for Node APIs with Express and Sequelize.',
-    claps: 1,
   },
 ];

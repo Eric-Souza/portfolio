@@ -1,4 +1,4 @@
-import { Box, Container, IconButton, Typography } from '@mui/material';
+import { Box, Container, IconButton, Link, Typography } from '@mui/material';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import { profile } from '../../data/profile';
 import { SocialLinks } from '../ui/SocialLinks';
@@ -25,7 +25,10 @@ export function Footer() {
         }}
       >
         <Typography variant="body2" color="text.secondary">
-          Built with React, MUI & Framer Motion.
+          Built with React, MUI & Framer Motion, prerendered for SEO.{' '}
+          <Link href={profile.sourceUrl} target="_blank" rel="noopener noreferrer">
+            View source
+          </Link>
         </Typography>
 
         <SocialLinks links={profile.links} size="small" />

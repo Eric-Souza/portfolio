@@ -1,5 +1,6 @@
 import { Box } from '@mui/material';
 import { alpha } from '@mui/material/styles';
+import { colors } from '../../theme/theme';
 
 interface ProjectCardImageProps {
   projectId: string;
@@ -12,8 +13,8 @@ export function ProjectCardImage({ projectId, alt }: ProjectCardImageProps) {
       sx={{
         height: 160,
         overflow: 'hidden',
-        borderBottom: `1px solid ${alpha('#FFFFFF', 0.06)}`,
-        bgcolor: '#0B0F19',
+        borderBottom: `1px solid ${alpha(colors.white, 0.06)}`,
+        bgcolor: colors.background,
       }}
     >
       <Box

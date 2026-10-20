@@ -1,76 +1,49 @@
 import type { Project } from './types';
 
+const repo = (name: string) => `https://github.com/Eric-Souza/${name}`;
+
 export const projects: Project[] = [
   {
-    id: 'eric-portfolio',
-    name: 'Eric Portfolio',
+    id: 'dispatch-bot',
+    name: 'DispatchBot',
     description:
-      'This site. React, TypeScript, Material UI, and Framer Motion, with case studies and project highlights.',
-    githubUrl: 'https://github.com/Eric-Souza/portfolio',
-    stack: ['React', 'TypeScript', 'MUI', 'Framer Motion', 'Vite'],
+      "SMS booking agent for home-services businesses. The LLM runs the conversation, but only code creates jobs: service area, required fields, and appointment windows are validated server-side, so the AI can't book a visit the business can't keep.",
+    links: [{ label: 'GitHub', url: repo('job-dispatch-bot') }],
+    stack: ['Python', 'FastAPI', 'OpenAI Responses API', 'Tool Calling', 'Next.js', 'Tailwind'],
   },
   {
-    id: 'car-sales-api',
-    name: 'Car Sales API',
+    id: 'rag-doc-processing',
+    name: 'Doc Processing AI',
     description:
-      'NestJS API with complete authentication and authorization, TypeORM, and admin-driven report approval workflows.',
-    githubUrl: 'https://github.com/Eric-Souza/car-sales-api',
-    stack: ['NestJS', 'TypeScript', 'TypeORM', 'Auth'],
+      'Upload documents and chat with them. Gemini embeddings and Chroma retrieval, orchestrated with LangChain and LangGraph behind a FastAPI service, with LangSmith tracing and a retrieval and answer eval suite.',
+    links: [{ label: 'GitHub', url: repo('gemini-rag-doc-processing') }],
+    stack: ['Python', 'FastAPI', 'LangGraph', 'Gemini', 'Chroma', 'React', 'TypeScript'],
   },
   {
-    id: 'linkedin-ui-clone',
-    name: 'LinkedIn UI Clone',
+    id: 'travel-planner',
+    name: 'AI Travel Planner',
     description:
-      'Polished LinkedIn interface clone with TypeScript, shimmer loading effects, and styled-components.',
-    githubUrl: 'https://github.com/Eric-Souza/linkedin-ui-clone',
-    stack: ['React', 'TypeScript', 'Styled Components', 'Shimmer'],
+      'Local-first AI travel planner. A FastAPI backend owns AI orchestration, document parsing, and streamed (SSE) answers; an Expo/React Native app consumes it through types generated from the OpenAPI spec.',
+    links: [
+      { label: 'API', url: repo('travel-planner-api') },
+      { label: 'Mobile', url: repo('travel-planner-mobile') },
+    ],
+    stack: ['Python', 'FastAPI', 'LangChain', 'Ollama', 'pgvector', 'Expo', 'React Native'],
   },
   {
-    id: 'dropbox-ui-clone',
-    name: 'Dropbox UI Clone',
+    id: 'session-review-console',
+    name: 'Clinical Session Review Console',
     description:
-      'Dropbox interface recreation featuring advanced CSS clip-path effects and responsive layout.',
-    githubUrl: 'https://github.com/Eric-Souza/dropbox-ui-clone',
-    stack: ['React', 'TypeScript', 'CSS', 'Styled Components'],
+      'Healthcare console where clinicians finalize session notes and supervisors oversee the practice, with role-based access and a signed scheduling webhook. NestJS API and React UI in an npm workspaces monorepo, tested with Jest and Vitest.',
+    links: [{ label: 'GitHub', url: repo('therapy-session-review-test') }],
+    stack: ['NestJS', 'TypeORM', 'React', 'Redux Toolkit', 'MUI', 'PGlite'],
   },
   {
-    id: 'react-youtube-ui',
-    name: 'YouTube UI (React Native Web)',
+    id: 'kafka-microservices',
+    name: 'Kafka Node Microservices',
     description:
-      'Fully responsive video browsing app mimicking YouTube\'s classic UI using React Native Web.',
-    githubUrl: 'https://github.com/Eric-Souza/react-youtube-ui',
-    stack: ['React Native Web', 'TypeScript', 'CSS'],
-  },
-  {
-    id: 'github-finder',
-    name: 'GitHub Profile Finder',
-    description:
-      'Global GitHub profile search app with DaisyUI, Tailwind CSS, and the GitHub API.',
-    githubUrl: 'https://github.com/Eric-Souza/github-finder',
-    stack: ['React', 'Tailwind', 'DaisyUI', 'Axios'],
-  },
-  {
-    id: 'marvel-data-viz',
-    name: 'Marvel Data Visualization',
-    description:
-      'Marvel comics and characters explorer powered by the Marvel Developer API and Material UI.',
-    githubUrl: 'https://github.com/Eric-Souza/marvel-data-visualization',
-    stack: ['React', 'MUI', 'Marvel API', 'Axios'],
-  },
-  {
-    id: 'react-feedback-app',
-    name: 'React Feedback App',
-    description:
-      'Dynamic feedback CRUD app with Framer Motion animations and json-server mock backend.',
-    githubUrl: 'https://github.com/Eric-Souza/react-feedback-app',
-    stack: ['React', 'Framer Motion', 'JSON Server'],
-  },
-  {
-    id: 'express-pg-api',
-    name: 'Express PostgreSQL API',
-    description:
-      'REST API with Express, PostgreSQL, and Sequelize ORM, including migrations, relations, and complex queries.',
-    githubUrl: 'https://github.com/Eric-Souza/express-pg-api',
-    stack: ['Node.js', 'Express', 'PostgreSQL', 'Sequelize'],
+      'Express REST API that talks to a separate microservice through Apache Kafka, containerized with Docker Compose.',
+    links: [{ label: 'GitHub', url: repo('kafka-node-microservices') }],
+    stack: ['Node.js', 'Express', 'Apache Kafka', 'Docker'],
   },
 ];
