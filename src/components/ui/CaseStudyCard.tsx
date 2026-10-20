@@ -16,6 +16,7 @@ import { Highlighted } from './Highlighted';
 interface CaseStudyCardProps {
   study: CaseStudy;
   index: number;
+  defaultExpanded?: boolean;
 }
 
 type View = 'business' | 'technical';
@@ -167,8 +168,8 @@ function TechnicalView({ study }: { study: CaseStudy }) {
   );
 }
 
-export function CaseStudyCard({ study, index }: CaseStudyCardProps) {
-  const [expanded, setExpanded] = useState(false);
+export function CaseStudyCard({ study, index, defaultExpanded = false }: CaseStudyCardProps) {
+  const [expanded, setExpanded] = useState(defaultExpanded);
   const [view, setView] = useState<View>('business');
   const baseId = useId();
   const tabId = (v: View) => `${baseId}-tab-${v}`;

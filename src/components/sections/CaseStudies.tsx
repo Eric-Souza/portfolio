@@ -129,7 +129,7 @@ export function CaseStudies() {
 
       <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
         {results.slice(0, visible).map((study, index) => (
-          <CaseStudyCard key={study.id} study={study} index={index} />
+          <CaseStudyCard key={study.id} study={study} index={index} defaultExpanded={index === 0} />
         ))}
       </Box>
 
