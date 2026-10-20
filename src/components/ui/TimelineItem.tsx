@@ -62,6 +62,8 @@ export function TimelineItem({ item, defaultExpanded = false }: TimelineItemProp
             backgroundColor: alpha(colors.surface, 0.5),
             border: `1px solid ${alpha(colors.white, 0.08)}`,
             borderRadius: '12px !important',
+            transition: 'border-color 0.2s',
+            '&:hover': { borderColor: alpha(colors.cyan, 0.3) },
             '&:before': { display: 'none' },
           }}
         >
