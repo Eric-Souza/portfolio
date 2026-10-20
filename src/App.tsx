@@ -2,7 +2,6 @@ import { Box } from '@mui/material';
 import { Navbar } from './components/layout/Navbar';
 import { Footer } from './components/layout/Footer';
 import { Hero } from './components/sections/Hero';
-import { About } from './components/sections/About';
 import { Experience } from './components/sections/Experience';
 import { CaseStudies } from './components/sections/CaseStudies';
 import { Skills } from './components/sections/Skills';
@@ -17,7 +16,6 @@ function App() {
       <Navbar />
       <main>
         <Hero />
-        <About />
         <Experience />
         <CaseStudies />
         <Skills />

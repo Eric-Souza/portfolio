@@ -3,8 +3,7 @@ import type { NavItem, Profile } from './types';
 export const profile: Profile = {
   name: 'Eric de Oliveira Souza',
   title: 'Sr. Full Stack & AI Engineer',
-  tagline:
-    '8+ years building production software in legal-tech, healthcare, fintech, e-commerce, and AI, from architecture through deployment.',
+  tagline: 'I own and develop products from architecture to production.',
   email: 'eric.bh18souza@gmail.com',
   whatsapp: '+55 31 98919 1411',
   whatsappUrl: 'https://wa.me/5531989191411',

@@ -19,7 +19,7 @@ export function Section({ id, title, subtitle, children }: SectionProps) {
         pt: { xs: 6, md: 6 },
         pb: { xs: 8, md: 10 },
         scrollMarginTop: '80px',
-        // On desktop each section fills the screen below the navbar, so short ones like About don't share it
+        // On desktop each section fills the screen below the navbar, so short ones don't share it
         // and scrolling to a section lands on its title.
         minHeight: { md: 'calc(100svh - 80px)' },
       }}

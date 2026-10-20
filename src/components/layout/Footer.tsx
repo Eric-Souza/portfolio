@@ -34,7 +34,7 @@ export function Footer() {
         <SocialLinks links={profile.links} size="small" />
 
         <IconButton
-          onClick={() => scrollToSection('hero')}
+          onClick={() => scrollToSection('about')}
           aria-label="Scroll back to top"
           color="primary"
           size="small"
