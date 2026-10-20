@@ -40,44 +40,6 @@ export const batchC: CaseStudy[] = [
     links: [{ label: 'GitHub', url: 'https://github.com/Eric-Souza/flask-todo-crud' }],
   },
   {
-    id: 'python-programming-languages-puzzles',
-    kind: 'learning',
-    industry: 'cs-fundamentals',
-    tech: ['Python'],
-    year: 2023,
-    title: 'Python Programming and Data Puzzles',
-    company: 'Coursework · Uninter',
-    tags: ['Algorithms', 'Data Analysis'],
-    headline:
-      'Three Python exercises for a university course: a menu calculator, a plotted linear function, and summary statistics on a store sales dataset.',
-    role: 'Course exercises · Programming Languages, Uninter',
-    challenge:
-      'Solve three assignments for Uninter\'s "Programming Languages" course, moving from basic program structure to working with data in pandas, NumPy and Matplotlib.',
-    outcomes: [
-      'A menu-driven calculator with seven operations, including powers, remainder and square root.',
-      'A chart of a linear function evaluated on random inputs.',
-      'Minimum, maximum, mean and standard deviation for store items, visitors and sales, with a scatter plot for each.',
-    ],
-    technical: {
-      architecture:
-        'Three independent CLI scripts run locally: a terminal calculator, a script that generates and plots a linear function, and a script that analyzes a bundled CSV dataset with pandas and Matplotlib.',
-      howItWasBuilt: [
-        'Wrote the calculator as a class with a menu loop and an operation dispatcher.',
-        'Applied the linear function to a seeded random NumPy vector and plotted it.',
-        'Computed the summary statistics with pandas describe().',
-        'Drew side-by-side scatter plots with Matplotlib subplots.',
-      ],
-      stack: [
-        { layer: 'Architecture', items: ['CLI scripts', 'Batch data analysis'] },
-        { layer: 'Language', items: ['Python'] },
-        { layer: 'Data', items: ['pandas', 'NumPy', 'Matplotlib'] },
-      ],
-    },
-    links: [
-      { label: 'GitHub', url: 'https://github.com/Eric-Souza/python-programming-languages-puzzles' },
-    ],
-  },
-  {
     id: 'python-web-scraper',
     kind: 'side-project',
     industry: 'marketing',
@@ -155,41 +117,6 @@ export const batchC: CaseStudy[] = [
       ],
     },
     links: [{ label: 'GitHub', url: 'https://github.com/Eric-Souza/django-stock-market' }],
-  },
-  {
-    id: 'python-algorithm-puzzles',
-    kind: 'learning',
-    industry: 'cs-fundamentals',
-    tech: ['Python'],
-    year: 2022,
-    title: 'Python Pricing Logic Puzzles',
-    company: 'Coursework · Uninter',
-    tags: ['Algorithms', 'Programming Logic'],
-    headline:
-      'Three console programs that turn business pricing rules into code, written for a university programming logic course.',
-    role: 'Course exercises · Algorithms and Programming Logic, Uninter',
-    challenge:
-      'Solve three assignments for Uninter\'s "Algorithms and Programming Logic" course, each modeled on a small business that needs to price an order.',
-    outcomes: [
-      'A house cleaning quote based on house size, cleaning type and optional extras.',
-      'An ice cream order total built from flavor tier and cup size, with repeat orders.',
-      'A product order total that adds a shipping fee based on quantity bands.',
-    ],
-    technical: {
-      architecture:
-        'Three standalone CLI scripts that run locally. Each one reads choices from the terminal, applies the pricing rules, and prints the order total.',
-      howItWasBuilt: [
-        'Modeled tiered pricing with if/elif ranges and multipliers.',
-        'Validated user input in loops and caught ValueError for non-numeric entries.',
-        'Looked up prices from a dictionary keyed by flavor code and indexed by size.',
-        'Split the cleaning quote into one function per menu step.',
-      ],
-      stack: [
-        { layer: 'Architecture', items: ['CLI scripts'] },
-        { layer: 'Language', items: ['Python'] },
-      ],
-    },
-    links: [{ label: 'GitHub', url: 'https://github.com/Eric-Souza/python-algorithm-puzzles' }],
   },
   {
     id: 'django-schedule',
@@ -342,43 +269,5 @@ export const batchC: CaseStudy[] = [
     links: [
       { label: 'GitHub', url: 'https://github.com/Eric-Souza/bitcoin-sales-cashback-puzzle' },
     ],
-  },
-  {
-    id: 'array-ts-logic-puzzle',
-    kind: 'challenge',
-    industry: 'cs-fundamentals',
-    tech: ['TypeScript'],
-    year: 2021,
-    title: 'TypeScript Array Calculator',
-    company: 'Hiring challenge · Kognita',
-    tags: ['Algorithms', 'TypeScript'],
-    headline:
-      "Completed Kognita's TypeScript entrance test: a chainable calculator that adds, sums, lists and removes values in an array.",
-    role: 'Entrance test · Kognita software engineering role',
-    challenge:
-      "Kognita provided a TypeScript template with a fixed test file that could not be changed. The task was to make the calculator class produce the expected output, including removing duplicate values by position.",
-    outcomes: [
-      'Adds single numbers or arrays of numbers in one chained call.',
-      'Sums all stored values or a given set of values.',
-      'Lists stored values, optionally limited to the first N.',
-      'Removes values at several positions in one call.',
-    ],
-    technical: {
-      architecture:
-        'A small object-oriented library run with ts-node. The fixed index.ts imports a singleton Calculator, chains calls on it, and prints the results.',
-      howItWasBuilt: [
-        'Singleton pattern with a private constructor and a static init() method.',
-        'Fluent API: add() returns the instance so calls can be chained.',
-        'remove() splices positions from last to first so indexes do not shift.',
-        'Linted with ESLint (standard config) and @typescript-eslint.',
-      ],
-      stack: [
-        { layer: 'Architecture', items: ['Singleton', 'Fluent interface', 'CLI script'] },
-        { layer: 'Language', items: ['TypeScript'] },
-        { layer: 'Runtime', items: ['Node.js', 'ts-node'] },
-        { layer: 'Tooling', items: ['ESLint', '@typescript-eslint'] },
-      ],
-    },
-    links: [{ label: 'GitHub', url: 'https://github.com/Eric-Souza/array-ts-logic-puzzle' }],
   },
 ];

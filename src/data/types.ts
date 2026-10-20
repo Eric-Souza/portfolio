@@ -81,8 +81,7 @@ export type Industry =
   | 'media'
   | 'productivity'
   | 'marketing'
-  | 'developer-platform'
-  | 'cs-fundamentals';
+  | 'developer-platform';
 
 /** Filterable tech: the languages the work is written in, plus whether it uses AI/LLMs. */
 export type LanguageTag = 'TypeScript' | 'JavaScript' | 'Python' | 'AI';

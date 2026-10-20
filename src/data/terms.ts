@@ -40,6 +40,11 @@ const extraTech = [
   'EC2',
   'RDS',
   'Lambda',
+  'Bedrock',
+  'Node',
+  'Nest',
+  'API',
+  'ORM',
   'Postgres',
   'LLM',
   'LLMs',
@@ -66,7 +71,13 @@ const extraArchitecture = [
   'serverless',
   'prerendered',
   'single-page app',
+  'full stack',
+  'full-stack',
+  'e-commerce',
 ];
+
+// 'Next' alone only means Next.js in a stack list ('React, Next, and Material UI'), not the word 'next'.
+const contextualPattern = /(?<=React(?:,| and|\/) ?)Next(?![\w.])/g;
 
 /** 'Docker (PostgreSQL, Redis)' -> 'Docker', 'Next.js 11' -> 'Next.js', 'SPA + REST API' -> both parts. */
 function baseNames(item: string): string[] {
@@ -116,7 +127,11 @@ const architecturePattern = pattern(architectureTerms, 'gi');
 
 /** Splits text into plain and highlighted segments. Overlapping matches keep the longer one. */
 export function splitTerms(text: string): TextSegment[] {
-  const matches = [...text.matchAll(techPattern), ...text.matchAll(architecturePattern)]
+  const matches = [
+    ...text.matchAll(techPattern),
+    ...text.matchAll(architecturePattern),
+    ...text.matchAll(contextualPattern),
+  ]
     .map((m) => ({ start: m.index, end: m.index + m[0].length }))
     .sort((a, b) => a.start - b.start || b.end - a.end);
 

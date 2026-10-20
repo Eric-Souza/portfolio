@@ -20,7 +20,7 @@ export const experience: Experience[] = [
     period: 'Feb 2025 – Present',
     domain: 'Essential Estates · Legal-tech',
     bullets: [
-      'Founding Full Stack & AI Engineer at TeamEx, working for its client Summerall Law and responsible for building, scaling, and operating Essential Estates, a production legal-tech platform owned by a Silicon Valley law firm; owned product, engineering, people, and infrastructure end-to-end.',
+      'Founding Full Stack & AI Engineer at Summerall Law, a Silicon Valley law firm, through TeamEx; built, scaled, and operated Essential Estates, the firm\'s production legal-tech platform, and owned product, engineering, people, and infrastructure end-to-end.',
       'Built the platform from zero to production using React and TypeScript on the frontend, with NestJS, PostgreSQL, and TypeORM on the backend.',
       'Led architecture and system design across API design, data modeling, scalability, maintainability, and reliable frontend/backend contracts.',
       'Designed and managed AWS infrastructure using S3, EC2, RDS, CloudFront, and ACM, with GitHub Actions CI/CD for automated deployments and reliability.',
@@ -92,7 +92,7 @@ export const experience: Experience[] = [
     bullets: [
       'Built a web platform with AI heatmaps so clients could compare locations using real-time data.',
       'Built the full stack with React, Next, and Material UI on the frontend and Node, Nest, and PostgreSQL on the backend.',
-      'Improved how the AI R&D team\'s data flowed into the web platform and stored large geospatial files on AWS S3.',
+      'Improved how the AI R&D team\'s data flowed into the web platform and stored large geospatial files on Azure Blob Storage, with DevOps on Azure.',
     ],
   },
   {
