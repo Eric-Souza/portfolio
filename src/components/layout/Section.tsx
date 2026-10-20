@@ -16,8 +16,13 @@ export function Section({ id, title, subtitle, children }: SectionProps) {
       id={id}
       component="section"
       sx={{
-        py: { xs: 8, md: 12 },
+        py: { xs: 10, md: 14 },
         scrollMarginTop: '80px',
+        // On desktop each section fills at least a screen, so short ones like About don't share it.
+        minHeight: { md: '100svh' },
+        display: { md: 'flex' },
+        flexDirection: 'column',
+        justifyContent: 'center',
       }}
     >
       <Container maxWidth="lg">
