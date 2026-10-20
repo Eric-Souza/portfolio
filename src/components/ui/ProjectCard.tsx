@@ -3,8 +3,10 @@ import GitHubIcon from '@mui/icons-material/GitHub';
 import { motion } from 'framer-motion';
 import { alpha } from '@mui/material/styles';
 import type { Project } from '../../data/types';
+import { colors } from '../../theme/theme';
 import { TechChips } from './TechChips';
 import { ProjectCardImage } from './ProjectCardImage';
+import { Highlighted } from './Highlighted';
 
 interface ProjectCardProps {
   project: Project;
@@ -22,8 +24,8 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
       transition={{ duration: 0.5, delay: index * 0.08 }}
       whileHover={{
         y: -6,
-        boxShadow: `0 16px 48px ${alpha('#00E5FF', 0.1)}`,
-        borderColor: alpha('#00E5FF', 0.25),
+        boxShadow: `0 16px 48px ${alpha(colors.cyan, 0.1)}`,
+        borderColor: alpha(colors.cyan, 0.25),
       }}
       sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}
     >
@@ -38,25 +40,29 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
           color="text.secondary"
           sx={{ mb: 2, lineHeight: 1.7, flex: 1 }}
         >
-          {project.description}
+          <Highlighted text={project.description} />
         </Typography>
 
         <Box sx={{ mb: 2 }}>
           <TechChips items={project.stack} />
         </Box>
 
-        <Button
-          size="small"
-          variant="outlined"
-          href={project.githubUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          startIcon={<GitHubIcon />}
-          sx={{ alignSelf: 'flex-start' }}
-          aria-label={`View ${project.name} on GitHub`}
-        >
-          GitHub
-        </Button>
+        <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
+          {project.links.map((link) => (
+            <Button
+              key={link.url}
+              size="small"
+              variant="outlined"
+              href={link.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              startIcon={<GitHubIcon />}
+              aria-label={`${project.name}: ${link.label} repository on GitHub`}
+            >
+              {link.label}
+            </Button>
+          ))}
+        </Box>
       </CardContent>
     </MotionCard>
   );

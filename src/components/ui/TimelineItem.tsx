@@ -8,8 +8,9 @@ import {
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { alpha } from '@mui/material/styles';
+import { Highlighted } from './Highlighted';
 import type { Experience } from '../../data/types';
-import { monoFont } from '../../theme/theme';
+import { colors, monoFont } from '../../theme/theme';
 import { CompanyLinks } from './CompanyLinks';
 
 interface TimelineItemProps {
@@ -36,7 +37,7 @@ export function TimelineItem({ item, defaultExpanded = false }: TimelineItemProp
             height: 12,
             borderRadius: '50%',
             bgcolor: 'primary.main',
-            boxShadow: `0 0 12px ${alpha('#00E5FF', 0.5)}`,
+            boxShadow: `0 0 12px ${alpha(colors.cyan, 0.5)}`,
             flexShrink: 0,
           }}
         />
@@ -44,7 +45,7 @@ export function TimelineItem({ item, defaultExpanded = false }: TimelineItemProp
           sx={{
             width: 2,
             flex: 1,
-            bgcolor: alpha('#FFFFFF', 0.1),
+            bgcolor: alpha(colors.white, 0.1),
             mt: 1,
           }}
         />
@@ -58,8 +59,8 @@ export function TimelineItem({ item, defaultExpanded = false }: TimelineItemProp
         sx={{
           flex: 1,
           mb: 2,
-          backgroundColor: alpha('#12182A', 0.5),
-          border: `1px solid ${alpha('#FFFFFF', 0.08)}`,
+          backgroundColor: alpha(colors.surface, 0.5),
+          border: `1px solid ${alpha(colors.white, 0.08)}`,
           borderRadius: '12px !important',
           '&:before': { display: 'none' },
         }}
@@ -100,7 +101,7 @@ export function TimelineItem({ item, defaultExpanded = false }: TimelineItemProp
                 color="text.secondary"
                 sx={{ mb: 1.5, lineHeight: 1.7 }}
               >
-                {bullet}
+                <Highlighted text={bullet} />
               </Typography>
             ))}
           </Box>

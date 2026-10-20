@@ -3,6 +3,7 @@ import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import { alpha } from '@mui/material/styles';
 import type { RelatedLink } from '../../data/types';
+import { colors } from '../../theme/theme';
 
 interface CompanyLinksProps {
   company: string;
@@ -26,8 +27,8 @@ function LinkChip({ name, url }: RelatedLink) {
       size="small"
       icon={<OpenInNewIcon sx={{ fontSize: '14px !important' }} />}
       sx={{
-        borderColor: alpha('#8B5CF6', 0.3),
-        backgroundColor: alpha('#8B5CF6', 0.1),
+        borderColor: alpha(colors.violet, 0.3),
+        backgroundColor: alpha(colors.violet, 0.1),
         color: 'secondary.light',
         '& .MuiChip-icon': { color: 'secondary.light' },
       }}
@@ -102,8 +103,8 @@ export function CompanyLinks({
           label={productName}
           size="small"
           sx={{
-            borderColor: alpha('#8B5CF6', 0.3),
-            backgroundColor: alpha('#8B5CF6', 0.1),
+            borderColor: alpha(colors.violet, 0.3),
+            backgroundColor: alpha(colors.violet, 0.1),
             color: 'secondary.light',
           }}
           variant="outlined"

@@ -3,10 +3,11 @@ import { motion } from 'framer-motion';
 import { profile } from '../../data/profile';
 import { Section } from '../layout/Section';
 import { alpha } from '@mui/material/styles';
+import { colors } from '../../theme/theme';
 
 export function About() {
   return (
-    <Section id="about" title="About Me" subtitle="Sr. Full Stack & AI Engineer comfortable in tech leading and development.">
+    <Section id="about" title="About Me" subtitle="I own products end to end and lead the teams that build them.">
       <Grid container spacing={4} sx={{ alignItems: 'center' }}>
         <Grid size={{ xs: 12, md: 4 }}>
           <motion.div
@@ -21,9 +22,9 @@ export function About() {
                 sx={{
                   width: 200,
                   height: 200,
-                  bgcolor: alpha('#00E5FF', 0.1),
-                  border: `2px solid ${alpha('#00E5FF', 0.3)}`,
-                  boxShadow: `0 0 40px ${alpha('#00E5FF', 0.15)}`,
+                  bgcolor: alpha(colors.cyan, 0.1),
+                  border: `2px solid ${alpha(colors.cyan, 0.3)}`,
+                  boxShadow: `0 0 40px ${alpha(colors.cyan, 0.15)}`,
                   '& img': { objectFit: 'cover' },
                 }}
                 alt="Eric de Oliveira Souza"

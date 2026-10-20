@@ -11,7 +11,7 @@ import { motion } from 'framer-motion';
 import { alpha } from '@mui/material/styles';
 import { articles } from '../../data/articles';
 import { Section } from '../layout/Section';
-import { monoFont } from '../../theme/theme';
+import { colors, monoFont } from '../../theme/theme';
 
 const MotionCard = motion.create(Card);
 
@@ -32,7 +32,7 @@ export function Writing() {
               transition={{ duration: 0.4, delay: index * 0.06 }}
               whileHover={{
                 y: -4,
-                borderColor: alpha('#8B5CF6', 0.3),
+                borderColor: alpha(colors.violet, 0.3),
               }}
               sx={{ height: '100%' }}
             >
@@ -59,7 +59,6 @@ export function Writing() {
                       sx={{ fontFamily: monoFont, fontWeight: 600 }}
                     >
                       {article.publication} · {article.date}
-                      {article.claps ? ` · ${article.claps} claps` : ''}
                     </Typography>
                     <OpenInNewIcon sx={{ fontSize: 16, color: 'text.secondary' }} />
                   </Box>

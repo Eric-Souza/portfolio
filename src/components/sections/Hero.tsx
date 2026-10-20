@@ -1,4 +1,5 @@
-import { Box, Button, Chip, Container, Stack, Typography } from '@mui/material';
+import { Box, Button, Chip, Container, Typography } from '@mui/material';
+import { alpha } from '@mui/material/styles';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import DownloadIcon from '@mui/icons-material/Download';
 import EmailIcon from '@mui/icons-material/Email';
@@ -7,7 +8,7 @@ import { motion } from 'framer-motion';
 import { profile } from '../../data/profile';
 import { AnimatedBackground } from '../ui/AnimatedBackground';
 import { scrollToSection } from '../../hooks/useActiveSection';
-import { monoFont } from '../../theme/theme';
+import { colors, monoFont } from '../../theme/theme';
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -59,7 +60,7 @@ export function Hero() {
                 fontSize: { xs: '2.25rem', sm: '3rem', md: '3.75rem' },
                 mt: 1,
                 mb: 1,
-                background: 'linear-gradient(135deg, #E8ECF4 0%, #00E5FF 100%)',
+                background: `linear-gradient(135deg, ${colors.textPrimary} 0%, ${colors.cyan} 100%)`,
                 WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent',
               }}
@@ -89,11 +90,11 @@ export function Hero() {
           </motion.div>
 
           <motion.div variants={itemVariants}>
-            <Stack direction="row" spacing={1} sx={{ mb: 4, flexWrap: 'wrap' }}>
-              {profile.stats.map((stat) => (
+            <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, mb: 4 }}>
+              {profile.highlights.map((highlight) => (
                 <Chip
-                  key={stat.label}
-                  label={`${stat.value} ${stat.label}`}
+                  key={highlight}
+                  label={highlight}
                   sx={{
                     fontFamily: monoFont,
                     fontSize: '0.8rem',
@@ -102,11 +103,13 @@ export function Hero() {
                   variant="outlined"
                 />
               ))}
-            </Stack>
+            </Box>
           </motion.div>
 
           <motion.div variants={itemVariants}>
-            <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} sx={{ flexWrap: 'wrap' }}>
+            <Box
+              sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, flexWrap: 'wrap', gap: 2 }}
+            >
               <Button
                 variant="contained"
                 size="large"
@@ -116,14 +119,18 @@ export function Hero() {
                 Contact Me
               </Button>
               <Button
-                variant="contained"
+                variant="outlined"
                 size="large"
                 href={profile.whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 startIcon={<WhatsAppIcon />}
                 aria-label={`Message Eric on WhatsApp at ${profile.whatsapp}`}
-                sx={{ bgcolor: '#25D366', '&:hover': { bgcolor: '#1DA851' } }}
+                sx={{
+                  color: colors.whatsapp,
+                  borderColor: alpha(colors.whatsapp, 0.5),
+                  '&:hover': { borderColor: colors.whatsapp, bgcolor: alpha(colors.whatsapp, 0.08) },
+                }}
               >
                 WhatsApp
               </Button>
@@ -147,7 +154,7 @@ export function Hero() {
               >
                 View GitHub
               </Button>
-            </Stack>
+            </Box>
           </motion.div>
         </motion.div>
       </Container>

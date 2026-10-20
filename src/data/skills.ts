@@ -60,8 +60,6 @@ export const skillGroups: SkillGroup[] = [
       'Service-Oriented Architecture',
       'Apache Kafka',
       'Event-Driven Systems',
-      'SSR',
-      'CSR',
       'System Design',
     ],
   },
@@ -104,17 +102,6 @@ export const skillGroups: SkillGroup[] = [
       'Google Analytics 4',
       'Agile',
       'Technical Documentation',
-    ],
-  },
-  {
-    category: 'Soft Skills',
-    skills: [
-      'Technical Leadership',
-      'Team Management',
-      'Cross-functional Collaboration',
-      'US-hours Flexibility',
-      'Problem Solving',
-      'Communication',
     ],
   },
 ];
