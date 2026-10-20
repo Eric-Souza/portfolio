@@ -22,20 +22,19 @@ export const batchC: CaseStudy[] = [
     ],
     technical: {
       architecture:
-        'A monolithic, server-rendered Flask app. Each request hits a Flask route, which reads or writes the Todo model in SQLite through Flask-SQLAlchemy and then renders a Jinja2 template or redirects back to the list. It runs locally on the Flask dev server, and gunicorn is pinned in the requirements as the WSGI server.',
+        'A monolithic, server-rendered Flask app. Routes read and write a Todo model in SQLite through Flask-SQLAlchemy, then render a Jinja2 template or redirect back to the list.',
       howItWasBuilt: [
-        'Defined a Todo model with content and a creation timestamp using Flask-SQLAlchemy.',
-        'Built routes for listing and creating (GET/POST on /), updating (/update/<id>) and deleting (/delete/<id>).',
-        'Used get_or_404 so requests for missing tasks return a 404.',
-        'Shared layout through Jinja2 template inheritance (base, index and update templates).',
-        'Pinned gunicorn in requirements.txt so the app can be served by a production WSGI server instead of the Flask dev server.',
+        'Defined a Todo model with content and a creation timestamp in Flask-SQLAlchemy.',
+        'Built routes to list, create, update and delete tasks, returning a 404 for missing ones.',
+        'Shared one layout across pages with Jinja2 template inheritance.',
+        'Pinned gunicorn so the app can run on a production WSGI server.',
       ],
       stack: [
         { layer: 'Architecture', items: ['Monolith', 'Server-rendered templates', 'CRUD routes'] },
         { layer: 'Language', items: ['Python'] },
         { layer: 'Backend', items: ['Flask', 'Flask-SQLAlchemy', 'Jinja2'] },
         { layer: 'Data', items: ['SQLite'] },
-        { layer: 'Infrastructure', items: ['gunicorn (WSGI server)'] },
+        { layer: 'Infrastructure', items: ['gunicorn'] },
       ],
     },
     links: [{ label: 'GitHub', url: 'https://github.com/Eric-Souza/flask-todo-crud' }],
@@ -61,11 +60,11 @@ export const batchC: CaseStudy[] = [
     ],
     technical: {
       architecture:
-        'Three independent CLI scripts, each in its own folder, run locally. The calculator reads input from the terminal, the linear function script generates its own data and plots it, and the statistics script reads a CSV dataset that ships with the repo, computes stats with pandas and plots them with Matplotlib.',
+        'Three independent CLI scripts run locally: a terminal calculator, a script that generates and plots a linear function, and a script that analyzes a bundled CSV dataset with pandas and Matplotlib.',
       howItWasBuilt: [
         'Wrote the calculator as a class with a menu loop and an operation dispatcher.',
-        'Generated a seeded random NumPy vector, applied the linear function and plotted it with Matplotlib.',
-        'Loaded the store dataset with pandas, renamed columns and used describe() for the summary statistics.',
+        'Applied the linear function to a seeded random NumPy vector and plotted it.',
+        'Computed the summary statistics with pandas describe().',
         'Drew side-by-side scatter plots with Matplotlib subplots.',
       ],
       stack: [
@@ -99,12 +98,12 @@ export const batchC: CaseStudy[] = [
     ],
     technical: {
       architecture:
-        'A browser automation script that runs locally as a batch job. It reads domain names from an Excel file with xlrd, drives a real Chrome window through Selenium and ChromeDriver to search each one on registro.br, scrapes the result from the page, and appends it to a text report.',
+        'A local batch script that reads domain names from Excel, searches each one on registro.br in Chrome through Selenium, and appends the result to a text report.',
       howItWasBuilt: [
         'Read domain names row by row from an .xls sheet with xlrd.',
-        'Drove Chrome with Selenium: found the search field by id, typed each domain and submitted it.',
-        'Read the result from the page with an XPath selector and translated the Portuguese status into English.',
-        'Added short waits between steps so the page could load before reading results.',
+        'Drove Chrome with Selenium to type and submit each domain in the search field.',
+        'Read the result with an XPath selector and translated the Portuguese status into English.',
+        'Added short waits so each page could load before reading results.',
       ],
       stack: [
         { layer: 'Architecture', items: ['Browser automation script', 'Batch job'] },
@@ -137,9 +136,9 @@ export const batchC: CaseStudy[] = [
     ],
     technical: {
       architecture:
-        "A server-rendered Django app following Django's MTV pattern, with one app (quotes). Requests go to function views that read and write watchlist tickers in SQLite, call the IEX Cloud REST API for live quotes, and render Bootstrap-styled templates. It runs locally on Django's dev server.",
+        'A server-rendered Django app. Views store watchlist tickers in SQLite, fetch live quotes from the IEX Cloud REST API, and render Bootstrap-styled templates.',
       howItWasBuilt: [
-        'Called the IEX Cloud quote endpoint with requests and parsed the JSON, with a fallback message for invalid tickers.',
+        'Fetched quotes from IEX Cloud with requests, with a fallback message for invalid tickers.',
         'Stored watchlist tickers in a Stock model and handled input with a Django ModelForm.',
         'Built the company table from a local tickers file.',
         "Used Django's messages framework to confirm adds and deletes.",
@@ -213,11 +212,11 @@ export const batchC: CaseStudy[] = [
     ],
     technical: {
       architecture:
-        "A server-rendered Django app following Django's MTV pattern. Staff enter events through the built-in Django admin, which writes them to SQLite. Visitors hit a single list view that queries the Event model and renders it into a template. It runs locally on Django's dev server.",
+        'A server-rendered Django app. Staff manage events in the built-in Django admin, which stores them in SQLite, and a single list view renders them on a public schedule page.',
       howItWasBuilt: [
         "Defined an Event model with a foreign key to Django's built-in User.",
         'Customized the admin with list_display and list_filter.',
-        'Rendered events with template inheritance (header, body and footer templates).',
+        'Rendered events with template inheritance.',
         'Redirected the root URL to the schedule page with RedirectView.',
       ],
       stack: [
@@ -250,7 +249,7 @@ export const batchC: CaseStudy[] = [
     ],
     technical: {
       architecture:
-        'A REST API built on Django REST Framework. Requests to /api/employee/ are routed by a DefaultRouter to a ModelViewSet, which validates and converts data through a ModelSerializer and reads or writes the Employee model in a local PostgreSQL database. It returns JSON and runs locally on Django\'s dev server.',
+        'A Django REST Framework API. A router sends /api/employee/ requests to a ModelViewSet, which reads and writes Employee records in PostgreSQL and returns JSON.',
       howItWasBuilt: [
         'Defined an Employee model and a ModelSerializer for it.',
         'Used a ModelViewSet to get all CRUD endpoints from one class.',
@@ -287,12 +286,12 @@ export const batchC: CaseStudy[] = [
     ],
     technical: {
       architecture:
-        "A server-rendered Django app following Django's MTV pattern, deployed on PythonAnywhere. The author writes posts in the Django admin, which stores them in SQLite. Visitors hit a single list view that queries published posts and renders them into a template with custom CSS.",
+        'A server-rendered Django blog hosted on PythonAnywhere. Posts are written in the Django admin and stored in SQLite, and a single list view shows the published ones.',
       howItWasBuilt: [
-        "Defined a Post model linked to Django's user model, with created and published dates and a publish() method.",
-        'Filtered the list view with published_date__lte=now so drafts and future posts stay hidden.',
-        'Rendered posts with template inheritance and the linebreaksbr filter.',
-        'Deployed to PythonAnywhere as a hosted Django web app, with the SQLite database on the same host.',
+        'Defined a Post model with an author, created and published dates, and a publish() method.',
+        'Filtered the list view by publish date so drafts and future posts stay hidden.',
+        'Rendered posts with template inheritance and custom CSS.',
+        'Deployed to PythonAnywhere with the SQLite database on the same host.',
       ],
       stack: [
         { layer: 'Architecture', items: ['MVC (Django MTV)', 'Server-rendered templates'] },
@@ -326,12 +325,12 @@ export const batchC: CaseStudy[] = [
     ],
     technical: {
       architecture:
-        'A single-pass batch script run locally with Node.js. It loads both CSV files into memory, compares every sale against every cashback by timestamp, merges matched and unmatched sales, and prints the sorted report to the console.',
+        'A Node.js batch script that loads both CSV files into memory, matches sales to cashbacks by timestamp, and prints a sorted report to the console.',
       howItWasBuilt: [
         'Parsed the CSV files with fs and line splitting, skipping headers and blank lines.',
-        'Converted cents to Reais (2 decimals) and satoshis to Bitcoin (8 decimals).',
-        'Matched records with a nested loop (O(n·m)) on the time difference between ISO 8601 timestamps.',
-        'Kept matched and unmatched sales in separate lists, removed duplicates, then merged and sorted by id.',
+        'Converted cents to Reais and satoshis to Bitcoin.',
+        'Matched records with a nested loop (O(n·m)) on the time difference between timestamps.',
+        'Merged matched and unmatched sales, removed duplicates and sorted by id.',
       ],
       stack: [
         { layer: 'Architecture', items: ['CLI script', 'In-memory batch processing'] },
@@ -366,11 +365,11 @@ export const batchC: CaseStudy[] = [
     ],
     technical: {
       architecture:
-        'A small object-oriented library with a CLI entry point, run locally with ts-node. The fixed index.ts imports a singleton Calculator from a module export, chains calls on it, and prints the results to the console.',
+        'A small object-oriented library run with ts-node. The fixed index.ts imports a singleton Calculator, chains calls on it, and prints the results.',
       howItWasBuilt: [
         'Singleton pattern with a private constructor and a static init() method.',
         'Fluent API: add() returns the instance so calls can be chained.',
-        'remove() deletes positions from last to first with splice, so earlier removals do not shift the indexes of later ones.',
+        'remove() splices positions from last to first so indexes do not shift.',
         'Linted with ESLint (standard config) and @typescript-eslint.',
       ],
       stack: [

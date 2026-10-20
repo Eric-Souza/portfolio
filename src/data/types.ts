@@ -121,14 +121,6 @@ export interface ProjectLink {
   url: string;
 }
 
-export interface Project {
-  id: string;
-  name: string;
-  description: string;
-  links: ProjectLink[];
-  stack: string[];
-}
-
 export interface SkillGroup {
   category: string;
   skills: string[];

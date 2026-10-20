@@ -27,28 +27,25 @@ export const batchA: CaseStudy[] = [
     ],
     technical: {
       architecture:
-        "A serverless scheduled batch job with no server to run. A GitHub Actions cron runs a Python pipeline: fetch PTAX rates from the BACEN Olinda API and market context from free public APIs and RSS, score them in a pure analysis module, ask Gemini over its REST API for a structured JSON opinion, and send an HTML and plain-text email through Gmail SMTP. Each AI outlook is appended to a JSON log that the workflow commits back to the repo, so later runs can score it against real closing rates. Every step after the rate fetch is optional and fails soft, so the email always goes out.",
+        "A scheduled GitHub Actions job runs a Python pipeline that fetches official rates and market context, scores them, asks Gemini for an opinion and emails the result. A JSON log committed back to the repo tracks the AI's past calls.",
       howItWasBuilt: [
-        'Wrote a PTAX client that takes the latest intraday bulletin and falls back to a live AwesomeAPI quote before the first bulletin of the day.',
-        'Scored the rate with percentile ranks over 30 days, the current month and 90 days, plus trend (5-day vs 20-day average), z-score and volatility, mapped to verdict tiers with a configurable early-month threshold.',
-        'Gathered context from the BACEN Focus survey, the Selic series and Copom decisions, peer currency moves and Google News RSS, all free and keyless.',
-        'Called Gemini with tool calling (Google Search grounding and URL context to read the Fed meeting calendar) and a JSON response format, then parsed and validated the verdict, drivers, risks and outlook.',
-        'Picked the model at run time: the job lists the models the free-tier key can use and tries them best first. Tools that get refused (429/400) are dropped for the rest of the run, overloaded models (503 or timeout) get one retry, and the whole AI step is capped at about six minutes.',
-        "Built a forecast track record: each run logs the day's rate, verdicts and AI outlook, then scores past five-day outlooks against real closings and reports the hit rate.",
-        'Runs on a GitHub Actions workflow scheduled for weekdays at 13:23 UTC (10:23 BRT, just after BACEN publishes its first bulletin), plus manual dispatch. It installs Python 3.12, reads credentials from repository secrets, and uses contents: write to commit the forecast log to main with [skip ci].',
-        'Covered the PTAX parsing, analysis, AI response parsing and model ranking, market context, news, forecast scoring and email building with 51 pytest tests.',
+        'Pulled official PTAX rates from the Central Bank, falling back to a live quote before the first daily bulletin.',
+        'Scored the rate with percentile ranks over 30 days, the month and 90 days, plus trend and volatility.',
+        'Called Gemini with Google Search grounding and JSON output, trying the best model the free-tier key allows.',
+        'Logged each AI outlook and scored past five-day outlooks against real closing rates.',
+        'Made every step after the rate fetch fail soft, and covered the pipeline with 51 pytest tests.',
       ],
       stack: [
         {
           layer: 'Architecture',
-          items: ['Scheduled job', 'Batch pipeline (fetch, score, advise, send)', 'Fail-soft optional steps', 'Git-backed state'],
+          items: ['Scheduled job', 'Batch pipeline', 'Fail-soft optional steps', 'Git-backed state'],
         },
         { layer: 'Backend', items: ['Python', 'requests', 'smtplib', 'ElementTree (RSS)'] },
         { layer: 'AI', items: ['Google Gemini', 'Tool calling', 'Google Search grounding', 'URL context', 'Structured JSON output'] },
         { layer: 'Data', items: ['BACEN PTAX API', 'BACEN Focus and SGS', 'AwesomeAPI', 'Google News RSS', 'JSON forecast log'] },
         {
           layer: 'Infrastructure',
-          items: ['GitHub Actions (scheduled cron job)', 'Repository secrets', 'Gmail SMTP'],
+          items: ['GitHub Actions (cron)', 'Repository secrets', 'Gmail SMTP'],
         },
         { layer: 'Testing', items: ['pytest'] },
       ],
@@ -77,13 +74,12 @@ export const batchA: CaseStudy[] = [
     ],
     technical: {
       architecture:
-        'A two-app monorepo with a RAG pipeline behind a REST API. The React client uploads files to FastAPI, which ingests them in background tasks: extract text, chunk, embed with Gemini, store vectors in Chroma and metadata in SQLite. Chat requests retrieve the closest chunks and stream the grounded answer and citations back over server-sent events. Everything runs locally, with Chroma and SQLite on disk.',
+        'A React client and a FastAPI backend that run locally. Uploads are chunked, embedded with Gemini and stored in Chroma, and chat answers are built from the closest chunks and streamed back with citations.',
       howItWasBuilt: [
-        'Built the ingestion pipeline: pypdf text extraction, recursive chunking with overlap, Gemini embeddings, and safe re-ingestion that clears old vectors first.',
-        'Wrote two answer paths: a grounded RAG chain and a LangGraph tool-calling agent that uses the same retriever as a tool, both returning citations.',
-        'Streamed tokens and citation events to the browser over SSE.',
-        'Added a golden-set eval script that scores hit@k, expected answer content, and faithfulness (using an LLM as judge), and logs results to LangSmith.',
-        'Built the UI with React, Vite, MUI, and React Router: an upload dropzone, document table, and chat page.',
+        'Built ingestion with PDF text extraction, overlapping chunks, Gemini embeddings and safe re-ingestion.',
+        'Wrote two answer paths, a grounded RAG chain and a LangGraph agent, both returning citations.',
+        'Streamed tokens and citations to the browser over server-sent events.',
+        'Added a golden-set eval that scores retrieval and faithfulness with an LLM judge, logged to LangSmith.',
       ],
       stack: [
         {
@@ -120,14 +116,13 @@ export const batchA: CaseStudy[] = [
     ],
     technical: {
       architecture:
-        'An npm workspaces monorepo with a modular NestJS REST API and a React single-page console. The browser logs in for an httpOnly cookie, then every request passes guards (auth, role, CSRF) and an access policy before reaching feature modules (sessions, notes, appointments, audit) that use TypeORM on Postgres. The scheduling vendor posts signed webhooks that are acknowledged, then reconciled. It runs locally on PGlite (Postgres compiled to WebAssembly), so one command installs, seeds, and starts everything without Docker. The notes include a written AWS plan (S3 and CloudFront, EC2, RDS) that is not deployed.',
+        'A monorepo with a modular NestJS REST API and a React console. Every request passes auth, role and CSRF guards and an access policy before reaching Postgres, and the scheduling vendor sends signed webhooks. It runs locally on PGlite with one command.',
       howItWasBuilt: [
-        "Implemented cookie-based JWT auth with bcrypt, plus role guards, a CSRF guard, and an access policy service. Requests for another clinician's session return 404, not 403, so the API does not confirm the record exists.",
-        'Modeled notes as a state machine with versioned saves; concurrent edits return 409 with the server copy.',
-        'Verified the vendor webhook with an HMAC over the raw body, deduplicated by event id, acknowledged with 202, then reconciled appointments to sessions.',
-        'Redacted cookies, auth headers, note content, and other PHI from Pino logs, and tagged every response with a request id.',
-        'Tested the risky rules (access, note transitions, webhook signature, matching) with Jest, and the console (failed saves, version conflicts, admin limits) with Vitest, Testing Library, and MSW.',
-        'Wrote up the trade-offs, known gaps, and an AWS production plan with HIPAA considerations.',
+        "Built cookie-based JWT auth with role guards and an access policy; other clinicians' sessions return 404.",
+        'Modeled notes as a versioned state machine; concurrent edits return 409 with the server copy.',
+        'Verified vendor webhooks with HMAC, deduplicated them by event id, then reconciled appointments to sessions.',
+        'Redacted note content and other PHI from logs, and tagged every response with a request id.',
+        'Tested access, note transitions and webhooks with Jest, and the console with Vitest and MSW.',
       ],
       stack: [
         {
@@ -164,11 +159,11 @@ export const batchA: CaseStudy[] = [
     ],
     technical: {
       architecture:
-        'A tool-calling agent behind a REST API. Each customer message hits POST /sms on FastAPI, which sends it to the OpenAI Responses API with a single create_job tool. Tool calls go through a Python validator, and only valid jobs reach the in-memory job store. A Next.js demo UI shows the customer phone and reads the dispatch board from GET /jobs. Both apps run locally, started together by a shell script.',
+        'A FastAPI backend sends each customer text to the OpenAI Responses API with one create_job tool. A Python validator checks every tool call before a job is stored, and a Next.js demo UI shows the chat and dispatch board.',
       howItWasBuilt: [
-        'Kept the boundary explicit: the model owns the dialogue, Python owns whether a job exists. Validation checks required fields, service type, 5-digit ZIP against tenant prefixes, phone, and allowed appointment windows.',
-        'Drove tenant rules (services, service area, hours) from one config used by both the system prompt and the validator.',
-        'Exposed REST endpoints for messages, jobs, edits, reordering, and tenant config, with structured logging via structlog.',
+        'Kept the boundary explicit: the model owns the dialogue, Python decides whether a job exists.',
+        'Validated required fields, service type, ZIP against the service area, phone and allowed time slots.',
+        'Drove tenant rules from one config shared by the system prompt and the validator.',
         'Tested validation and job endpoints with pytest, and the chat UI with Playwright.',
       ],
       stack: [
@@ -208,15 +203,13 @@ export const batchA: CaseStudy[] = [
     ],
     technical: {
       architecture:
-        'A client-server system in two repos, built local-first. The Expo app goes screen, hook, API module, typed client, then a versioned REST and SSE API on FastAPI. The API is layered: thin routes, services for business logic and AI, repositories over SQLAlchemy. It calls Ollama through a provider interface and public APIs for live data, and stores data in SQLite by default or in PostgreSQL with pgvector. Docker Compose provides that Postgres database. The mobile app uses TypeScript types generated from the OpenAPI spec and never talks to the model or database directly.',
+        'An Expo mobile app talks to a layered FastAPI backend over REST and SSE, using types generated from the OpenAPI spec. The backend calls a local Ollama model and public APIs, and stores data in SQLite or PostgreSQL with pgvector.',
       howItWasBuilt: [
-        'Followed one rule throughout: the LLM proposes, Python validates, and the user confirms. Extracted bookings stay "extracted" until confirmed, and itinerary proposals never auto-apply.',
-        'Parsed PDFs with PyMuPDF and emails with the standard library, chunked by page and section, embedded chunks, and answered document questions with citations.',
-        'Wrapped Ollama behind an LLMProvider interface using LangChain, with a mock provider so the app runs without a local model.',
-        'Streamed chat over SSE with status and tool-result events, routing questions to SQL (bookings), document retrieval, or live-data adapters (Open-Meteo, exchange rates, Nominatim, OSRM).',
-        'Ran locally by default on SQLite with the mock LLM, so setup scripts are all you need. docker compose up starts a pgvector/pgvector:pg16 container with a health check and a persistent volume, and Alembic covers the Postgres migrations.',
-        'Built the mobile app with Expo Router, TanStack Query, Zustand, React Hook Form with Zod, and React Native Paper, plus an AsyncStorage cache and offline detection.',
-        'Tested the API with pytest (bookings, chat, parser, planner, integration) and the app with Jest (API client, mappers, dates, SSE).',
+        'Followed one rule: the LLM proposes, Python validates and the user confirms; nothing auto-applies.',
+        'Parsed booking PDFs and emails, embedded the chunks and answered document questions with citations.',
+        'Wrapped Ollama behind a provider interface, with a mock provider so the app runs without a model.',
+        'Streamed chat over SSE, routing questions to bookings, document search or live weather, rates and routes.',
+        'Built the app with Expo Router, TanStack Query and Zustand, plus an offline read cache; tested with pytest and Jest.',
       ],
       stack: [
         {
@@ -228,9 +221,9 @@ export const batchA: CaseStudy[] = [
         { layer: 'Data', items: ['SQLite', 'PostgreSQL', 'pgvector', 'PyMuPDF'] },
         {
           layer: 'Mobile',
-          items: ['Expo', 'React Native', 'TypeScript', 'Expo Router', 'TanStack Query', 'Zustand'],
+          items: ['Expo', 'React Native', 'TypeScript', 'Expo Router', 'TanStack Query'],
         },
-        { layer: 'Infrastructure', items: ['Docker Compose (Postgres + pgvector)'] },
+        { layer: 'Infrastructure', items: ['Docker Compose (Postgres)'] },
         { layer: 'Testing', items: ['pytest', 'Jest'] },
         { layer: 'Tooling', items: ['openapi-typescript', 'Ruff'] },
       ],
@@ -256,28 +249,27 @@ export const batchA: CaseStudy[] = [
       'A portfolio has to load fast, show up correctly when shared, and stay easy to update. Plain client-side React sends crawlers an empty page, so the goal was a static site with real HTML and content kept in typed data files.',
     outcomes: [
       'Loads as fully rendered HTML, so search engines and social previews see the real content.',
-      'Shows each case study in two views: a business overview for recruiters and a technical breakdown for engineers.',
-      'Keeps all content (experience, case studies, projects, skills, articles) in typed data files, so updates do not touch layout code.',
+      'Shows each project in two views: a business overview for recruiters and a technical breakdown for engineers.',
+      'Keeps all content (experience, projects, skills, articles) in typed data files, so updates do not touch layout code.',
     ],
     technical: {
       architecture:
-        'A prerendered single-page app with a data-driven content layer. Typed TypeScript data files feed React and MUI components. At build time, Vite builds the client, then a Vite SSR build of a server entry renders the app to a string, and a Node script injects that markup and the critical Emotion styles into index.html. Vercel serves the static dist/ folder, with every path rewritten to index.html, and the browser hydrates the same markup.',
+        'Typed TypeScript data files feed React and MUI components. At build time a Vite SSR pass prerenders the page to static HTML, which Vercel serves and the browser hydrates.',
       howItWasBuilt: [
-        'Prerendered the page at build time with renderToString and @emotion/server, using a shared Emotion cache so the client hydrates the same markup.',
-        'Modeled content as typed TypeScript data (case studies with kind, industry, and tech tags), so the compiler catches missing fields.',
-        'Wrote Vitest checks on the data (unique ids, https links, required assets, both case study views present) and on rendering, with Testing Library.',
-        'Added Playwright smoke tests for hydration without console errors, SEO and social meta tags, and navigation, on desktop and mobile.',
-        'GitHub Actions runs lint, typecheck, Vitest, the production build (with prerender), and Playwright e2e on Chromium on every push to main and every pull request, and uploads the Playwright report when a run fails. Vercel deploys from vercel.json (npm run build, serve dist/).',
+        'Prerendered the page at build time with a shared Emotion cache, so the client hydrates the same markup.',
+        'Modeled content as typed data, so the compiler catches missing fields.',
+        'Wrote Vitest checks on the data and rendering, plus Playwright smoke tests for hydration, SEO tags and navigation.',
+        'GitHub Actions runs lint, typecheck, tests, build and e2e on every push and pull request.',
       ],
       stack: [
         {
           layer: 'Architecture',
           items: ['Prerendered SPA', 'Data-driven content', 'Static hosting'],
         },
-        { layer: 'Frontend', items: ['React', 'TypeScript', 'Vite', 'MUI', 'Emotion', 'Framer Motion'] },
+        { layer: 'Frontend', items: ['React', 'TypeScript', 'Vite', 'MUI', 'Emotion'] },
         { layer: 'Build', items: ['Vite SSR', 'Node prerender script'] },
-        { layer: 'Infrastructure', items: ['Vercel (static hosting)'] },
-        { layer: 'CI/CD', items: ['GitHub Actions (lint, typecheck, test, build, e2e)'] },
+        { layer: 'Infrastructure', items: ['Vercel'] },
+        { layer: 'CI/CD', items: ['GitHub Actions (lint, test, build, e2e)'] },
         { layer: 'Testing', items: ['Vitest', 'Testing Library', 'Playwright'] },
       ],
     },

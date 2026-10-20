@@ -4,7 +4,7 @@ export const clientCaseStudies: CaseStudy[] = [
   {
     id: 'listing-audit',
     kind: 'client',
-    industry: 'e-commerce',
+    industry: 'marketing',
     tech: ['TypeScript', 'AI', 'AWS', 'Docker', 'Vercel', 'CI/CD'],
     year: 2026,
     ongoing: true,
@@ -12,7 +12,7 @@ export const clientCaseStudies: CaseStudy[] = [
     company: 'Agency client',
     tags: ['AI', 'Architecture', 'Data'],
     headline:
-      'Gave an e-commerce agency a tool that audits whole Amazon catalogs and drafts better, evidence-backed listing copy for each marketplace and language.',
+      'Gave a marketing agency a tool that audits whole Amazon catalogs and drafts better, evidence-backed listing copy for each marketplace and language.',
     role: 'Full Stack & AI Engineer · designed and built the application',
     challenge:
       "The agency's teams reviewed Amazon product pages one at a time, by hand, across Amazon marketplaces. They needed a fast way to see which pages underperform across a whole catalog, why, and what better copy would look like, with evidence they could defend to brands.",
@@ -26,18 +26,13 @@ export const clientCaseStudies: CaseStudy[] = [
     ],
     technical: {
       architecture:
-        'A Next.js app on Vercel with a typed tRPC API over PostgreSQL. Long work runs as background jobs in a Postgres jobs table instead of Redis or a separate worker: Vercel Cron and an in-app kick after each change call a tick endpoint, which claims jobs with SELECT … FOR UPDATE SKIP LOCKED and a lease, so a crashed run is picked up again. Catalog scraping and analysis are split into small stages (plan, batch, reviews, finalize; prepare, per-product signals → audit → copy, finalize) so each one fits within serverless time limits. In staging, the database is Aurora PostgreSQL in a private VPC, reached from Vercel over AWS PrivateLink with no public endpoint.',
+        'A Next.js app on Vercel with a typed tRPC API over PostgreSQL. Scraping and analysis run as small staged background jobs from a Postgres-backed queue, so each fits serverless time limits; staging reaches Aurora PostgreSQL privately over AWS PrivateLink.',
       howItWasBuilt: [
-        'Built the job queue on Postgres: leases with heartbeats, a time budget per tick, parallel claims, a reaper for stuck work, dead jobs the operator can requeue, and readiness checks that report queue health.',
-        'Scraped product pages and reviews with marketplace-aware Apify actors, normalized into one model, with a fixture provider for offline demos and CI.',
-        'Wrote the 34 checks as a TypeScript rule engine with threshold packs per marketplace. Operators can change the marketplace, the marketplace locale and the app language, override thresholds per client, and each run takes a snapshot of its settings. The semantic checks are judged by an LLM.',
-        'Put the AI behind a provider-agnostic adapter on the Vercel AI SDK, switchable between OpenAI, Anthropic, Amazon Bedrock, Google, Azure and a LiteLLM proxy, with separate models for copy, review signals and semantic checks.',
-        'Signed in to Bedrock with Vercel OIDC role assumption instead of static AWS keys.',
-        "Made the text handling locale-aware, for example for Japanese: sentence splitting on 。！？ and phrase matching that doesn't assume spaces between words. Translated the interface with next-intl, so the app language is set apart from the marketplace locale.",
-        'Defined the schema and migrations with Drizzle ORM. Production applies migrations on cold start.',
-        'Logged structured Pino metrics and alerts for job lag, dead jobs, LLM token usage and Apify spend, and added a 90-day retention purge.',
-        'Tested in layers: Vitest unit and React Testing Library component tests, Postgres integration tests, and Playwright end-to-end tests that run the full check → analysis → audit flow with a mock LLM and fixtures, so no paid APIs are called.',
-        'Set up GitHub Actions CI: lint, typecheck and tests, then an end-to-end job against a Postgres service container. A post-deploy workflow smoke-tests every Vercel deployment.',
+        'Built the job queue on Postgres with leases, heartbeats and a reaper, so crashed runs are picked up again.',
+        'Wrote the 34 checks as a TypeScript rule engine with per-marketplace thresholds, and an LLM judging the semantic ones. Operators can change the marketplace, marketplace locale and app language.',
+        'Put the AI behind a Vercel AI SDK adapter that switches between OpenAI, Anthropic, Bedrock, Google and Azure.',
+        'Made text handling locale-aware, such as Japanese sentence splitting and phrase matching without spaces between words.',
+        'Tested with Vitest, Postgres integration and Playwright end-to-end tests on a mock LLM, run in GitHub Actions.',
       ],
       stack: [
         {
@@ -50,12 +45,9 @@ export const clientCaseStudies: CaseStudy[] = [
             'Rule engine',
           ],
         },
-        { layer: 'Frontend', items: ['Next.js', 'React', 'TypeScript', 'MUI', 'MUI X Data Grid', 'next-intl'] },
-        { layer: 'Backend', items: ['tRPC', 'TanStack Query', 'Drizzle ORM', 'PostgreSQL', 'Zod', 'Pino'] },
-        {
-          layer: 'AI',
-          items: ['Vercel AI SDK', 'Amazon Bedrock', 'OpenAI', 'Anthropic', 'Google Gemini', 'Azure OpenAI', 'LiteLLM'],
-        },
+        { layer: 'Frontend', items: ['Next.js', 'React', 'TypeScript', 'MUI', 'next-intl'] },
+        { layer: 'Backend', items: ['tRPC', 'Drizzle ORM', 'PostgreSQL', 'Zod', 'Pino'] },
+        { layer: 'AI', items: ['Vercel AI SDK', 'Amazon Bedrock', 'OpenAI', 'Anthropic', 'Google Gemini'] },
         { layer: 'Data', items: ['Apify (Amazon scraping)', 'CSV and Excel exports'] },
         {
           layer: 'Infrastructure',
@@ -67,7 +59,7 @@ export const clientCaseStudies: CaseStudy[] = [
             'Docker (PostgreSQL)',
           ],
         },
-        { layer: 'CI/CD', items: ['GitHub Actions (CI, Postgres service container)', 'Post-deploy smoke tests'] },
+        { layer: 'CI/CD', items: ['GitHub Actions', 'Post-deploy smoke tests'] },
         { layer: 'Testing', items: ['Vitest', 'React Testing Library', 'Playwright'] },
       ],
     },
@@ -100,23 +92,21 @@ export const clientCaseStudies: CaseStudy[] = [
     ],
     technical: {
       architecture:
-        'Service-oriented: a React/TypeScript web app talks to a NestJS REST API on PostgreSQL, and separate Python services (FastAPI and Flask) run the AI features. Everything runs on AWS (EC2 compute, RDS for PostgreSQL, S3 for documents, CloudFront and ACM in front), and GitHub Actions pipelines build and deploy each release. I led the architecture and system design.',
+        'A React/TypeScript web app talks to a NestJS REST API on PostgreSQL, with separate Python services running the AI features. It all runs on AWS and ships through GitHub Actions pipelines.',
       howItWasBuilt: [
-        'Designed the API and data model in NestJS and TypeORM on PostgreSQL, with clear contracts between frontend and backend.',
-        'Built AI features as Python services that use LLMs with retrieval-augmented generation (RAG) to process and automate legal documents.',
-        'Set up the AWS infrastructure: EC2 for compute, RDS for PostgreSQL, S3 for files, and CloudFront with ACM for CDN and TLS.',
-        'Ran the PostgreSQL and Redis databases in Docker containers.',
-        'Automated deployments with GitHub Actions CI/CD pipelines, replacing manual releases.',
-        'Defined coding standards and code review practices as the team grew.',
-        'Instrumented Google Analytics 4 events to track funnels and product metrics.',
+        'Led the architecture and designed the API and data model in NestJS and TypeORM on PostgreSQL.',
+        'Built Python AI services that use LLMs with RAG to process and automate legal documents.',
+        'Set up the AWS infrastructure: EC2, RDS, S3, and CloudFront with ACM for CDN and TLS.',
+        'Automated deployments with GitHub Actions CI/CD, replacing manual releases.',
+        'Set coding standards and code review as the team grew, and tracked funnels in Google Analytics 4.',
       ],
       stack: [
         { layer: 'Architecture', items: ['Service-oriented', 'REST API', 'RAG pipeline', 'CDN-fronted SPA'] },
         { layer: 'Frontend', items: ['React', 'TypeScript'] },
         { layer: 'Backend', items: ['NestJS', 'TypeORM', 'PostgreSQL', 'Redis'] },
         { layer: 'AI', items: ['Python', 'FastAPI', 'Flask', 'LLMs', 'RAG'] },
-        { layer: 'Infrastructure', items: ['AWS EC2', 'AWS RDS', 'AWS S3', 'CloudFront', 'ACM', 'Docker (PostgreSQL, Redis)'] },
-        { layer: 'CI/CD', items: ['GitHub Actions (automated deployments)'] },
+        { layer: 'Infrastructure', items: ['AWS EC2', 'AWS RDS', 'AWS S3', 'CloudFront + ACM', 'Docker'] },
+        { layer: 'CI/CD', items: ['GitHub Actions'] },
         { layer: 'Analytics', items: ['Google Analytics 4'] },
       ],
     },
@@ -154,18 +144,17 @@ export const clientCaseStudies: CaseStudy[] = [
       architecture:
         'React/Next.js clinical interfaces on top of NestJS/Node services deployed on AWS, with PostgreSQL and DynamoDB for storage and Redis caching expensive report queries.',
       howItWasBuilt: [
-        'Built clinical data management interfaces in React, Next.js, and MUI for patient and EEG tracking.',
-        'Developed scalable NestJS/Node backends on AWS, using PostgreSQL and DynamoDB.',
+        'Built patient and EEG tracking interfaces in React, Next.js, and MUI.',
+        'Developed NestJS/Node backends on AWS with PostgreSQL and DynamoDB.',
         'Integrated medical APIs to validate TMS sessions and automate EEG data processing.',
         'Optimized slow report queries and added Redis caching on top.',
-        'Ran the PostgreSQL and Redis databases in Docker containers.',
       ],
       stack: [
         { layer: 'Architecture', items: ['REST API', 'Caching layer', 'Third-party API integration'] },
         { layer: 'Frontend', items: ['React', 'Next.js', 'MUI'] },
         { layer: 'Backend', items: ['NestJS', 'Node.js'] },
         { layer: 'Data', items: ['PostgreSQL', 'DynamoDB', 'Redis'] },
-        { layer: 'Infrastructure', items: ['AWS', 'DynamoDB (AWS)', 'Docker (PostgreSQL, Redis)'] },
+        { layer: 'Infrastructure', items: ['AWS', 'Docker (PostgreSQL, Redis)'] },
         { layer: 'Integrations', items: ['Medical APIs (TMS, EEG)'] },
       ],
     },
@@ -205,8 +194,8 @@ export const clientCaseStudies: CaseStudy[] = [
       architecture:
         'Event-driven NestJS microservices communicating through Apache Kafka, backed by PostgreSQL, with React/Next.js front ends for remittance and client management.',
       howItWasBuilt: [
-        'Split the backend into NestJS microservices that communicate through Kafka events, improving throughput and scalability for high-volume transactions.',
-        'Used Sequelize ORM on PostgreSQL to replace awkward queries and speed up API responses.',
+        'Split the backend into NestJS microservices talking over Kafka events, raising throughput for high transaction volume.',
+        'Replaced awkward queries with Sequelize on PostgreSQL to speed up API responses.',
         'Built remittance and client management interfaces with React, Next.js, and MUI.',
         'Wrote a Node/Express integration that generates Jira-based reports in Google Sheets.',
       ],
@@ -248,11 +237,10 @@ export const clientCaseStudies: CaseStudy[] = [
       architecture:
         "React/Next.js frontend rendering AI heatmaps, a NestJS API on PostgreSQL, and AWS S3 for the large geospatial files coming from the AI team's workflows, with DevOps work on Azure.",
       howItWasBuilt: [
-        'Built the full stack: React, Next.js, and MUI on the frontend; Node and NestJS on PostgreSQL on the backend.',
-        "Connected the AI R&D team's workflows to the platform so their output flowed into the product.",
-        'Stored and served large geospatial files from AWS S3.',
-        'Handled DevOps work on Azure.',
+        'Built the full stack: React, Next.js, and MUI in front, Node and NestJS on PostgreSQL behind.',
+        "Connected the AI R&D team's workflows so their output flowed into the product.",
         'Rendered AI heatmaps so clients could compare locations using real-time data.',
+        'Stored and served large geospatial files from AWS S3, and handled DevOps on Azure.',
       ],
       stack: [
         { layer: 'Architecture', items: ['REST API', 'Object storage for large files', 'AI pipeline integration'] },

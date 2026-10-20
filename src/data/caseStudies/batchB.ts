@@ -22,12 +22,12 @@ export const batchB: CaseStudy[] = [
     ],
     technical: {
       architecture:
-        'Event-driven microservices. A client calls POST /certifications on the Express API, which produces messages to an "issue-certificate" Kafka topic. A standalone certification service consumes that topic and publishes a result to a "certification-response" topic, which the API consumes and logs. Both Node services run locally against a Kafka broker and ZooKeeper in Docker Compose.',
+        'An Express API sends certificate requests to a Kafka topic. A separate certification service consumes them and replies on a response topic that the API reads. Kafka and ZooKeeper run in Docker Compose.',
       howItWasBuilt: [
-        'Used KafkaJS producers and consumers with separate consumer groups for the API and the certification service.',
-        'Shared one connected producer with every Express route through a small middleware on the request object.',
-        'Sent messages with GZIP compression and configured client retries with an initial backoff.',
-        'Ran ZooKeeper and a Kafka broker with Docker Compose, auto-creating both topics (one partition, one replica each) through the KAFKA_CREATE_TOPICS setting.',
+        'Used KafkaJS producers and consumers, with a separate consumer group for each service.',
+        'Shared one connected producer with all Express routes through a small middleware.',
+        'Sent messages with GZIP compression and client retries with backoff.',
+        'Ran ZooKeeper and Kafka with Docker Compose, creating both topics on startup.',
       ],
       stack: [
         { layer: 'Architecture', items: ['Microservices', 'Event-driven (Kafka topics)', 'Async request/reply', 'REST API'] },
@@ -60,22 +60,20 @@ export const batchB: CaseStudy[] = [
     ],
     technical: {
       architecture:
-        'A modular NestJS REST API with Users and Reports modules, each layered as controller, service and TypeORM repository (a user has many reports). A request passes cookie-session and current-user middleware, then guards and validation, before the controller calls the service, and a serializer DTO shapes the response. It uses SQLite in development and tests and PostgreSQL in production, and is set up for Heroku through a Procfile and DATABASE_URL.',
+        'A NestJS REST API with Users and Reports modules, each split into controller, service and TypeORM repository. Requests pass session middleware, guards and validation. SQLite runs in development and PostgreSQL on Heroku in production.',
       howItWasBuilt: [
-        'Hashed passwords with Node crypto scrypt and a random salt per user, stored as salt.hash.',
-        'Built cookie-session auth with a current-user middleware, a custom @CurrentUser decorator, and AuthGuard and AdminGuard route guards.',
-        'Wrote a reusable @Serialize interceptor with class-transformer DTOs so responses never leak fields like passwords.',
-        'Validated input globally with ValidationPipe (whitelist) and class-validator DTOs.',
-        'Computed estimates with a TypeORM query builder (AVG price, location and year ranges, ordered by mileage, top 3).',
-        'Loaded per-environment config with @nestjs/config and covered signup and session flows with Jest and Supertest e2e tests on a separate SQLite test database.',
-        'Prepared for Heroku: a Procfile runs the compiled app (npm run start:prod), and the production config connects to Postgres through DATABASE_URL with SSL and runs TypeORM migrations on startup.',
+        'Hashed passwords with Node crypto scrypt and a random salt per user.',
+        'Built cookie-session auth with a @CurrentUser decorator and AuthGuard and AdminGuard route guards.',
+        'Used a @Serialize interceptor with DTOs so responses never leak fields like passwords.',
+        'Computed estimates with a TypeORM query: average price of the 3 matching sales closest in mileage.',
+        'Covered signup and session flows with Jest and Supertest e2e tests on a separate SQLite database.',
       ],
       stack: [
-        { layer: 'Architecture', items: ['REST API', 'Layered modules (controller/service/repository)', 'Role-based access (guards)', 'ORM migrations'] },
+        { layer: 'Architecture', items: ['REST API', 'Layered modules', 'Role-based guards', 'ORM migrations'] },
         { layer: 'Backend', items: ['NestJS', 'TypeScript', 'cookie-session', 'class-validator', 'class-transformer'] },
         { layer: 'Data', items: ['TypeORM', 'PostgreSQL', 'SQLite'] },
         { layer: 'Testing', items: ['Jest', 'Supertest'] },
-        { layer: 'Infrastructure', items: ['Heroku (Procfile)', 'PostgreSQL via DATABASE_URL'] },
+        { layer: 'Infrastructure', items: ['Heroku', 'PostgreSQL via DATABASE_URL'] },
       ],
     },
     links: [{ label: 'GitHub', url: 'https://github.com/Eric-Souza/car-sales-api' }],
@@ -102,21 +100,20 @@ export const batchB: CaseStudy[] = [
     ],
     technical: {
       architecture:
-        'A client-server MERN app. The React single page app dispatches Redux thunks that call the Express REST API with a JWT. The API checks the token in middleware, routes to MVC-style controllers, and reads and writes Mongoose models (users, tickets, notes) in MongoDB. In production one Node process on Heroku serves both the API and the built React app.',
+        'A MERN app. A React and Redux single page app calls an Express REST API with a JWT, and the API stores users, tickets and notes in MongoDB. One Node process on Heroku serves both.',
       howItWasBuilt: [
-        'Hashed passwords with bcryptjs and issued JSON Web Tokens, checked by a protect middleware on every ticket and note route.',
-        'Checked ticket ownership on the server so users can only read or change their own tickets and notes.',
-        'Nested note routes under tickets (/api/tickets/:ticketId/notes) with Express router merging.',
-        'Managed auth, ticket and note state with Redux Toolkit slices and async thunks calling Axios services.',
-        'Guarded private pages with a PrivateRoute component in React Router 6, with toast notifications and a modal for adding notes.',
-        'Deployed to Heroku as a single app: a heroku-postbuild script installs and builds the React front end, and Express serves the build folder when NODE_ENV is production.',
+        'Hashed passwords with bcryptjs and protected ticket and note routes with JWT middleware.',
+        'Checked ticket ownership on the server so users only see and change their own tickets.',
+        'Nested note routes under tickets with Express router merging.',
+        'Managed auth, ticket and note state with Redux Toolkit slices and async thunks.',
+        'Deployed to Heroku as one app, with Express serving the built React front end in production.',
       ],
       stack: [
-        { layer: 'Architecture', items: ['SPA + REST API', 'MVC (routes/controllers/models)', 'JWT auth middleware', 'Nested resources'] },
+        { layer: 'Architecture', items: ['SPA + REST API', 'MVC', 'JWT auth middleware', 'Nested resources'] },
         { layer: 'Frontend', items: ['React', 'Redux Toolkit', 'React Router', 'Axios', 'React Toastify'] },
         { layer: 'Backend', items: ['Node.js', 'Express', 'JSON Web Token', 'bcryptjs'] },
         { layer: 'Data', items: ['MongoDB', 'Mongoose'] },
-        { layer: 'Infrastructure', items: ['Heroku (heroku-postbuild)'] },
+        { layer: 'Infrastructure', items: ['Heroku'] },
       ],
     },
     links: [{ label: 'GitHub', url: 'https://github.com/Eric-Souza/support-tickets-mern-app' }],
@@ -143,17 +140,17 @@ export const batchB: CaseStudy[] = [
     ],
     technical: {
       architecture:
-        'An integration service that syncs one API into another. A GET /issues request hits an Express controller, which pulls the board and up to 5,000 issues from the Jira REST API through jira-client, transforms each issue into a flat row, then uses google-spreadsheet with a service account to create or overwrite a sheet in the target spreadsheet. It runs as a local Node server configured through environment variables.',
+        'An Express service that pulls a board and its issues from the Jira REST API, flattens each issue into a row, and writes the rows to a Google Sheet through a service account.',
       howItWasBuilt: [
-        'Wrapped the Jira and Google Sheets connections in small modules configured through environment variables.',
-        'Mapped Jira fields, including custom fields for sprints, area and QA assignee, into flat sheet rows, formatting dates with date-fns.',
-        'Derived checklist columns from the position of the issue status in an ordered workflow, then computed a ready percentage per issue.',
-        'Cleared and rewrote the header row on refresh so the sheet always matches the current board.',
+        'Wrapped the Jira and Google Sheets clients in small modules configured by environment variables.',
+        'Mapped Jira fields, including custom fields for sprints and QA assignee, into flat sheet rows.',
+        'Derived checklist columns from where the issue status sits in the workflow, then a ready percentage.',
+        'Rewrote the header row on each refresh so the sheet matches the current board.',
       ],
       stack: [
-        { layer: 'Architecture', items: ['REST API', 'Third-party API integration', 'Extract, transform, load to Sheets'] },
+        { layer: 'Architecture', items: ['REST API', 'Third-party API integration', 'ETL to Sheets'] },
         { layer: 'Backend', items: ['Node.js', 'Express', 'Sucrase', 'date-fns'] },
-        { layer: 'Integrations', items: ['Jira REST API (jira-client)', 'Google Sheets API (google-spreadsheet)'] },
+        { layer: 'Integrations', items: ['Jira REST API', 'Google Sheets API'] },
       ],
     },
     links: [{ label: 'GitHub', url: 'https://github.com/Eric-Souza/jira-rest-api' }],
@@ -179,14 +176,14 @@ export const batchB: CaseStudy[] = [
     ],
     technical: {
       architecture:
-        'An MVC-style Express REST API. Routes call controllers, which use Sequelize models for User, Address and Tech to query PostgreSQL. Users have many addresses and a many-to-many link to techs through a user_techs table. It runs locally against a PostgreSQL instance.',
+        'An Express REST API where controllers use Sequelize models to query PostgreSQL. Users have many addresses and a many-to-many link to technologies through a join table.',
       howItWasBuilt: [
-        'Created the schema with sequelize-cli migrations, including the join table.',
-        'Defined hasMany and belongsToMany associations with aliases and used generated helpers like addTech and removeTech.',
-        'Wrote a report query with case-insensitive iLike filters and required and optional includes.',
+        'Created the schema, including the join table, with sequelize-cli migrations.',
+        'Defined hasMany and belongsToMany associations and used generated helpers like addTech.',
+        'Wrote a report query with case-insensitive filters and joined includes.',
       ],
       stack: [
-        { layer: 'Architecture', items: ['REST API', 'MVC (routes/controllers/models)', 'ORM migrations', 'Relational model (1:N, N:M)'] },
+        { layer: 'Architecture', items: ['REST API', 'MVC', 'ORM migrations', 'Relational model (1:N, N:M)'] },
         { layer: 'Backend', items: ['Node.js', 'Express'] },
         { layer: 'Data', items: ['PostgreSQL', 'Sequelize', 'sequelize-cli'] },
       ],
@@ -214,14 +211,14 @@ export const batchB: CaseStudy[] = [
     ],
     technical: {
       architecture:
-        'A framework-free REST API in an MVC layout. A single http.createServer handler routes each request by URL and method to a controller, which calls a model that keeps products in memory and writes them to data/products.json. It runs as a local Node process.',
+        'A REST API on the raw Node http module. One request handler routes by URL and method to controllers, and a model keeps products in memory and saves them to a JSON file.',
       howItWasBuilt: [
-        'Matched routes with regular expressions on req.url and pulled the id from the path.',
-        'Read request bodies manually by collecting data chunks from the request stream inside a Promise.',
-        'Kept the only dependency to uuid for generating product ids.',
+        'Matched routes with regular expressions on the URL and pulled the id from the path.',
+        'Read request bodies by collecting data chunks from the request stream.',
+        'Kept uuid as the only dependency, for product ids.',
       ],
       stack: [
-        { layer: 'Architecture', items: ['REST API', 'MVC (controllers/models)', 'Manual routing'] },
+        { layer: 'Architecture', items: ['REST API', 'MVC', 'Manual routing'] },
         { layer: 'Backend', items: ['Node.js (http, fs)', 'uuid'] },
         { layer: 'Data', items: ['JSON file storage'] },
       ],
@@ -248,11 +245,11 @@ export const batchB: CaseStudy[] = [
     ],
     technical: {
       architecture:
-        'Two standalone ES module scripts built around stream pipelines. One compares readFileSync with createReadStream for an HTTP response and pipes stdin and a TCP socket to stdout. The other generates objects in a Readable stream, converts them in Transform streams and writes the result to a CSV file. Both run locally with Node.',
+        'Two standalone Node scripts built on streams. One serves a large file over HTTP in chunks. The other generates records, transforms them and writes a CSV file through a stream pipeline.',
       howItWasBuilt: [
         'Created custom Readable, Writable and Transform streams.',
-        'Chained streams with a promisified stream.pipeline so errors and completion are handled in one place.',
-        'Used a stateful Transform to add a CSV header only to the first chunk.',
+        'Chained streams with stream.pipeline so errors and completion are handled in one place.',
+        'Used a stateful Transform to add the CSV header only to the first chunk.',
       ],
       stack: [
         { layer: 'Architecture', items: ['Streams/pipelines', 'Chunked processing'] },
@@ -282,14 +279,14 @@ export const batchB: CaseStudy[] = [
     ],
     technical: {
       architecture:
-        'A controller-based Express REST API in TypeScript. A sign-in request goes to the auth controller, which loads the user through a TypeORM repository on PostgreSQL, compares the password hash and returns a signed token. Later requests to protected routes pass a JWT middleware before reaching the user controller. It runs locally against PostgreSQL.',
+        'An Express REST API in TypeScript. The auth controller checks the password against PostgreSQL through TypeORM and returns a signed JWT, which middleware checks on protected routes.',
       howItWasBuilt: [
-        'Hashed passwords with bcryptjs in TypeORM @BeforeInsert and @BeforeUpdate entity hooks.',
-        'Signed tokens with jsonwebtoken and read them from the Bearer authorization header in middleware.',
-        'Created the users table with a TypeORM migration and extended the Express Request type to carry the user id.',
+        'Hashed passwords with bcryptjs in TypeORM entity hooks before insert and update.',
+        'Signed tokens with jsonwebtoken and read them from the Bearer header in middleware.',
+        'Created the users table with a TypeORM migration.',
       ],
       stack: [
-        { layer: 'Architecture', items: ['REST API', 'JWT auth middleware', 'Controllers + ORM entities', 'ORM migrations'] },
+        { layer: 'Architecture', items: ['REST API', 'JWT auth middleware', 'ORM entities', 'ORM migrations'] },
         { layer: 'Backend', items: ['Node.js', 'Express', 'TypeScript', 'jsonwebtoken', 'bcryptjs'] },
         { layer: 'Data', items: ['PostgreSQL', 'TypeORM'] },
       ],
@@ -316,14 +313,14 @@ export const batchB: CaseStudy[] = [
     ],
     technical: {
       architecture:
-        'A modular NestJS REST API. Requests to /companies reach a controller and service built on @nestjsx/crud base classes, which generate the endpoints and query a TypeORM repository for the Company entity on PostgreSQL. It runs locally, with TypeORM synchronizing the schema from the entities.',
+        'A NestJS REST API whose controller and service extend @nestjsx/crud base classes, generating /companies endpoints over a TypeORM repository on PostgreSQL.',
       howItWasBuilt: [
-        'Used the @Crud decorator and TypeOrmCrudService to generate standard CRUD routes from the entity.',
+        'Generated standard CRUD routes from the entity with the @Crud decorator and TypeOrmCrudService.',
         'Shared id and timestamp columns through a base entity class.',
-        'Configured the TypeORM connection in a typed options file and kept sample requests in a REST Client file.',
+        'Let TypeORM synchronize the database schema from the entities.',
       ],
       stack: [
-        { layer: 'Architecture', items: ['REST API', 'Layered modules (controller/service/repository)', 'Generated CRUD endpoints'] },
+        { layer: 'Architecture', items: ['REST API', 'Layered modules', 'Generated CRUD endpoints'] },
         { layer: 'Backend', items: ['NestJS', 'TypeScript', '@nestjsx/crud'] },
         { layer: 'Data', items: ['PostgreSQL', 'TypeORM'] },
       ],
@@ -350,14 +347,14 @@ export const batchB: CaseStudy[] = [
     ],
     technical: {
       architecture:
-        'A modular NestJS REST API. Requests to /products reach a controller, which delegates to an injectable service that holds products in an in-memory array. It runs as a local Node process with no database.',
+        'A NestJS REST API where a /products controller delegates to an injectable service that keeps products in memory. There is no database.',
       howItWasBuilt: [
         'Read route params and body fields with @Param and @Body decorators.',
         'Injected the service into the controller through NestJS dependency injection.',
-        "Threw NestJS's NotFoundException for missing products and returned copies of stored data to avoid outside mutation.",
+        'Threw NotFoundException for missing products and returned copies of stored data to avoid outside mutation.',
       ],
       stack: [
-        { layer: 'Architecture', items: ['REST API', 'Layered modules (controller/service)', 'Dependency injection'] },
+        { layer: 'Architecture', items: ['REST API', 'Layered modules', 'Dependency injection'] },
         { layer: 'Backend', items: ['NestJS', 'TypeScript'] },
         { layer: 'Data', items: ['In-memory store'] },
       ],
@@ -385,11 +382,11 @@ export const batchB: CaseStudy[] = [
     ],
     technical: {
       architecture:
-        'A full stack Meteor app using its RPC model. The React client calls Meteor server methods for sign-up and password changes and uses Meteor.loginWithPassword to sign in, and the server stores accounts in the MongoDB instance that Meteor runs locally.',
+        'A full stack Meteor app. The React client calls Meteor server methods to sign up and change passwords, and the server stores accounts in MongoDB.',
       howItWasBuilt: [
-        'Registered Meteor methods on startup that call Accounts.createUser and Accounts.setPassword.',
-        'Used the accounts-base and accounts-password packages, with bcrypt for password hashing.',
-        'Built the sign-in, sign-up and new password pages with Material UI, React Router and React Toastify.',
+        'Registered server methods that call Accounts.createUser and Accounts.setPassword.',
+        'Used the Meteor accounts-password package, with bcrypt for password hashing.',
+        'Built the pages with Material UI, React Router and React Toastify.',
       ],
       stack: [
         { layer: 'Architecture', items: ['Full stack Meteor app', 'RPC (Meteor methods)', 'Client-side routing'] },

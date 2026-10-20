@@ -36,14 +36,14 @@ test('ships SEO and social preview tags', async ({ page }) => {
 test('navbar scrolls to a section', async ({ page, isMobile }) => {
   await page.goto('/');
   if (isMobile) await page.getByRole('button', { name: /menu/i }).click();
-  await page.getByRole('button', { name: 'Case Studies', exact: true }).click();
-  await expect(page.locator('section#case-studies')).toBeInViewport();
+  await page.getByRole('button', { name: 'Projects', exact: true }).click();
+  await expect(page.locator('section#projects')).toBeInViewport();
 });
 
-test('case study switches from business impact to technical breakdown', async ({ page }) => {
+test('project card switches from business impact to technical breakdown', async ({ page }) => {
   await page.goto('/');
   const card = page
-    .locator('section#case-studies .MuiCard-root')
+    .locator('section#projects .MuiCard-root')
     .filter({ has: page.getByRole('tablist') })
     .first();
   await card.scrollIntoViewIfNeeded();
@@ -54,16 +54,16 @@ test('case study switches from business impact to technical breakdown', async ({
   await expect(card.getByText('How it was built')).toBeVisible();
 });
 
-test('filters case studies by tech', async ({ page }) => {
+test('filters projects by tech', async ({ page }) => {
   await page.goto('/');
-  const section = page.locator('section#case-studies');
+  const section = page.locator('section#projects');
   const python = section.getByRole('group', { name: 'Filter by tech' }).getByRole('button', { name: /^Python \d+$/ });
   await python.scrollIntoViewIfNeeded();
   const count = Number((await python.textContent())!.match(/\d+$/)![0]);
 
   await python.click();
   await expect(python).toHaveAttribute('aria-pressed', 'true');
-  await expect(section.getByText(new RegExp(`^${count} of \\d+ case studies$`))).toBeVisible();
+  await expect(section.getByText(new RegExp(`^${count} of \\d+ projects$`))).toBeVisible();
   await expect(section.locator('h3')).toHaveCount(Math.min(count, 6));
 });
 
@@ -73,8 +73,8 @@ test.describe('without JavaScript', () => {
   test('prerendered HTML contains the full content', async ({ page }) => {
     await page.goto('/');
     await expect(page.getByRole('heading', { level: 1 })).toHaveText('Eric de Oliveira Souza');
-    // First page of case studies, most recently updated first; the current role leads.
-    await expect(page.locator('section#case-studies h3')).toHaveCount(6);
+    // First page of projects, most recently updated first; the current role leads.
+    await expect(page.locator('section#projects h3')).toHaveCount(6);
     await expect(page.getByText('What we achieved').first()).toBeAttached();
     await expect(page.locator('section#projects a[href^="https://github.com/"]').first()).toBeAttached();
   });

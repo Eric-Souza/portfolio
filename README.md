@@ -24,9 +24,9 @@ Twitter and JSON-LD tags are static in [`index.html`](index.html), because they 
 **Content is data, not markup.** Every section is rendered from typed files in [`src/data`](src/data)
 ([`types.ts`](src/data/types.ts) is the schema). Updating the site means editing data, and
 [`data.test.ts`](src/data/data.test.ts) catches broken content: duplicate ids, non-https links, missing
-project images or assets.
+assets.
 
-**Case studies have two audiences.** Each [`CaseStudy`](src/data/types.ts) has a business view
+**Projects have two audiences.** The Projects section is built from case studies: each [`CaseStudy`](src/data/types.ts) has a business view
 (challenge, outcomes, optional `metrics`) for hiring managers and a `technical` view (architecture,
 how it was built, stack by layer) for engineers. [`CaseStudyCard`](src/components/ui/CaseStudyCard.tsx)
 shows them as accessible tabs. The headline and role stay visible on both.
@@ -34,7 +34,7 @@ shows them as accessible tabs. The headline and role stay visible on both.
 Client work sits alongside side projects, hiring challenges and learning repos (one study per public
 repo), so every study has a `kind`, an `industry` and `tech` tags. Tags cover languages (TypeScript,
 JavaScript, Python, AI) and cloud/delivery work (AWS, Docker, CI/CD, hosting), and the section filters
-on type, industry, language and platform, with live counts per option
+on type, industry, language and platform, with live counts per option (the total only shows while filtering)
 ([`filters.ts`](src/data/caseStudies/filters.ts)). Every technical breakdown leads with an Architecture
 layer, and Infrastructure and CI/CD layers appear only where the repo or role backs them up;
 [`data.test.ts`](src/data/data.test.ts) keeps those layers and the tags in sync.
@@ -56,7 +56,7 @@ animation for users who ask for it. Colors live in a single palette in
 
 ```
 src/
-  data/            typed content (profile, experience, case studies, projects, skills, articles)
+  data/            typed content (profile, experience, case studies, skills, articles)
   components/
     layout/        Navbar, Footer, Section
     sections/      one component per page section

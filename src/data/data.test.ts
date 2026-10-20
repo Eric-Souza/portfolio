@@ -5,7 +5,6 @@ import { articles } from './articles';
 import { caseStudies } from './caseStudies';
 import { experience } from './experience';
 import { profile } from './profile';
-import { projects } from './projects';
 
 const publicDir = resolve(__dirname, '../../public');
 
@@ -21,7 +20,6 @@ const allUrls = [
     ...(c.relatedLinks ?? []).map((l) => l.url),
     ...(c.links ?? []).map((l) => l.url),
   ]),
-  ...projects.flatMap((p) => p.links.map((l) => l.url)),
   ...articles.map((a) => a.url),
 ].filter((url): url is string => Boolean(url));
 
@@ -29,7 +27,6 @@ describe('content data', () => {
   it.each([
     ['experience', experience],
     ['caseStudies', caseStudies],
-    ['projects', projects],
     ['articles', articles],
   ])('%s ids are unique', (_, items) => {
     const ids = items.map((item) => item.id);
@@ -39,12 +36,6 @@ describe('content data', () => {
   it('uses absolute https URLs everywhere', () => {
     for (const url of allUrls) {
       expect(url, url).toMatch(/^https:\/\//);
-    }
-  });
-
-  it('has a preview image for every project', () => {
-    for (const project of projects) {
-      expect(existsSync(resolve(publicDir, `projects/${project.id}.svg`)), project.id).toBe(true);
     }
   });
 
