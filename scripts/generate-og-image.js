@@ -8,7 +8,7 @@ import { chromium } from '@playwright/test';
 const publicDir = fileURLToPath(new URL('../public/', import.meta.url));
 const avatar = (await readFile(`${publicDir}avatar.webp`)).toString('base64');
 
-const highlights = ['Founding engineer', 'LLMs & RAG in production', 'React · NestJS · Python · AWS'];
+const highlights = ['Hired & led a team', 'LLMs & RAG in production', 'React · NestJS · Python · AWS'];
 
 const html = `<!doctype html>
 <html><head><style>
