@@ -1,13 +1,13 @@
 import { Avatar, Box, Button, Chip, Container, Grid, Typography } from '@mui/material';
 import { alpha } from '@mui/material/styles';
 import GitHubIcon from '@mui/icons-material/GitHub';
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import DownloadIcon from '@mui/icons-material/Download';
 import EmailIcon from '@mui/icons-material/Email';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import { motion } from 'framer-motion';
 import { profile } from '../../data/profile';
 import { CopyIconButton } from '../ui/CopyIconButton';
-import { SocialLinks } from '../ui/SocialLinks';
 import { colors, monoFont } from '../../theme/theme';
 
 const containerVariants = {
@@ -178,28 +178,35 @@ export function Hero() {
               >
                 View GitHub
               </Button>
+              <Button
+                variant="outlined"
+                size="large"
+                href={profile.links.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                startIcon={<LinkedInIcon />}
+              >
+                LinkedIn
+              </Button>
             </Box>
           </motion.div>
 
           <motion.div variants={itemVariants}>
-            <Box sx={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', columnGap: 2, rowGap: 1, mt: 3 }}>
-              <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                <Typography
-                  component="a"
-                  href={`mailto:${profile.email}`}
-                  sx={{
-                    fontFamily: monoFont,
-                    color: 'primary.main',
-                    textDecoration: 'none',
-                    wordBreak: 'break-all',
-                    '&:hover': { textDecoration: 'underline' },
-                  }}
-                >
-                  {profile.email}
-                </Typography>
-                <CopyIconButton value={profile.email} label="email address" successMessage="Email copied to clipboard!" />
-              </Box>
-              <SocialLinks links={profile.links} only={['linkedin', 'medium']} />
+            <Box sx={{ display: 'flex', alignItems: 'center', mt: 3 }}>
+              <Typography
+                component="a"
+                href={`mailto:${profile.email}`}
+                sx={{
+                  fontFamily: monoFont,
+                  color: 'primary.main',
+                  textDecoration: 'none',
+                  wordBreak: 'break-all',
+                  '&:hover': { textDecoration: 'underline' },
+                }}
+              >
+                {profile.email}
+              </Typography>
+              <CopyIconButton value={profile.email} label="email address" successMessage="Email copied to clipboard!" />
             </Box>
             <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
               {profile.location} · {profile.availability}
