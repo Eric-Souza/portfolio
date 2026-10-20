@@ -7,7 +7,7 @@ import { colors } from '../../theme/theme';
 
 export function About() {
   return (
-    <Section id="about" title="About Me" subtitle="I take products from architecture to production.">
+    <Section id="about" title="About Me" subtitle="I own and develop products from architecture to production.">
       <Grid container spacing={4} sx={{ alignItems: 'center' }}>
         <Grid size={{ xs: 12, md: 3 }}>
           <motion.div
