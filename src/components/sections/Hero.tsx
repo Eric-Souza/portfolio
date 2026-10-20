@@ -6,7 +6,8 @@ import EmailIcon from '@mui/icons-material/Email';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import { motion } from 'framer-motion';
 import { profile } from '../../data/profile';
-import { scrollToSection } from '../../hooks/useActiveSection';
+import { CopyIconButton } from '../ui/CopyIconButton';
+import { SocialLinks } from '../ui/SocialLinks';
 import { colors, monoFont } from '../../theme/theme';
 
 const containerVariants = {
@@ -135,10 +136,11 @@ export function Hero() {
               <Button
                 variant="contained"
                 size="large"
+                href={`mailto:${profile.email}`}
                 startIcon={<EmailIcon />}
-                onClick={() => scrollToSection('contact')}
+                aria-label={`Send email to ${profile.email}`}
               >
-                Contact Me
+                Email Me
               </Button>
               <Button
                 variant="outlined"
@@ -177,6 +179,31 @@ export function Hero() {
                 View GitHub
               </Button>
             </Box>
+          </motion.div>
+
+          <motion.div variants={itemVariants}>
+            <Box sx={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', columnGap: 2, rowGap: 1, mt: 3 }}>
+              <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                <Typography
+                  component="a"
+                  href={`mailto:${profile.email}`}
+                  sx={{
+                    fontFamily: monoFont,
+                    color: 'primary.main',
+                    textDecoration: 'none',
+                    wordBreak: 'break-all',
+                    '&:hover': { textDecoration: 'underline' },
+                  }}
+                >
+                  {profile.email}
+                </Typography>
+                <CopyIconButton value={profile.email} label="email address" successMessage="Email copied to clipboard!" />
+              </Box>
+              <SocialLinks links={profile.links} only={['linkedin', 'medium']} />
+            </Box>
+            <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
+              {profile.location} · {profile.availability}
+            </Typography>
           </motion.div>
           </Grid>
         </Grid>
