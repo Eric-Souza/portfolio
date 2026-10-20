@@ -102,10 +102,3 @@ export const theme = createTheme({
 });
 
 export const monoFont = '"JetBrains Mono", monospace';
-
-// Dark label on WhatsApp green: white text fails WCAG AA contrast (1.98:1 vs 9.66:1).
-export const whatsappButtonSx = {
-  bgcolor: colors.whatsapp,
-  color: colors.background,
-  '&:hover': { bgcolor: colors.whatsappHover },
-};

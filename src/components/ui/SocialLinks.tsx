@@ -7,6 +7,8 @@ import type { SocialLinks } from '../../data/types';
 interface SocialLinksProps {
   links: SocialLinks;
   size?: 'small' | 'medium' | 'large';
+  /** Show only these networks, e.g. where another button already links to GitHub. */
+  only?: (keyof SocialLinks)[];
 }
 
 const socialConfig = [
@@ -15,10 +17,10 @@ const socialConfig = [
   { key: 'medium' as const, label: 'Medium', Icon: ArticleIcon },
 ];
 
-export function SocialLinks({ links, size = 'medium' }: SocialLinksProps) {
+export function SocialLinks({ links, size = 'medium', only }: SocialLinksProps) {
   return (
     <Stack direction="row" spacing={1}>
-      {socialConfig.map(({ key, label, Icon }) => (
+      {socialConfig.filter(({ key }) => !only || only.includes(key)).map(({ key, label, Icon }) => (
         <Tooltip key={key} title={label}>
           <IconButton
             component="a"
