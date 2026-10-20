@@ -15,6 +15,7 @@ export const kindLabels: Record<CaseStudyKind, string> = {
 };
 
 export const industryLabels: Record<Industry, string> = {
+  'ai-analytics': 'AI analytics',
   'legal-tech': 'Legal-tech',
   'health-tech': 'Health-tech',
   fintech: 'Fintech',
@@ -34,7 +35,7 @@ export const industryLabels: Record<Industry, string> = {
 
 export const languageTags: LanguageTag[] = ['TypeScript', 'JavaScript', 'Python', 'AI'];
 
-export const platformTags: PlatformTag[] = ['AWS', 'Azure', 'Docker', 'CI/CD', 'Vercel', 'Netlify', 'Firebase', 'Heroku'];
+export const platformTags: PlatformTag[] = ['AWS', 'Azure', 'GCP', 'Docker', 'CI/CD', 'Vercel', 'Netlify', 'Firebase', 'Heroku'];
 
 const dates: Record<string, string> = repoDates;
 const repoName = (url: string) => url.match(/^https:\/\/github\.com\/Eric-Souza\/([^/]+)/)?.[1];

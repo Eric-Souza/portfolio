@@ -2,6 +2,76 @@ import type { CaseStudy } from '../types';
 
 export const clientCaseStudies: CaseStudy[] = [
   {
+    id: 'ai-impact-analytics',
+    kind: 'client',
+    industry: 'ai-analytics',
+    tech: ['TypeScript', 'AI', 'GCP', 'CI/CD', 'Vercel'],
+    year: 2026,
+    ongoing: true,
+    title: 'Enterprise AI Impact Analytics Platform',
+    company: 'Enterprise SaaS client',
+    tags: ['Data', 'Architecture', 'Privacy'],
+    headline:
+      'Helped enterprises see what AI costs, what teams produce with it and which workflows to automate next, with usage data they can pull into their own BI tools without exposing any one employee.',
+    role: 'Full Stack Engineer · customer-facing platform: API, web app, analytics, identity sync and infrastructure',
+    challenge:
+      "An analytics platform for AI-forward enterprises tracks AI spend, adoption, developer productivity and automatable workflows for Heads of AI, CTOs, engineering leaders and finance teams. Customers wanted that data in their own BI tools and their org charts synced from their identity providers, without the data singling out individual employees.",
+    outcomes: [
+      'Customers can pull usage data into their own BI tools through new public API endpoints, with customer-facing docs.',
+      "Individual-level data stays protected: admins set a minimum group size before individuals are shown, and totals and filters can't single out a person.",
+      'Every per-user endpoint follows one shared privacy policy, and every public route was audited against it.',
+      'Org charts sync from Okta, Entra ID, JumpCloud and Google Workspace with new employee attributes, and customers can enrich them without breaking the sync.',
+      "Worked directly with customers' IT teams to debug their identity provider integrations.",
+      'New and extended reporting marts are tested to reconcile with the existing reports.',
+    ],
+    technical: {
+      architecture:
+        'A multi-tenant TypeScript monorepo of about a dozen apps on Google Cloud. A browser extension and a desktop agent capture AI and app usage; an ingest API publishes events to Pub/Sub, and a streaming subscriber writes them to PostgreSQL tables holding hundreds of millions of rows. dbt turns the events into dimensional marts, served by an organization-scoped Express and Prisma API and Next.js web and admin apps, while LLM pipelines measure AI coding usage and discover automatable workflows.',
+      howItWasBuilt: [
+        'Built public API data endpoints end to end, from the dbt marts through GCP API Gateway with Terraform to the customer docs.',
+        'Designed one shared privacy policy for per-user endpoints, with a minimum group size setting and safeguards on totals and filters.',
+        'Extended WorkOS Directory Sync (SCIM) with new employee attributes, and built safe ways to enrich synced org charts.',
+        'Built dbt marts with reconciliation tests, and sized PostgreSQL indexes to real query patterns, checked with EXPLAIN ANALYZE on realistic data sizes.',
+        'Tested privacy, tenant scoping and query shapes first, with integration tests on real PostgreSQL and mutation checks that prove the tests catch regressions.',
+        'Wrote a reviewed design for every change before shipping it as small stacked PRs, using Claude Code for design, implementation and review, with a security review before each change shipped.',
+      ],
+      stack: [
+        {
+          layer: 'Architecture',
+          items: [
+            'Multi-tenant SaaS',
+            'Event streaming',
+            'Dimensional data marts',
+            'Monorepo (Turborepo, pnpm)',
+            'Infrastructure as code',
+          ],
+        },
+        { layer: 'Frontend', items: ['Next.js', 'React', 'TypeScript', 'TanStack Query', 'shadcn/ui', 'Tailwind CSS'] },
+        { layer: 'Backend', items: ['Node.js', 'Express', 'Prisma', 'PostgreSQL', 'Zod'] },
+        { layer: 'Data', items: ['dbt', 'PostgreSQL', 'GCP Pub/Sub'] },
+        { layer: 'AI', items: ['Anthropic', 'OpenAI', 'Google Gemini'] },
+        {
+          layer: 'Identity',
+          items: ['WorkOS AuthKit', 'WorkOS Directory Sync (SCIM)', 'Okta', 'Entra ID', 'JumpCloud', 'Google Workspace'],
+        },
+        {
+          layer: 'Infrastructure',
+          items: [
+            'GCP Cloud Run',
+            'GCP Cloud SQL',
+            'GCP API Gateway',
+            'GCP Cloud Functions',
+            'Terraform',
+            'Datadog',
+            'LaunchDarkly',
+          ],
+        },
+        { layer: 'CI/CD', items: ['GitHub Actions', 'Graphite stacked PRs and merge queue', 'Vercel preview deploys'] },
+        { layer: 'Testing', items: ['Integration tests on PostgreSQL', 'Mutation testing', 'EXPLAIN ANALYZE'] },
+      ],
+    },
+  },
+  {
     id: 'listing-audit',
     kind: 'client',
     industry: 'marketing',
