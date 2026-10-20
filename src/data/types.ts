@@ -25,12 +25,21 @@ export interface RelatedLink {
   url: string;
 }
 
+/** A company the work was done for, when the employer is a consultancy. */
+export interface ClientLink extends RelatedLink {
+  /** How it relates to the employer, e.g. 'Client' or 'End client'. */
+  label: string;
+  linkedIn?: string;
+}
+
 export interface Experience {
   id: string;
   role: string;
   company: string;
   companyUrl: string;
   companyLinkedIn: string;
+  /** Client chain, in order from the employer's client to the end client. */
+  clients?: ClientLink[];
   productName?: string;
   productUrl?: string;
   relatedLinks?: RelatedLink[];
@@ -100,6 +109,7 @@ export interface CaseStudy {
   company: string;
   companyUrl?: string;
   companyLinkedIn?: string;
+  clients?: ClientLink[];
   productName?: string;
   productUrl?: string;
   relatedLinks?: RelatedLink[];

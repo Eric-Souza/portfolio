@@ -227,6 +227,7 @@ export function CaseStudyCard({ study, index }: CaseStudyCardProps) {
                 company={study.company}
                 companyUrl={study.companyUrl}
                 companyLinkedIn={study.companyLinkedIn}
+                clients={study.clients}
                 productName={study.productName}
                 productUrl={study.productUrl}
                 relatedLinks={study.relatedLinks}
