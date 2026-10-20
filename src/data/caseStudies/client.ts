@@ -13,7 +13,7 @@ export const clientCaseStudies: CaseStudy[] = [
     tags: ['Data', 'Architecture', 'Privacy'],
     headline:
       'Helped enterprises see what AI costs, what teams produce with it and which workflows to automate next, with usage data they can pull into their own BI tools without exposing any one employee.',
-    role: 'Full Stack Engineer · customer-facing platform: API, web app, analytics, identity sync and infrastructure',
+    role: 'Sr. Full Stack & AI Engineer · customer-facing platform: API, web app, analytics, identity sync and infrastructure',
     challenge:
       "An analytics platform for AI-forward enterprises tracks AI spend, adoption, developer productivity and automatable workflows for Heads of AI, CTOs, engineering leaders and finance teams. Customers wanted that data in their own BI tools and their org charts synced from their identity providers, without the data singling out individual employees.",
     outcomes: [

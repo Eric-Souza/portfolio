@@ -5,7 +5,6 @@ import { Hero } from './components/sections/Hero';
 import { Experience } from './components/sections/Experience';
 import { CaseStudies } from './components/sections/CaseStudies';
 import { Skills } from './components/sections/Skills';
-import { Articles } from './components/sections/Articles';
 import { Contact } from './components/sections/Contact';
 import { NextSectionButton } from './components/ui/NextSectionButton';
 import { AnimatedBackground } from './components/ui/AnimatedBackground';
@@ -21,7 +20,6 @@ function App() {
         <Experience />
         <CaseStudies />
         <Skills />
-        <Articles />
         <Contact />
       </main>
       <Footer />
