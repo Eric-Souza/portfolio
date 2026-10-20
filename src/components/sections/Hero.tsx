@@ -6,7 +6,6 @@ import EmailIcon from '@mui/icons-material/Email';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import { motion } from 'framer-motion';
 import { profile } from '../../data/profile';
-import { AnimatedBackground } from '../ui/AnimatedBackground';
 import { scrollToSection } from '../../hooks/useActiveSection';
 import { colors, monoFont } from '../../theme/theme';
 
@@ -39,8 +38,6 @@ export function Hero() {
         overflow: 'hidden',
       }}
     >
-      <AnimatedBackground />
-
       <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1 }}>
         <Grid
           container

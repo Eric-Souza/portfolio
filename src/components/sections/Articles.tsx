@@ -20,7 +20,6 @@ export function Articles() {
     <Section
       id="articles"
       title="Articles"
-      subtitle="Tech articles and studies on backend architecture, cloud, and frontend."
     >
       <Grid container spacing={2}>
         {articles.map((article, index) => (

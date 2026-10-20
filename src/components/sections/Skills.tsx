@@ -9,7 +9,6 @@ export function Skills() {
     <Section
       id="skills"
       title="Skills & Tools"
-      subtitle="What I reach for to design, build, and ship software."
     >
       <Box
         sx={{
