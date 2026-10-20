@@ -51,62 +51,63 @@ export function TimelineItem({ item, defaultExpanded = false }: TimelineItemProp
         />
       </Box>
 
-      <Accordion
-        expanded={expanded}
-        onChange={(_, isExpanded) => setExpanded(isExpanded)}
-        disableGutters
-        elevation={0}
-        sx={{
-          flex: 1,
-          mb: 2,
-          backgroundColor: alpha(colors.surface, 0.5),
-          border: `1px solid ${alpha(colors.white, 0.08)}`,
-          borderRadius: '12px !important',
-          '&:before': { display: 'none' },
-        }}
-      >
-        <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-          <Box>
-            <Typography variant="h6" component="h3">
-              {item.role}
-            </Typography>
-            <CompanyLinks
-              company={item.company}
-              companyUrl={item.companyUrl}
-              companyLinkedIn={item.companyLinkedIn}
-              productName={item.productName}
-              productUrl={item.productUrl}
-              relatedLinks={item.relatedLinks}
-              variant="compact"
-            />
-            <Typography color="text.secondary" sx={{ fontWeight: 500, mt: 0.5 }}>
-              {item.domain}
-            </Typography>
-            <Typography
-              variant="body2"
-              color="text.secondary"
-              sx={{ fontFamily: monoFont, mt: 0.5 }}
-            >
-              {item.period}
-            </Typography>
-          </Box>
-        </AccordionSummary>
-        <AccordionDetails>
-          <Box component="ul" sx={{ m: 0, pl: 2.5 }}>
-            {item.bullets.map((bullet) => (
+      {/* Spacing sits on a wrapper: MUI resets an Accordion's own margin while it's expanded. */}
+      <Box sx={{ flex: 1, pb: 2 }}>
+        <Accordion
+          expanded={expanded}
+          onChange={(_, isExpanded) => setExpanded(isExpanded)}
+          disableGutters
+          elevation={0}
+          sx={{
+            backgroundColor: alpha(colors.surface, 0.5),
+            border: `1px solid ${alpha(colors.white, 0.08)}`,
+            borderRadius: '12px !important',
+            '&:before': { display: 'none' },
+          }}
+        >
+          <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+            <Box>
+              <Typography variant="h6" component="h3">
+                {item.role}
+              </Typography>
+              <CompanyLinks
+                company={item.company}
+                companyUrl={item.companyUrl}
+                companyLinkedIn={item.companyLinkedIn}
+                productName={item.productName}
+                productUrl={item.productUrl}
+                relatedLinks={item.relatedLinks}
+                variant="compact"
+              />
+              <Typography color="text.secondary" sx={{ fontWeight: 500, mt: 0.5 }}>
+                {item.domain}
+              </Typography>
               <Typography
-                key={bullet.slice(0, 40)}
-                component="li"
                 variant="body2"
                 color="text.secondary"
-                sx={{ mb: 1.5, lineHeight: 1.7 }}
+                sx={{ fontFamily: monoFont, mt: 0.5 }}
               >
-                <Highlighted text={bullet} />
+                {item.period}
               </Typography>
-            ))}
-          </Box>
-        </AccordionDetails>
-      </Accordion>
+            </Box>
+          </AccordionSummary>
+          <AccordionDetails>
+            <Box component="ul" sx={{ m: 0, pl: 2.5 }}>
+              {item.bullets.map((bullet) => (
+                <Typography
+                  key={bullet.slice(0, 40)}
+                  component="li"
+                  variant="body2"
+                  color="text.secondary"
+                  sx={{ mb: 1.5, lineHeight: 1.7 }}
+                >
+                  <Highlighted text={bullet} />
+                </Typography>
+              ))}
+            </Box>
+          </AccordionDetails>
+        </Accordion>
+      </Box>
     </Box>
   );
 }

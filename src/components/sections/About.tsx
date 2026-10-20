@@ -7,9 +7,9 @@ import { colors } from '../../theme/theme';
 
 export function About() {
   return (
-    <Section id="about" title="About Me" subtitle="I take products from architecture to production, and I've hired and led the teams behind them.">
+    <Section id="about" title="About Me" subtitle="I take products from architecture to production.">
       <Grid container spacing={4} sx={{ alignItems: 'center' }}>
-        <Grid size={{ xs: 12, md: 4 }}>
+        <Grid size={{ xs: 12, md: 3 }}>
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             whileInView={{ opacity: 1, scale: 1 }}
@@ -20,8 +20,8 @@ export function About() {
               <Avatar
                 src={profile.avatarSrc}
                 sx={{
-                  width: 200,
-                  height: 200,
+                  width: 160,
+                  height: 160,
                   bgcolor: alpha(colors.cyan, 0.1),
                   border: `2px solid ${alpha(colors.cyan, 0.3)}`,
                   boxShadow: `0 0 40px ${alpha(colors.cyan, 0.15)}`,
@@ -33,7 +33,7 @@ export function About() {
           </motion.div>
         </Grid>
 
-        <Grid size={{ xs: 12, md: 8 }}>
+        <Grid size={{ xs: 12, md: 9 }}>
           {profile.about.map((paragraph, index) => (
             <motion.div
               key={paragraph.slice(0, 30)}

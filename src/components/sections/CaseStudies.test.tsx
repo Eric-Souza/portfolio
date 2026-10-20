@@ -26,7 +26,7 @@ describe('CaseStudies', () => {
     expect(cardTitles()).toEqual(caseStudies.slice(0, 6).map((s) => s.title));
     expect(caseStudies[0].ongoing).toBe(true);
 
-    const sort = within(screen.getByRole('group', { name: 'Sort case studies' }));
+    const sort = within(screen.getByRole('group', { name: 'Sort projects' }));
     await userEvent.click(sort.getByRole('button', { name: 'Client work first' }));
     const clientTitles = caseStudies.filter((s) => s.kind === 'client').map((s) => s.title);
     expect(cardTitles()).toEqual(clientTitles.slice(0, 6));
@@ -46,7 +46,7 @@ describe('CaseStudies', () => {
     await userEvent.click(chip('tech', /^All/));
     await userEvent.click(chip('industry', new RegExp(`^${industryLabels['health-tech']} \\d+$`)));
     const health = caseStudies.filter((s) => s.industry === 'health-tech');
-    expect(screen.getByText(`${health.length} of ${caseStudies.length} case studies`)).toBeInTheDocument();
+    expect(screen.getByText(`${health.length} of ${caseStudies.length} projects`)).toBeInTheDocument();
     expect(cardTitles()).toEqual(health.slice(0, 6).map((s) => s.title));
 
     await userEvent.click(chip('industry', /^All/));
@@ -56,7 +56,9 @@ describe('CaseStudies', () => {
     expect(cardTitles()).toEqual(aws.slice(0, 6).map((s) => s.title));
 
     await userEvent.click(screen.getByRole('button', { name: 'Clear filters' }));
-    expect(screen.getByText(`${caseStudies.length} case studies`)).toBeInTheDocument();
+    // Unfiltered, the list doesn't repeat its own size.
+    expect(screen.queryByText(/ of \d+ projects$/)).not.toBeInTheDocument();
+    expect(cardTitles()).toEqual(caseStudies.slice(0, 6).map((s) => s.title));
   });
 
   it('frames non-client work as what it does', async () => {

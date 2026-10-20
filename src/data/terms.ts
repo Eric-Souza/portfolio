@@ -1,5 +1,4 @@
 import { caseStudies } from './caseStudies';
-import { projects } from './projects';
 import { skillGroups } from './skills';
 
 /**
@@ -87,7 +86,6 @@ const layers = caseStudies.flatMap((study) => study.technical.stack);
 export const techTerms = unique([
   ...layers.filter((l) => l.layer !== 'Architecture').flatMap((l) => l.items.flatMap(baseNames)),
   ...skillGroups.flatMap((group) => group.skills.flatMap(baseNames)),
-  ...projects.flatMap((project) => project.stack.flatMap(baseNames)),
   ...extraTech,
 ]);
 

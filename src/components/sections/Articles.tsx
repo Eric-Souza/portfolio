@@ -15,12 +15,12 @@ import { colors, monoFont } from '../../theme/theme';
 
 const MotionCard = motion.create(Card);
 
-export function Writing() {
+export function Articles() {
   return (
     <Section
-      id="writing"
-      title="Writing"
-      subtitle="Articles on backend architecture, cloud, and frontend work."
+      id="articles"
+      title="Articles"
+      subtitle="On backend architecture, cloud, and frontend work."
     >
       <Grid container spacing={3}>
         {articles.map((article, index) => (

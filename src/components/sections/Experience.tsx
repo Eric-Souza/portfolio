@@ -9,8 +9,8 @@ export function Experience() {
       title="Experience"
       subtitle="Where I've shipped real products."
     >
-      {experience.map((item, index) => (
-        <TimelineItem key={item.id} item={item} defaultExpanded={index === 0} />
+      {experience.map((item) => (
+        <TimelineItem key={item.id} item={item} />
       ))}
     </Section>
   );

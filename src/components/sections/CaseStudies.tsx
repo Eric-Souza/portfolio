@@ -87,14 +87,14 @@ export function CaseStudies() {
 
   return (
     <Section
-      id="case-studies"
-      title="Case Studies"
-      subtitle="Client work, side projects and the repos I built to learn, most recently updated first. Each one shows what it does and the problem it solves; switch to the technical breakdown for the architecture, stack, infrastructure and CI/CD."
+      id="projects"
+      title="Projects"
+      subtitle="Client work, side projects and the repos I built to learn, most recently updated first. Each one shows the problem it solves, with a short technical breakdown."
     >
       <Card sx={{ p: { xs: 2, md: 2.5 }, mb: 3, display: 'flex', flexDirection: 'column', gap: 1.5 }}>
         <FilterChipGroup
           label="Sort"
-          groupLabel="Sort case studies"
+          groupLabel="Sort projects"
           options={sortOptions}
           value={sort}
           onChange={changeSort}
@@ -114,11 +114,10 @@ export function CaseStudies() {
           {...platformOptions}
         />
 
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, minHeight: 30 }}>
+        {/* The count only shows while filtering; the live region stays mounted so screen readers hear changes. */}
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, minHeight: filtered ? 30 : 0 }}>
           <Typography variant="body2" color="text.secondary" aria-live="polite">
-            {results.length === caseStudies.length
-              ? `${results.length} case studies`
-              : `${results.length} of ${caseStudies.length} case studies`}
+            {filtered && `${results.length} of ${caseStudies.length} projects`}
           </Typography>
           {filtered && (
             <Button size="small" onClick={clearFilters}>
