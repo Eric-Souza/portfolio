@@ -5,8 +5,10 @@ import {
   countOptions,
   filterCaseStudies,
   noFilters,
+  sortCaseStudies,
   type CaseStudyFilters,
   type FilterKey,
+  type SortOrder,
 } from '../../data/caseStudies/filters';
 import type { CaseStudyKind, Industry } from '../../data/types';
 import { Section } from '../layout/Section';
@@ -14,6 +16,11 @@ import { CaseStudyCard } from '../ui/CaseStudyCard';
 import { FilterChipGroup, type FilterOption } from '../ui/FilterChipGroup';
 
 const PAGE_SIZE = 6;
+
+const sortOptions: FilterOption<SortOrder>[] = [
+  { value: 'updated', label: 'Recently updated' },
+  { value: 'relevance', label: 'Client work first' },
+];
 
 // Only offer options that exist in the data, in the order their labels are declared.
 const kinds = (Object.keys(kindLabels) as CaseStudyKind[]).filter((kind) =>
@@ -48,9 +55,13 @@ const techLabel = (tech: string) => tech;
 
 export function CaseStudies() {
   const [filters, setFilters] = useState<CaseStudyFilters>(noFilters);
+  const [sort, setSort] = useState<SortOrder>('updated');
   const [visible, setVisible] = useState(PAGE_SIZE);
 
-  const results = useMemo(() => filterCaseStudies(caseStudies, filters), [filters]);
+  const results = useMemo(
+    () => sortCaseStudies(filterCaseStudies(caseStudies, filters), sort),
+    [filters, sort],
+  );
   const kindOptions = useOptions(filters, 'kind', kinds, kindLabel);
   const industryOptions = useOptions(filters, 'industry', industries, industryLabel);
   const techOptions = useOptions(filters, 'tech', languageTags, techLabel);
@@ -58,6 +69,11 @@ export function CaseStudies() {
 
   const setFilter = <K extends FilterKey>(key: K) => (value: CaseStudyFilters[K]) => {
     setFilters((current) => ({ ...current, [key]: value }));
+    setVisible(PAGE_SIZE);
+  };
+
+  const changeSort = (next: SortOrder | null) => {
+    if (next) setSort(next);
     setVisible(PAGE_SIZE);
   };
 
@@ -73,9 +89,16 @@ export function CaseStudies() {
     <Section
       id="case-studies"
       title="Case Studies"
-      subtitle="Client work first, then side projects and the repos I built to learn. Each one shows what it does and the problem it solves; switch to the technical breakdown for the architecture, stack, infrastructure and CI/CD."
+      subtitle="Client work, side projects and the repos I built to learn, most recently updated first. Each one shows what it does and the problem it solves; switch to the technical breakdown for the architecture, stack, infrastructure and CI/CD."
     >
       <Card sx={{ p: { xs: 2, md: 2.5 }, mb: 3, display: 'flex', flexDirection: 'column', gap: 1.5 }}>
+        <FilterChipGroup
+          label="Sort"
+          groupLabel="Sort case studies"
+          options={sortOptions}
+          value={sort}
+          onChange={changeSort}
+        />
         <FilterChipGroup label="Type" value={filters.kind} onChange={setFilter('kind')} {...kindOptions} />
         <FilterChipGroup
           label="Industry"

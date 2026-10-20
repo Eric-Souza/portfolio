@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import type { CaseStudy } from '../types';
-import { countOptions, filterCaseStudies, noFilters } from './filters';
+import { countOptions, filterCaseStudies, noFilters, sortCaseStudies } from './filters';
 
 const study = (id: string, overrides: Partial<CaseStudy>): CaseStudy => ({
   id,
@@ -42,6 +42,36 @@ describe('filterCaseStudies', () => {
     expect(ids(filterCaseStudies(studies, { ...noFilters, platform: 'AWS' }))).toEqual(['legal']);
     expect(ids(filterCaseStudies(studies, { ...noFilters, tech: 'Python', platform: 'Docker' }))).toEqual(['bot']);
     expect(filterCaseStudies(studies, { ...noFilters, tech: 'JavaScript', platform: 'AWS' })).toEqual([]);
+  });
+});
+
+describe('sortCaseStudies', () => {
+  const dated = [
+    study('old-client', { kind: 'client', updated: '2020-07-31' }),
+    study('repo', { updated: '2026-10-20' }),
+    study('undated', {}),
+    study('current-role', { kind: 'client', ongoing: true }),
+    study('side', { kind: 'side-project', updated: '2024-01-01' }),
+  ];
+
+  it('puts ongoing work first, then newest first, then undated', () => {
+    expect(ids(sortCaseStudies(dated, 'updated'))).toEqual([
+      'current-role',
+      'repo',
+      'side',
+      'old-client',
+      'undated',
+    ]);
+  });
+
+  it('can lead with client work instead', () => {
+    expect(ids(sortCaseStudies(dated, 'relevance'))).toEqual([
+      'current-role',
+      'old-client',
+      'side',
+      'repo',
+      'undated',
+    ]);
   });
 });
 
