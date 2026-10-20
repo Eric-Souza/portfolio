@@ -26,6 +26,21 @@ describe('splitTerms', () => {
     ]);
   });
 
+  it('highlights short names, and Next only when it means Next.js', () => {
+    expect(highlighted('A full stack e-commerce app: React, Next, and MUI on a Node and Nest API with an ORM.')).toEqual([
+      'full stack',
+      'e-commerce',
+      'React',
+      'Next',
+      'MUI',
+      'Node',
+      'Nest',
+      'API',
+      'ORM',
+    ]);
+    expect(highlighted('Next, the team shipped the next release.')).toEqual([]);
+  });
+
   it('leaves ordinary words alone and keeps the text intact', () => {
     const text = 'Teams express interest and react quickly to requests from the dragon.';
     expect(highlighted(text)).toEqual([]);

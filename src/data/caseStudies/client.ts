@@ -5,7 +5,7 @@ export const clientCaseStudies: CaseStudy[] = [
     id: 'ai-impact-analytics',
     kind: 'client',
     industry: 'ai-analytics',
-    tech: ['TypeScript', 'AI', 'GCP', 'CI/CD', 'Vercel'],
+    tech: ['TypeScript', 'AI', 'AWS', 'GCP', 'CI/CD', 'Vercel'],
     year: 2026,
     ongoing: true,
     title: 'Enterprise AI Impact Analytics Platform',
@@ -49,7 +49,7 @@ export const clientCaseStudies: CaseStudy[] = [
         { layer: 'Frontend', items: ['Next.js', 'React', 'TypeScript', 'TanStack Query', 'shadcn/ui', 'Tailwind CSS'] },
         { layer: 'Backend', items: ['Node.js', 'Express', 'Prisma', 'PostgreSQL', 'Zod'] },
         { layer: 'Data', items: ['dbt', 'PostgreSQL', 'GCP Pub/Sub'] },
-        { layer: 'AI', items: ['Anthropic', 'OpenAI', 'Google Gemini'] },
+        { layer: 'AI', items: ['Amazon Bedrock', 'Anthropic', 'OpenAI', 'Google Gemini'] },
         {
           layer: 'Identity',
           items: ['WorkOS AuthKit', 'WorkOS Directory Sync (SCIM)', 'Okta', 'Entra ID', 'JumpCloud', 'Google Workspace'],
@@ -101,6 +101,7 @@ export const clientCaseStudies: CaseStudy[] = [
         'Built the job queue on Postgres with leases, heartbeats and a reaper, so crashed runs are picked up again.',
         'Wrote the 34 checks as a TypeScript rule engine with per-marketplace thresholds, and an LLM judging the semantic ones. Operators can change the marketplace, marketplace locale and app language.',
         'Put the AI behind a Vercel AI SDK adapter that switches between OpenAI, Anthropic, Bedrock, Google and Azure.',
+        'Used LiteLLM for model access, and fal.ai with nano-banana for image generation.',
         'Made text handling locale-aware, such as Japanese sentence splitting and phrase matching without spaces between words.',
         'Tested with Vitest, Postgres integration and Playwright end-to-end tests on a mock LLM, run in GitHub Actions.',
       ],
@@ -117,7 +118,10 @@ export const clientCaseStudies: CaseStudy[] = [
         },
         { layer: 'Frontend', items: ['Next.js', 'React', 'TypeScript', 'MUI', 'next-intl'] },
         { layer: 'Backend', items: ['tRPC', 'Drizzle ORM', 'PostgreSQL', 'Zod', 'Pino'] },
-        { layer: 'AI', items: ['Vercel AI SDK', 'Amazon Bedrock', 'OpenAI', 'Anthropic', 'Google Gemini'] },
+        {
+          layer: 'AI',
+          items: ['Vercel AI SDK', 'Amazon Bedrock', 'LiteLLM', 'OpenAI', 'Anthropic', 'Google Gemini', 'fal.ai', 'nano-banana'],
+        },
         { layer: 'Data', items: ['Apify (Amazon scraping)', 'CSV and Excel exports'] },
         {
           layer: 'Infrastructure',
@@ -158,7 +162,7 @@ export const clientCaseStudies: CaseStudy[] = [
     tags: ['Leadership', 'Architecture', 'AI'],
     headline:
       "Turned a law firm's manual estate planning service into a production software platform, as its first engineer.",
-    role: 'Founding Full Stack & AI Engineer at TeamEx, for Summerall Law · owned product, engineering, hiring, and infrastructure',
+    role: 'Founding Full Stack & AI Engineer at Summerall Law, through TeamEx · owned product, engineering, hiring, and infrastructure',
     challenge:
       'Summerall Law, a Silicon Valley law firm, ran estate planning workflows by hand. There was no product, no engineering team, and no infrastructure, and they needed a platform clients could rely on in production.',
     outcomes: [
@@ -295,7 +299,7 @@ export const clientCaseStudies: CaseStudy[] = [
     id: 'geospatial',
     kind: 'client',
     industry: 'geospatial',
-    tech: ['TypeScript', 'AI', 'AWS', 'Azure'],
+    tech: ['TypeScript', 'AI', 'Azure'],
     year: 2018,
     updated: '2020-07-31',
     title: 'Kognita, GeoEdge Geospatial Intelligence',
@@ -317,19 +321,19 @@ export const clientCaseStudies: CaseStudy[] = [
     ],
     technical: {
       architecture:
-        "React/Next.js frontend rendering AI heatmaps, a NestJS API on PostgreSQL, and AWS S3 for the large geospatial files coming from the AI team's workflows, with DevOps work on Azure.",
+        "React/Next.js frontend rendering AI heatmaps, a NestJS API on PostgreSQL, and Azure Blob Storage for the large geospatial files coming from the AI team's workflows, with DevOps on Azure.",
       howItWasBuilt: [
         'Built the full stack: React, Next.js, and MUI in front, Node and NestJS on PostgreSQL behind.',
         "Connected the AI R&D team's workflows so their output flowed into the product.",
         'Rendered AI heatmaps so clients could compare locations using real-time data.',
-        'Stored and served large geospatial files from AWS S3, and handled DevOps on Azure.',
+        'Stored and served large geospatial files from Azure Blob Storage, and handled DevOps on Azure.',
       ],
       stack: [
         { layer: 'Architecture', items: ['REST API', 'Object storage for large files', 'AI pipeline integration'] },
         { layer: 'Frontend', items: ['React', 'Next.js', 'MUI'] },
         { layer: 'Backend', items: ['Node.js', 'NestJS', 'PostgreSQL'] },
         { layer: 'Data & AI', items: ['Geospatial AI', 'Heatmaps'] },
-        { layer: 'Infrastructure', items: ['AWS S3', 'Azure (DevOps)'] },
+        { layer: 'Infrastructure', items: ['Azure Blob Storage', 'Azure DevOps'] },
       ],
     },
   },

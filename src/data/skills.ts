@@ -49,7 +49,7 @@ export const skillGroups: SkillGroup[] = [
   {
     category: 'Cloud & DevOps',
     skills: [
-      'AWS (S3, EC2, RDS, Lambda, CloudFront, ACM)',
+      'AWS (S3, EC2, RDS, Lambda, CloudFront, ACM, Bedrock)',
       'GCP (Cloud Run, Cloud SQL, Pub/Sub, API Gateway)',
       'Azure',
       'Terraform',
@@ -90,15 +90,19 @@ export const skillGroups: SkillGroup[] = [
   {
     category: 'AI Engineering',
     description:
-      'Building AI integrations with LLMs (OpenAI), RAG, and related tooling. Document processing is one example, but there is plenty more you can do with AI in a product.',
+      'Building AI integrations with LLMs (OpenAI, Anthropic, Gemini, Amazon Bedrock), RAG, image generation, and related tooling. Document processing is one example, but there is plenty more you can do with AI in a product.',
     skills: [
       'AI Integrations',
       'LLMs',
       'OpenAI',
+      'Amazon Bedrock',
+      'LiteLLM',
       'RAG',
       'LangChain',
       'FastAPI',
       'Document Processing',
+      'fal.ai',
+      'nano-banana (image generation)',
     ],
   },
   {
