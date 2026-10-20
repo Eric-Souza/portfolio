@@ -2,6 +2,77 @@ import type { CaseStudy } from '../types';
 
 export const clientCaseStudies: CaseStudy[] = [
   {
+    id: 'listing-audit',
+    kind: 'client',
+    industry: 'e-commerce',
+    tech: ['TypeScript', 'AI', 'AWS', 'Docker', 'Vercel', 'CI/CD'],
+    year: 2026,
+    ongoing: true,
+    title: 'Amazon Listing Audit & AI Copy Platform',
+    company: 'Agency client',
+    tags: ['AI', 'Architecture', 'Data'],
+    headline:
+      'Gave an e-commerce agency a tool that audits whole Amazon catalogs and drafts better, evidence-backed listing copy for each marketplace and language.',
+    role: 'Full Stack & AI Engineer · designed and built the application',
+    challenge:
+      "The agency's teams reviewed Amazon product pages one at a time, by hand, across Amazon marketplaces. They needed a fast way to see which pages underperform across a whole catalog, why, and what better copy would look like, with evidence they could defend to brands.",
+    outcomes: [
+      'Audits catalogs of up to 100 products against 34 checks, from Amazon basics (lengths, counts, images, ratings) to effectiveness (keywords, claims, benefits, buyer language).',
+      'Pulls recurring strengths, concerns and buyer language out of customer reviews.',
+      'Drafts a new title, bullets, Item Highlights and description for each product, with the reason for each change and the evidence behind it.',
+      'Adds a page blueprint and a hero image prompt to brief the creative team.',
+      'Operators can change the marketplace, the marketplace locale and the app language, and the checks and generated copy follow.',
+      'Shows portfolio health across every client, and exports recommendations to CSV and Excel.',
+    ],
+    technical: {
+      architecture:
+        'A Next.js app on Vercel with a typed tRPC API over PostgreSQL. Long work runs as background jobs in a Postgres jobs table instead of Redis or a separate worker: Vercel Cron and an in-app kick after each change call a tick endpoint, which claims jobs with SELECT … FOR UPDATE SKIP LOCKED and a lease, so a crashed run is picked up again. Catalog scraping and analysis are split into small stages (plan, batch, reviews, finalize; prepare, per-product signals → audit → copy, finalize) so each one fits within serverless time limits. In staging, the database is Aurora PostgreSQL in a private VPC, reached from Vercel over AWS PrivateLink with no public endpoint.',
+      howItWasBuilt: [
+        'Built the job queue on Postgres: leases with heartbeats, a time budget per tick, parallel claims, a reaper for stuck work, dead jobs the operator can requeue, and readiness checks that report queue health.',
+        'Scraped product pages and reviews with marketplace-aware Apify actors, normalized into one model, with a fixture provider for offline demos and CI.',
+        'Wrote the 34 checks as a TypeScript rule engine with threshold packs per marketplace. Operators can change the marketplace, the marketplace locale and the app language, override thresholds per client, and each run takes a snapshot of its settings. The semantic checks are judged by an LLM.',
+        'Put the AI behind a provider-agnostic adapter on the Vercel AI SDK, switchable between OpenAI, Anthropic, Amazon Bedrock, Google, Azure and a LiteLLM proxy, with separate models for copy, review signals and semantic checks.',
+        'Signed in to Bedrock with Vercel OIDC role assumption instead of static AWS keys.',
+        "Made the text handling locale-aware, for example for Japanese: sentence splitting on 。！？ and phrase matching that doesn't assume spaces between words. Translated the interface with next-intl, so the app language is set apart from the marketplace locale.",
+        'Defined the schema and migrations with Drizzle ORM. Production applies migrations on cold start.',
+        'Logged structured Pino metrics and alerts for job lag, dead jobs, LLM token usage and Apify spend, and added a 90-day retention purge.',
+        'Tested in layers: Vitest unit and React Testing Library component tests, Postgres integration tests, and Playwright end-to-end tests that run the full check → analysis → audit flow with a mock LLM and fixtures, so no paid APIs are called.',
+        'Set up GitHub Actions CI: lint, typecheck and tests, then an end-to-end job against a Postgres service container. A post-deploy workflow smoke-tests every Vercel deployment.',
+      ],
+      stack: [
+        {
+          layer: 'Architecture',
+          items: [
+            'Postgres-backed job queue',
+            'Staged job fan-out',
+            'Serverless functions',
+            'Provider-agnostic LLM adapter',
+            'Rule engine',
+          ],
+        },
+        { layer: 'Frontend', items: ['Next.js', 'React', 'TypeScript', 'MUI', 'MUI X Data Grid', 'next-intl'] },
+        { layer: 'Backend', items: ['tRPC', 'TanStack Query', 'Drizzle ORM', 'PostgreSQL', 'Zod', 'Pino'] },
+        {
+          layer: 'AI',
+          items: ['Vercel AI SDK', 'Amazon Bedrock', 'OpenAI', 'Anthropic', 'Google Gemini', 'Azure OpenAI', 'LiteLLM'],
+        },
+        { layer: 'Data', items: ['Apify (Amazon scraping)', 'CSV and Excel exports'] },
+        {
+          layer: 'Infrastructure',
+          items: [
+            'Vercel (functions, Cron)',
+            'AWS Aurora PostgreSQL',
+            'AWS PrivateLink',
+            'Vercel OIDC to AWS IAM',
+            'Docker (PostgreSQL)',
+          ],
+        },
+        { layer: 'CI/CD', items: ['GitHub Actions (CI, Postgres service container)', 'Post-deploy smoke tests'] },
+        { layer: 'Testing', items: ['Vitest', 'React Testing Library', 'Playwright'] },
+      ],
+    },
+  },
+  {
     id: 'legal-tech',
     kind: 'client',
     industry: 'legal-tech',

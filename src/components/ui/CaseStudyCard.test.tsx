@@ -6,7 +6,7 @@ import { caseStudies } from '../../data/caseStudies';
 import { theme } from '../../theme/theme';
 import { CaseStudyCard } from './CaseStudyCard';
 
-const study = caseStudies[0];
+const study = caseStudies.find((s) => s.id === 'legal-tech')!;
 
 // Prose is split into highlighted terms, so match on an element's whole text instead of one text node.
 const fullText = (text: string) => (_: string, el: Element | null) =>
