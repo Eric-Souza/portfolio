@@ -14,6 +14,8 @@ export const skillGroups: SkillGroup[] = [
       'Framer Motion',
       'HTML/CSS',
       'Styled Components',
+      'Tailwind CSS',
+      'TanStack Query',
     ],
   },
   {
@@ -40,17 +42,22 @@ export const skillGroups: SkillGroup[] = [
       'TypeORM',
       'Sequelize',
       'Mongoose',
+      'Prisma',
+      'dbt',
     ],
   },
   {
     category: 'Cloud & DevOps',
     skills: [
       'AWS (S3, EC2, RDS, Lambda, CloudFront, ACM)',
+      'GCP (Cloud Run, Cloud SQL, Pub/Sub, API Gateway)',
       'Azure',
+      'Terraform',
       'Docker',
       'Kubernetes',
       'GitHub Actions',
       'CI/CD',
+      'Datadog',
     ],
   },
   {
@@ -74,6 +81,7 @@ export const skillGroups: SkillGroup[] = [
     skills: [
       'Cursor',
       'Claude',
+      'Claude Code',
       'ChatGPT',
       'Cursor Bugbot',
       'AI-Assisted Development',

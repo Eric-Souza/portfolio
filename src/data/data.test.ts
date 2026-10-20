@@ -61,7 +61,7 @@ describe('content data', () => {
     for (const study of caseStudies) {
       const layer = (name: string) => study.technical.stack.find((l) => l.layer === name)?.items.join(' ') ?? '';
       expect(study.technical.stack[0].layer, study.id).toBe('Architecture');
-      for (const platform of ['AWS', 'Azure', 'Docker'] as const) {
+      for (const platform of ['AWS', 'Azure', 'GCP', 'Docker'] as const) {
         if (layer('Infrastructure').includes(platform)) expect(study.tech, study.id).toContain(platform);
       }
       if (layer('CI/CD')) expect(study.tech, study.id).toContain('CI/CD');
