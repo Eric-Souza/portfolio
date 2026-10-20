@@ -89,7 +89,7 @@ export function CaseStudies() {
     <Section
       id="projects"
       title="Projects"
-      subtitle="Client work, side projects and the repos I built to learn, most recently updated first. Each one shows the problem it solves, with a short technical breakdown."
+      subtitle="Client work, side projects and others, most recently updated first. Each one shows the problem it solves, with a technical breakdown."
     >
       <Card sx={{ p: { xs: 2, md: 2.5 }, mb: 3, display: 'flex', flexDirection: 'column', gap: 1.5 }}>
         <FilterChipGroup
