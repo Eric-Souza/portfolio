@@ -20,9 +20,25 @@ function renderCard() {
   );
 }
 
+const expand = () => userEvent.click(screen.getByRole('button', { name: `${study.title} details` }));
+
 describe('CaseStudyCard', () => {
-  it('leads with the business view for recruiters', () => {
+  it('starts collapsed, showing only the title and headline', async () => {
     renderCard();
+
+    const toggle = screen.getByRole('button', { name: `${study.title} details` });
+    expect(toggle).toHaveAttribute('aria-expanded', 'false');
+    expect(screen.getByRole('heading', { name: study.title })).toBeInTheDocument();
+    expect(screen.getByText(study.headline)).toBeInTheDocument();
+    expect(screen.queryByRole('tab')).not.toBeInTheDocument();
+
+    await userEvent.click(toggle);
+    expect(toggle).toHaveAttribute('aria-expanded', 'true');
+  });
+
+  it('leads with the business view for recruiters', async () => {
+    renderCard();
+    await expand();
 
     expect(screen.getByRole('tab', { name: 'Business impact' })).toHaveAttribute('aria-selected', 'true');
     expect(screen.getByText(study.headline)).toBeInTheDocument();
@@ -35,6 +51,7 @@ describe('CaseStudyCard', () => {
 
   it('switches to the technical breakdown', async () => {
     renderCard();
+    await expand();
 
     await userEvent.click(screen.getByRole('tab', { name: 'Technical breakdown' }));
 

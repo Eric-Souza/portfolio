@@ -42,11 +42,10 @@ test('navbar scrolls to a section', async ({ page, isMobile }) => {
 
 test('project card switches from business impact to technical breakdown', async ({ page }) => {
   await page.goto('/');
-  const card = page
-    .locator('section#projects .MuiCard-root')
-    .filter({ has: page.getByRole('tablist') })
-    .first();
+  const card = page.locator('section#projects .MuiCard-root').filter({ has: page.locator('h3') }).first();
   await card.scrollIntoViewIfNeeded();
+  await expect(card.getByRole('tablist')).toBeHidden();
+  await card.getByRole('button', { name: / details$/ }).click();
 
   await expect(card.getByText('What we achieved')).toBeVisible();
   await card.getByRole('tab', { name: 'Technical breakdown' }).click();

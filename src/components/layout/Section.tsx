@@ -2,7 +2,6 @@ import { Box, Container, Typography } from '@mui/material';
 import { motion } from 'framer-motion';
 import type { ReactNode } from 'react';
 import { monoFont } from '../../theme/theme';
-import { NextSectionButton } from '../ui/NextSectionButton';
 
 interface SectionProps {
   id: string;
@@ -17,14 +16,12 @@ export function Section({ id, title, subtitle, children }: SectionProps) {
       id={id}
       component="section"
       sx={{
-        position: 'relative',
-        py: { xs: 10, md: 14 },
+        pt: { xs: 6, md: 6 },
+        pb: { xs: 8, md: 10 },
         scrollMarginTop: '80px',
-        // On desktop each section fills at least a screen, so short ones like About don't share it.
-        minHeight: { md: '100svh' },
-        display: { md: 'flex' },
-        flexDirection: 'column',
-        justifyContent: 'center',
+        // On desktop each section fills the screen below the navbar, so short ones like About don't share it
+        // and scrolling to a section lands on its title.
+        minHeight: { md: 'calc(100svh - 80px)' },
       }}
     >
       <Container maxWidth="lg">
@@ -60,7 +57,6 @@ export function Section({ id, title, subtitle, children }: SectionProps) {
         </motion.div>
         {children}
       </Container>
-      <NextSectionButton from={id} />
     </Box>
   );
 }

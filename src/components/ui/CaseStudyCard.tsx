@@ -1,6 +1,7 @@
 import { useId, useState } from 'react';
-import { Box, Button, Card, CardContent, Grid, Tab, Tabs, Typography } from '@mui/material';
+import { Box, Button, Card, CardContent, Collapse, Grid, IconButton, Tab, Tabs, Typography } from '@mui/material';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutlineRounded';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import { motion } from 'framer-motion';
@@ -167,12 +168,15 @@ function TechnicalView({ study }: { study: CaseStudy }) {
 }
 
 export function CaseStudyCard({ study, index }: CaseStudyCardProps) {
+  const [expanded, setExpanded] = useState(false);
   const [view, setView] = useState<View>('business');
   const baseId = useId();
   const tabId = (v: View) => `${baseId}-tab-${v}`;
   const panelId = (v: View) => `${baseId}-panel-${v}`;
+  const detailsId = `${baseId}-details`;
   const copy = businessCopy(study);
   const meta = [kindLabels[study.kind], industryLabels[study.industry], timeframe(study)].filter(Boolean);
+  const toggle = () => setExpanded((open) => !open);
 
   return (
     <MotionCard
@@ -182,30 +186,10 @@ export function CaseStudyCard({ study, index }: CaseStudyCardProps) {
       transition={{ duration: 0.5, delay: Math.min(index, 2) * 0.1 }}
       whileHover={{ borderColor: alpha(colors.cyan, 0.3) }}
     >
-      <CardContent sx={{ p: { xs: 3, md: 4 } }}>
-        <Grid container spacing={{ xs: 3, md: 5 }}>
-          <Grid size={{ xs: 12, md: 5 }}>
-            <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, mb: 2 }}>
-              {study.tags.map((tag) => (
-                <Typography
-                  key={tag}
-                  variant="caption"
-                  sx={{
-                    px: 1.5,
-                    py: 0.5,
-                    borderRadius: 1,
-                    bgcolor: alpha(colors.violet, 0.15),
-                    color: 'secondary.light',
-                    fontWeight: 600,
-                    textTransform: 'uppercase',
-                    letterSpacing: '0.05em',
-                  }}
-                >
-                  {tag}
-                </Typography>
-              ))}
-            </Box>
-
+      <CardContent sx={{ p: { xs: 3, md: 4 }, '&:last-child': { pb: { xs: 3, md: 4 } } }}>
+        {/* The whole header toggles on click; the caret is the keyboard and screen reader control. */}
+        <Box onClick={toggle} sx={{ display: 'flex', alignItems: 'flex-start', gap: 2, cursor: 'pointer' }}>
+          <Box sx={{ flex: 1, minWidth: 0 }}>
             <Typography
               variant="caption"
               component="p"
@@ -218,33 +202,13 @@ export function CaseStudyCard({ study, index }: CaseStudyCardProps) {
               {meta.join(' · ')}
             </Typography>
 
-            <Typography variant="h5" component="h3" gutterBottom>
+            <Typography variant="h5" component="h3" sx={{ mb: 1.5 }}>
               {study.title}
-            </Typography>
-
-            <Box sx={{ mb: 2 }}>
-              <CompanyLinks
-                company={study.company}
-                companyUrl={study.companyUrl}
-                companyLinkedIn={study.companyLinkedIn}
-                clients={study.clients}
-                productName={study.productName}
-                productUrl={study.productUrl}
-                relatedLinks={study.relatedLinks}
-              />
-            </Box>
-
-            <Typography
-              variant="body2"
-              color="text.secondary"
-              sx={{ fontFamily: monoFont, fontSize: '0.8rem', mb: 2 }}
-            >
-              {study.role}
             </Typography>
 
             <Typography
               sx={{
-                fontSize: '1.15rem',
+                fontSize: '1.05rem',
                 fontWeight: 500,
                 lineHeight: 1.5,
                 pl: 2,
@@ -253,55 +217,115 @@ export function CaseStudyCard({ study, index }: CaseStudyCardProps) {
             >
               {study.headline}
             </Typography>
+          </Box>
 
-            {study.links && study.links.length > 0 && (
-              <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, mt: 3 }}>
-                {study.links.map((link) => (
-                  <Button
-                    key={link.url}
-                    size="small"
-                    variant="outlined"
-                    href={link.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    startIcon={isGitHub(link) ? <GitHubIcon /> : <OpenInNewIcon />}
-                    aria-label={`${study.title}: ${link.label}${isGitHub(link) ? ' on GitHub' : ''}`}
+          <IconButton
+            onClick={(event) => {
+              event.stopPropagation();
+              toggle();
+            }}
+            aria-expanded={expanded}
+            aria-controls={detailsId}
+            aria-label={`${study.title} details`}
+            sx={{ mt: -0.5, transform: expanded ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s' }}
+          >
+            <ExpandMoreIcon />
+          </IconButton>
+        </Box>
+
+        <Collapse in={expanded} id={detailsId}>
+          <Grid container spacing={{ xs: 3, md: 5 }} sx={{ pt: 3 }}>
+            <Grid size={{ xs: 12, md: 5 }}>
+              <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, mb: 2 }}>
+                {study.tags.map((tag) => (
+                  <Typography
+                    key={tag}
+                    variant="caption"
+                    sx={{
+                      px: 1.5,
+                      py: 0.5,
+                      borderRadius: 1,
+                      bgcolor: alpha(colors.violet, 0.15),
+                      color: 'secondary.light',
+                      fontWeight: 600,
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.05em',
+                    }}
                   >
-                    {link.label}
-                  </Button>
+                    {tag}
+                  </Typography>
                 ))}
               </Box>
-            )}
-          </Grid>
 
-          <Grid size={{ xs: 12, md: 7 }}>
-            <Tabs
-              value={view}
-              onChange={(_, next: View) => setView(next)}
-              aria-label={`${study.title} details`}
-              sx={{ mb: 2.5, minHeight: 40, borderBottom: 1, borderColor: 'divider' }}
-            >
-              <Tab
-                value="business"
-                label={copy.tab}
-                id={tabId('business')}
-                aria-controls={panelId('business')}
-                sx={{ minHeight: 40, px: 0, mr: 3 }}
-              />
-              <Tab
-                value="technical"
-                label="Technical breakdown"
-                id={tabId('technical')}
-                aria-controls={panelId('technical')}
-                sx={{ minHeight: 40, px: 0 }}
-              />
-            </Tabs>
+              <Box sx={{ mb: 2 }}>
+                <CompanyLinks
+                  company={study.company}
+                  companyUrl={study.companyUrl}
+                  companyLinkedIn={study.companyLinkedIn}
+                  clients={study.clients}
+                  productName={study.productName}
+                  productUrl={study.productUrl}
+                  relatedLinks={study.relatedLinks}
+                />
+              </Box>
 
-            <Box role="tabpanel" id={panelId(view)} aria-labelledby={tabId(view)}>
-              {view === 'business' ? <BusinessView study={study} /> : <TechnicalView study={study} />}
-            </Box>
+              <Typography
+                variant="body2"
+                color="text.secondary"
+                sx={{ fontFamily: monoFont, fontSize: '0.8rem' }}
+              >
+                {study.role}
+              </Typography>
+
+              {study.links && study.links.length > 0 && (
+                <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, mt: 3 }}>
+                  {study.links.map((link) => (
+                    <Button
+                      key={link.url}
+                      size="small"
+                      variant="outlined"
+                      href={link.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      startIcon={isGitHub(link) ? <GitHubIcon /> : <OpenInNewIcon />}
+                      aria-label={`${study.title}: ${link.label}${isGitHub(link) ? ' on GitHub' : ''}`}
+                    >
+                      {link.label}
+                    </Button>
+                  ))}
+                </Box>
+              )}
+            </Grid>
+
+            <Grid size={{ xs: 12, md: 7 }}>
+              <Tabs
+                value={view}
+                onChange={(_, next: View) => setView(next)}
+                aria-label={`${study.title} details`}
+                sx={{ mb: 2.5, minHeight: 40, borderBottom: 1, borderColor: 'divider' }}
+              >
+                <Tab
+                  value="business"
+                  label={copy.tab}
+                  id={tabId('business')}
+                  aria-controls={panelId('business')}
+                  sx={{ minHeight: 40, px: 0, mr: 3 }}
+                />
+                <Tab
+                  value="technical"
+                  label="Technical breakdown"
+                  id={tabId('technical')}
+                  aria-controls={panelId('technical')}
+                  sx={{ minHeight: 40, px: 0 }}
+                />
+              </Tabs>
+
+              <Box role="tabpanel" id={panelId(view)} aria-labelledby={tabId(view)}>
+                {view === 'business' ? <BusinessView study={study} /> : <TechnicalView study={study} />}
+              </Box>
+            </Grid>
           </Grid>
-        </Grid>
+        </Collapse>
       </CardContent>
     </MotionCard>
   );
