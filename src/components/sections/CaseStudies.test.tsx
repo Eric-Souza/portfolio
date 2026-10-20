@@ -65,6 +65,7 @@ describe('CaseStudies', () => {
     renderSection();
 
     await userEvent.click(chip('type', /^Learning project \d+$/));
+    await userEvent.click(screen.getAllByRole('button', { name: / details$/ })[0]);
     const card = screen.getAllByRole('tablist')[0];
     expect(within(card).getByRole('tab', { name: 'Overview' })).toHaveAttribute('aria-selected', 'true');
     expect(screen.getAllByText('What it does').length).toBeGreaterThan(0);

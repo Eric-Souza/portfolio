@@ -1,29 +1,55 @@
-import { render, screen } from '@testing-library/react';
+import { act, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { describe, expect, it, vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { navItems } from '../../data/profile';
 import { NextSectionButton } from './NextSectionButton';
 
+// jsdom has no layout, so each section gets a fixed distance from the top of the viewport.
+const tops: Record<string, number> = {};
+
+function setTops(first: number) {
+  navItems.forEach((item, i) => (tops[item.id] = first + i * 900));
+  window.dispatchEvent(new Event('scroll'));
+}
+
+beforeEach(() => {
+  Object.defineProperty(document.documentElement, 'scrollHeight', { value: 6000, configurable: true });
+  for (const item of navItems) {
+    const section = document.createElement('section');
+    section.id = item.id;
+    section.getBoundingClientRect = () => ({ top: tops[item.id] }) as DOMRect;
+    section.scrollIntoView = vi.fn();
+    document.body.append(section);
+  }
+  setTops(900);
+});
+
+afterEach(() => {
+  navItems.forEach((item) => document.getElementById(item.id)?.remove());
+  Object.defineProperty(document.documentElement, 'scrollHeight', { value: 0, configurable: true });
+});
+
 describe('NextSectionButton', () => {
-  it('scrolls to the section that follows', async () => {
-    const target = document.createElement('section');
-    target.id = 'experience';
-    target.scrollIntoView = vi.fn();
-    document.body.append(target);
+  it('scrolls from the hero to the first section', async () => {
+    render(<NextSectionButton />);
 
-    render(<NextSectionButton from="about" />);
-    await userEvent.click(screen.getByRole('button', { name: 'Scroll to Experience' }));
-
-    expect(target.scrollIntoView).toHaveBeenCalledWith({ behavior: 'smooth', block: 'start' });
-    target.remove();
+    await userEvent.click(screen.getByRole('button', { name: 'Scroll to About' }));
+    expect(document.getElementById('about')!.scrollIntoView).toHaveBeenCalledWith({ behavior: 'smooth', block: 'start' });
   });
 
-  it('points from the hero to the first section', () => {
-    render(<NextSectionButton from="hero" />);
-    expect(screen.getByRole('button', { name: 'Scroll to About' })).toBeInTheDocument();
+  it('targets the section after the one at the top of the screen', () => {
+    render(<NextSectionButton />);
+
+    // About sits right under the navbar.
+    act(() => setTops(80));
+    expect(screen.getByRole('button', { name: 'Scroll to Experience' })).toBeInTheDocument();
   });
 
-  it('is hidden on the last section', () => {
-    render(<NextSectionButton from="contact" />);
+  it('hides at the bottom of the page', () => {
+    render(<NextSectionButton />);
+
+    Object.defineProperty(document.documentElement, 'scrollHeight', { value: window.innerHeight, configurable: true });
+    act(() => setTops(-4000));
     expect(screen.queryByRole('button')).not.toBeInTheDocument();
   });
 });

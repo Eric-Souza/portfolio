@@ -8,6 +8,7 @@ import { CaseStudies } from './components/sections/CaseStudies';
 import { Skills } from './components/sections/Skills';
 import { Articles } from './components/sections/Articles';
 import { Contact } from './components/sections/Contact';
+import { NextSectionButton } from './components/ui/NextSectionButton';
 
 // SEO and social meta tags live in index.html so crawlers that don't run JS still see them.
 function App() {
@@ -24,6 +25,7 @@ function App() {
         <Contact />
       </main>
       <Footer />
+      <NextSectionButton />
     </Box>
   );
 }

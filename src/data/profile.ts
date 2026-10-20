@@ -14,7 +14,7 @@ export const profile: Profile = {
   avatarSrc: '/avatar.webp',
   sourceUrl: 'https://github.com/Eric-Souza/portfolio',
   about: [
-    "I'm a Sr. Full Stack & AI Engineer based in Brazil, with 8+ years of shipping production software. I own products end to end, from system design and cloud infrastructure to the UI, on small and large teams, B2B and B2C.",
+    "I'm a Sr. Full Stack & AI Engineer based in Brazil, with 8+ years of shipping production software. I own products end to end, from system design and cloud infrastructure to the UI, on small and large teams, B2B and B2C, in legal-tech, healthcare, fintech, e-commerce and AI, among others.",
     "I build AI into products, not just into my workflow, and I use Claude, Cursor, and similar tools every day to move faster on coding, review, and planning. I talk to clients directly and turn their requests into work that ships. I do more than write code.",
   ],
   links: {
@@ -27,7 +27,7 @@ export const profile: Profile = {
     'AI with LLMs & RAG',
     'Cloud with AWS, Azure, GCP',
     'Hired & led teams',
-    '5 industries',
+    '5+ industries',
   ],
 };
 

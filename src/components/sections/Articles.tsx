@@ -22,7 +22,7 @@ export function Articles() {
       title="Articles"
       subtitle="Tech articles and studies on backend architecture, cloud, and frontend."
     >
-      <Grid container spacing={3}>
+      <Grid container spacing={2}>
         {articles.map((article, index) => (
           <Grid key={article.id} size={{ xs: 12, sm: 6, md: 4 }}>
             <MotionCard
@@ -44,13 +44,13 @@ export function Articles() {
                 sx={{ height: '100%' }}
                 aria-label={`Read article: ${article.title}`}
               >
-                <CardContent sx={{ p: 3, height: '100%' }}>
+                <CardContent sx={{ p: 2.5, height: '100%' }}>
                   <Box
                     sx={{
                       display: 'flex',
                       justifyContent: 'space-between',
                       alignItems: 'flex-start',
-                      mb: 1,
+                      mb: 0.75,
                     }}
                   >
                     <Typography
@@ -63,11 +63,11 @@ export function Articles() {
                     <OpenInNewIcon sx={{ fontSize: 16, color: 'text.secondary' }} />
                   </Box>
 
-                  <Typography variant="h6" component="h3" sx={{ mb: 1.5, lineHeight: 1.4 }}>
+                  <Typography variant="subtitle1" component="h3" sx={{ fontWeight: 700, mb: 0.75, lineHeight: 1.4 }}>
                     {article.title}
                   </Typography>
 
-                  <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.7 }}>
+                  <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.6 }}>
                     {article.teaser}
                   </Typography>
                 </CardContent>
