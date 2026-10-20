@@ -45,16 +45,6 @@ export function Hero() {
         <motion.div variants={containerVariants} initial="hidden" animate="visible">
           <motion.div variants={itemVariants}>
             <Typography
-              variant="overline"
-              color="primary"
-              sx={{ fontFamily: monoFont, letterSpacing: '0.15em', fontWeight: 600 }}
-            >
-              // sr_full_stack_and_ai_engineer
-            </Typography>
-          </motion.div>
-
-          <motion.div variants={itemVariants}>
-            <Typography
               variant="h2"
               component="h1"
               sx={{
