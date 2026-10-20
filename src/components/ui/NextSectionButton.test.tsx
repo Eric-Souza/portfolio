@@ -30,19 +30,21 @@ afterEach(() => {
 });
 
 describe('NextSectionButton', () => {
-  it('scrolls from the hero to the first section', async () => {
+  it('scrolls from the first screen to the next section', async () => {
     render(<NextSectionButton />);
 
-    await userEvent.click(screen.getByRole('button', { name: 'Scroll to About' }));
-    expect(document.getElementById('about')!.scrollIntoView).toHaveBeenCalledWith({ behavior: 'smooth', block: 'start' });
+    // About is the first screen, at the very top.
+    act(() => setTops(0));
+    await userEvent.click(screen.getByRole('button', { name: 'Scroll to Experience' }));
+    expect(document.getElementById('experience')!.scrollIntoView).toHaveBeenCalledWith({ behavior: 'smooth', block: 'start' });
   });
 
   it('targets the section after the one at the top of the screen', () => {
     render(<NextSectionButton />);
 
-    // About sits right under the navbar.
-    act(() => setTops(80));
-    expect(screen.getByRole('button', { name: 'Scroll to Experience' })).toBeInTheDocument();
+    // Experience sits right under the navbar.
+    act(() => setTops(80 - 900));
+    expect(screen.getByRole('button', { name: 'Scroll to Projects' })).toBeInTheDocument();
   });
 
   it('hides at the bottom of the page', () => {

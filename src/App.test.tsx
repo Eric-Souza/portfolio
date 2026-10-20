@@ -9,7 +9,7 @@ describe('App', () => {
     const { container } = render(<AppProviders cache={createEmotionCache()} />);
 
     expect(screen.getByRole('heading', { level: 1, name: profile.name })).toBeInTheDocument();
-    for (const id of ['hero', ...navItems.map((item) => item.id)]) {
+    for (const id of navItems.map((item) => item.id)) {
       expect(container.querySelector(`section#${id}`), id).not.toBeNull();
     }
   });

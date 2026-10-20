@@ -1,4 +1,4 @@
-import { Box, Button, Chip, Container, Typography } from '@mui/material';
+import { Avatar, Box, Button, Chip, Container, Grid, Typography } from '@mui/material';
 import { alpha } from '@mui/material/styles';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import DownloadIcon from '@mui/icons-material/Download';
@@ -23,10 +23,11 @@ const itemVariants = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
 };
 
+// The first screen doubles as the About section: who I am, what I do, and how to reach me.
 export function Hero() {
   return (
     <Box
-      id="hero"
+      id="about"
       component="section"
       sx={{
         position: 'relative',
@@ -41,7 +42,33 @@ export function Hero() {
       <AnimatedBackground />
 
       <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1 }}>
-        <motion.div variants={containerVariants} initial="hidden" animate="visible">
+        <Grid
+          container
+          component={motion.div}
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+          spacing={{ xs: 3, md: 5 }}
+          sx={{ alignItems: 'center' }}
+        >
+          <Grid size={{ xs: 12, md: 3 }} component={motion.div} variants={itemVariants}>
+            <Box sx={{ display: 'flex', justifyContent: { xs: 'flex-start', md: 'center' } }}>
+              <Avatar
+                src={profile.avatarSrc}
+                alt={profile.name}
+                sx={{
+                  width: { xs: 112, md: 220 },
+                  height: { xs: 112, md: 220 },
+                  bgcolor: alpha(colors.cyan, 0.1),
+                  border: `2px solid ${alpha(colors.cyan, 0.3)}`,
+                  boxShadow: `0 0 40px ${alpha(colors.cyan, 0.15)}`,
+                  '& img': { objectFit: 'cover' },
+                }}
+              />
+            </Box>
+          </Grid>
+
+          <Grid size={{ xs: 12, md: 9 }}>
           <motion.div variants={itemVariants}>
             <Typography
               variant="h2"
@@ -78,6 +105,14 @@ export function Hero() {
               {profile.tagline}
             </Typography>
           </motion.div>
+
+          {profile.about.map((paragraph) => (
+            <motion.div key={paragraph.slice(0, 30)} variants={itemVariants}>
+              <Typography variant="body1" color="text.secondary" sx={{ mb: 2, maxWidth: 820, lineHeight: 1.8 }}>
+                {paragraph}
+              </Typography>
+            </motion.div>
+          ))}
 
           <motion.div variants={itemVariants}>
             <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, mb: 4 }}>
@@ -146,7 +181,8 @@ export function Hero() {
               </Button>
             </Box>
           </motion.div>
-        </motion.div>
+          </Grid>
+        </Grid>
       </Container>
     </Box>
   );

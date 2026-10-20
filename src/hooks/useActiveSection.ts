@@ -2,10 +2,10 @@ import { useEffect, useState } from 'react';
 import { navItems } from '../data/profile';
 
 export function useActiveSection() {
-  const [activeSection, setActiveSection] = useState('hero');
+  const [activeSection, setActiveSection] = useState('about');
 
   useEffect(() => {
-    const sectionIds = ['hero', ...navItems.map((item) => item.id)];
+    const sectionIds = navItems.map((item) => item.id);
 
     const observer = new IntersectionObserver(
       (entries) => {

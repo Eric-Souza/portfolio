@@ -52,7 +52,7 @@ export function Navbar() {
         <Toolbar sx={{ justifyContent: 'space-between', gap: 2 }}>
           <Typography
             component="button"
-            onClick={() => handleNav('hero')}
+            onClick={() => handleNav('about')}
             sx={{
               fontFamily: monoFont,
               fontWeight: 700,
