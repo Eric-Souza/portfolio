@@ -41,6 +41,13 @@ describe('splitTerms', () => {
     expect(highlighted('Next, the team shipped the next release.')).toEqual([]);
   });
 
+  it('leaves job titles plain', () => {
+    expect(highlighted('Founding Full Stack & AI Engineer at a firm, building a full stack AI app.')).toEqual([
+      'full stack',
+      'AI',
+    ]);
+  });
+
   it('leaves ordinary words alone and keeps the text intact', () => {
     const text = 'Teams express interest and react quickly to requests from the dragon.';
     expect(highlighted(text)).toEqual([]);

@@ -79,6 +79,9 @@ const extraArchitecture = [
 // 'Next' alone only means Next.js in a stack list ('React, Next, and Material UI'), not the word 'next'.
 const contextualPattern = /(?<=React(?:,| and|\/) ?)Next(?![\w.])/g;
 
+// Job titles stay plain: 'Full Stack' and 'AI' in 'Founding Full Stack & AI Engineer' describe a role, not a tool.
+const titlePattern = /(?:(?:Sr\.|Senior|Founding|Lead)\s+)?Full[ -]Stack(?:\s*&\s*AI)?\s+Engineers?/gi;
+
 /** 'Docker (PostgreSQL, Redis)' -> 'Docker', 'Next.js 11' -> 'Next.js', 'SPA + REST API' -> both parts. */
 function baseNames(item: string): string[] {
   const base = item
@@ -127,12 +130,16 @@ const architecturePattern = pattern(architectureTerms, 'gi');
 
 /** Splits text into plain and highlighted segments. Overlapping matches keep the longer one. */
 export function splitTerms(text: string): TextSegment[] {
+  const titles = [...text.matchAll(titlePattern)].map((m) => ({ start: m.index, end: m.index + m[0].length }));
+  const inTitle = (start: number, end: number) => titles.some((t) => start < t.end && end > t.start);
+
   const matches = [
     ...text.matchAll(techPattern),
     ...text.matchAll(architecturePattern),
     ...text.matchAll(contextualPattern),
   ]
     .map((m) => ({ start: m.index, end: m.index + m[0].length }))
+    .filter(({ start, end }) => !inTitle(start, end))
     .sort((a, b) => a.start - b.start || b.end - a.end);
 
   const segments: TextSegment[] = [];
