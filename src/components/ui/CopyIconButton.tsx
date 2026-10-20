@@ -26,7 +26,7 @@ export function CopyIconButton({
 
   return (
     <>
-      <Tooltip title={`Copy ${label}`}>
+      <Tooltip title={`Copy ${label}`} placement="right">
         <IconButton
           onClick={handleCopy}
           size="small"
@@ -41,7 +41,9 @@ export function CopyIconButton({
         open={open}
         autoHideDuration={2500}
         onClose={() => setOpen(false)}
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+        // Top, under the navbar: the bottom is taken by the next-section caret.
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+        sx={{ top: { xs: 72, sm: 80 } }}
       >
         <Alert severity="success" variant="filled" onClose={() => setOpen(false)}>
           {successMessage}
