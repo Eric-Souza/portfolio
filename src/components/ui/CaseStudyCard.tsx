@@ -30,6 +30,18 @@ function businessCopy(study: CaseStudy) {
 
 const isGitHub = (link: ProjectLink) => link.url.startsWith('https://github.com/');
 
+const monthYear = (date: string) =>
+  new Date(date).toLocaleDateString('en-US', { month: 'short', year: 'numeric', timeZone: 'UTC' });
+
+// Client work shows the span of the role ('2022–2025', '2025–present'); repos show their last push.
+function timeframe(study: CaseStudy) {
+  if (study.kind === 'client') {
+    const end = study.ongoing ? 'present' : study.updated?.slice(0, 4);
+    return study.year && end && end !== String(study.year) ? `${study.year}–${end}` : study.year;
+  }
+  return study.updated ? `Updated ${monthYear(study.updated)}` : study.year;
+}
+
 function Label({ children }: { children: string }) {
   return (
     <Typography
@@ -160,7 +172,7 @@ export function CaseStudyCard({ study, index }: CaseStudyCardProps) {
   const tabId = (v: View) => `${baseId}-tab-${v}`;
   const panelId = (v: View) => `${baseId}-panel-${v}`;
   const copy = businessCopy(study);
-  const meta = [kindLabels[study.kind], industryLabels[study.industry], study.year].filter(Boolean);
+  const meta = [kindLabels[study.kind], industryLabels[study.industry], timeframe(study)].filter(Boolean);
 
   return (
     <MotionCard

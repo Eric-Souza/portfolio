@@ -76,6 +76,12 @@ describe('content data', () => {
     }
   });
 
+  it('dates every case study for "recently updated" sorting', () => {
+    // Repo dates come from repoDates.json; run `npm run sync-dates` if a new repo is missing.
+    const undated = caseStudies.filter((s) => !s.ongoing && !s.updated && s.industry !== 'internal-tools');
+    expect(undated.map((s) => s.id)).toEqual([]);
+  });
+
   it('links every non-client case study to its source code', () => {
     for (const study of caseStudies.filter((s) => s.kind !== 'client')) {
       const repos = (study.links ?? []).filter((l) => l.url.startsWith('https://github.com/Eric-Souza/'));

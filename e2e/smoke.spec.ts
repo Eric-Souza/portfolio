@@ -73,8 +73,9 @@ test.describe('without JavaScript', () => {
   test('prerendered HTML contains the full content', async ({ page }) => {
     await page.goto('/');
     await expect(page.getByRole('heading', { level: 1 })).toHaveText('Eric de Oliveira Souza');
-    // First page of case studies is all client work.
-    await expect(page.getByText('What we achieved')).toHaveCount(6);
+    // First page of case studies, most recently updated first; the current role leads.
+    await expect(page.locator('section#case-studies h3')).toHaveCount(6);
+    await expect(page.getByText('What we achieved').first()).toBeAttached();
     await expect(page.locator('section#projects a[href^="https://github.com/"]').first()).toBeAttached();
   });
 });

@@ -37,8 +37,12 @@ JavaScript, Python, AI) and cloud/delivery work (AWS, Docker, CI/CD, hosting), a
 on type, industry, language and platform, with live counts per option
 ([`filters.ts`](src/data/caseStudies/filters.ts)). Every technical breakdown leads with an Architecture
 layer, and Infrastructure and CI/CD layers appear only where the repo or role backs them up;
-[`data.test.ts`](src/data/data.test.ts) keeps those layers and the tags in sync. Client work comes
-first, and the rest is sorted newest first and paged.
+[`data.test.ts`](src/data/data.test.ts) keeps those layers and the tags in sync.
+
+By default the list is sorted by most recently updated, and a Sort chip can switch it to client work
+first. Client work is dated by the end of the role (`updated`), or flagged `ongoing` for a current role.
+Repo studies take the last push date from [`repoDates.json`](src/data/caseStudies/repoDates.json). Run
+`npm run sync-dates` to refresh that file; the build never calls the GitHub API.
 
 Tool, tech and architecture names in the prose are highlighted for skimming. The vocabulary in
 [`terms.ts`](src/data/terms.ts) is built from the stack chips and skills, so new content is

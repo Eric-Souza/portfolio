@@ -19,9 +19,15 @@ const chip = (group: string, name: RegExp) =>
   within(screen.getByRole('group', { name: `Filter by ${group}` })).getByRole('button', { name });
 
 describe('CaseStudies', () => {
-  it('leads with client work and pages the rest', async () => {
+  it('shows the most recently updated first, can lead with client work, and pages', async () => {
     renderSection();
 
+    // caseStudies is already newest first; the section keeps that order by default.
+    expect(cardTitles()).toEqual(caseStudies.slice(0, 6).map((s) => s.title));
+    expect(caseStudies[0].ongoing).toBe(true);
+
+    const sort = within(screen.getByRole('group', { name: 'Sort case studies' }));
+    await userEvent.click(sort.getByRole('button', { name: 'Client work first' }));
     const clientTitles = caseStudies.filter((s) => s.kind === 'client').map((s) => s.title);
     expect(cardTitles()).toEqual(clientTitles.slice(0, 6));
 

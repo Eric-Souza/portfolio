@@ -12,6 +12,29 @@ export const noFilters: CaseStudyFilters = { kind: null, industry: null, tech: n
 
 export type FilterKey = keyof CaseStudyFilters;
 
+/**
+ * 'updated': most recent activity first. 'relevance': client work first, then side projects,
+ * challenges and learning repos, each newest first.
+ */
+export type SortOrder = 'updated' | 'relevance';
+
+const kindOrder: CaseStudyKind[] = ['client', 'side-project', 'challenge', 'learning'];
+
+// Ongoing work first, then by date; undated studies last.
+const recency = (study: CaseStudy) =>
+  study.ongoing ? Infinity : study.updated ? Date.parse(study.updated) : -Infinity;
+
+const byUpdated = (a: CaseStudy, b: CaseStudy) =>
+  recency(a) === recency(b) ? 0 : recency(b) > recency(a) ? 1 : -1;
+
+const byRelevance = (a: CaseStudy, b: CaseStudy) =>
+  kindOrder.indexOf(a.kind) - kindOrder.indexOf(b.kind) || byUpdated(a, b);
+
+/** Returns a sorted copy. Ties keep their input order. */
+export function sortCaseStudies(studies: CaseStudy[], order: SortOrder) {
+  return [...studies].sort(order === 'updated' ? byUpdated : byRelevance);
+}
+
 function matches(study: CaseStudy, { kind, industry, tech, platform }: CaseStudyFilters, ignore?: FilterKey) {
   return (
     (ignore === 'kind' || kind === null || study.kind === kind) &&

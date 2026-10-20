@@ -1,4 +1,6 @@
 import type { CaseStudy, CaseStudyKind, Industry, LanguageTag, PlatformTag } from '../types';
+import { sortCaseStudies } from './filters';
+import repoDates from './repoDates.json';
 import { clientCaseStudies } from './client';
 import { batchA } from './batchA';
 import { batchB } from './batchB';
@@ -34,17 +36,22 @@ export const languageTags: LanguageTag[] = ['TypeScript', 'JavaScript', 'Python'
 
 export const platformTags: PlatformTag[] = ['AWS', 'Azure', 'Docker', 'CI/CD', 'Vercel', 'Netlify', 'Firebase', 'Heroku'];
 
-const kindOrder: CaseStudyKind[] = ['client', 'side-project', 'challenge', 'learning'];
+const dates: Record<string, string> = repoDates;
+const repoName = (url: string) => url.match(/^https:\/\/github\.com\/Eric-Souza\/([^/]+)/)?.[1];
 
-// Client work keeps its hand-picked order; everything else is newest first.
-const byRelevance = (a: CaseStudy, b: CaseStudy) =>
-  kindOrder.indexOf(a.kind) - kindOrder.indexOf(b.kind) ||
-  (a.kind === 'client' ? 0 : (b.year ?? 0) - (a.year ?? 0));
+// A study's last update is the latest push to any of its repos (e.g. API and mobile app).
+function withRepoDate(study: CaseStudy): CaseStudy {
+  if (study.updated) return study;
+  const pushed = (study.links ?? [])
+    .map((link) => dates[repoName(link.url) ?? ''])
+    .filter(Boolean)
+    .sort()
+    .at(-1);
+  return pushed ? { ...study, updated: pushed } : study;
+}
 
-export const caseStudies: CaseStudy[] = [
-  ...clientCaseStudies,
-  ...batchA,
-  ...batchB,
-  ...batchC,
-  ...batchD,
-].sort(byRelevance);
+/** Every case study, most recently updated first. */
+export const caseStudies: CaseStudy[] = sortCaseStudies(
+  [...clientCaseStudies, ...batchA, ...batchB, ...batchC, ...batchD].map(withRepoDate),
+  'updated',
+);

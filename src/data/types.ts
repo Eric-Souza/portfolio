@@ -89,6 +89,13 @@ export interface CaseStudy {
   tech: TechTag[];
   /** Year the work started; omitted when it spans several roles. */
   year?: number;
+  /**
+   * Last activity as YYYY-MM-DD, used for "recently updated" sorting. Client work sets the end of the
+   * role; for repos it is filled in from repoDates.json.
+   */
+  updated?: string;
+  /** Work still in progress, e.g. a current role. Sorts ahead of any date. */
+  ongoing?: boolean;
   title: string;
   company: string;
   companyUrl?: string;
