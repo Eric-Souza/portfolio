@@ -113,7 +113,7 @@ export function Hero() {
           ))}
 
           <motion.div variants={itemVariants}>
-            <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, mb: 4 }}>
+            <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.75, mb: 4 }}>
               {profile.highlights.map((highlight) => (
                 <Chip
                   key={highlight}
@@ -121,7 +121,8 @@ export function Hero() {
                   size="small"
                   sx={{
                     fontFamily: monoFont,
-                    fontSize: '0.72rem',
+                    fontSize: '0.68rem',
+                    '& .MuiChip-label': { px: 0.75 },
                     borderColor: 'primary.dark',
                   }}
                   variant="outlined"

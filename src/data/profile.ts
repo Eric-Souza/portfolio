@@ -21,12 +21,12 @@ export const profile: Profile = {
     medium: 'https://medium.com/@eric.bh18souza',
   },
   highlights: [
-    'Cloud (AWS, GCP, Azure)',
-    'AI (LLMs & RAG)',
-    'JS/TS',
+    'JavaScript/TypeScript',
     'Python',
-    'Founding Engineer',
-    'Tech Lead',
+    'AI (LLMs & RAG)',
+    'Cloud (AWS, GCP, Azure)',
+    'Founding Engineer Exp',
+    'Tech Lead Exp',
   ],
 };
 
