@@ -56,7 +56,7 @@ animation for users who ask for it. Colors live in a single palette in
 
 ```
 src/
-  data/            typed content (profile, experience, case studies, skills)
+  data/            typed content (profile, experience, case studies, skills, articles)
   components/
     layout/        Navbar, Footer, Section
     sections/      one component per page section

@@ -1,6 +1,7 @@
 import { existsSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { describe, expect, it } from 'vitest';
+import { articles } from './articles';
 import { caseStudies } from './caseStudies';
 import { experience } from './experience';
 import { profile } from './profile';
@@ -20,12 +21,14 @@ const allUrls = [
     ...(c.clients ?? []).flatMap((l) => [l.url, l.linkedIn]),
     ...(c.links ?? []).map((l) => l.url),
   ]),
+  ...articles.map((a) => a.url),
 ].filter((url): url is string => Boolean(url));
 
 describe('content data', () => {
   it.each([
     ['experience', experience],
     ['caseStudies', caseStudies],
+    ['articles', articles],
   ])('%s ids are unique', (_, items) => {
     const ids = items.map((item) => item.id);
     expect(new Set(ids).size).toBe(ids.length);

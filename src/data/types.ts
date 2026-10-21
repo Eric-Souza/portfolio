@@ -137,6 +137,15 @@ export interface SkillGroup {
   description?: string;
 }
 
+export interface Article {
+  id: string;
+  title: string;
+  publication: string;
+  date: string;
+  url: string;
+  teaser: string;
+}
+
 export interface NavItem {
   id: string;
   label: string;
