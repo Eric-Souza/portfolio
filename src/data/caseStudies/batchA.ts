@@ -250,7 +250,7 @@ export const batchA: CaseStudy[] = [
     outcomes: [
       'Loads as fully rendered HTML, so search engines and social previews see the real content.',
       'Shows each project in two views: a business overview for recruiters and a technical breakdown for engineers.',
-      'Keeps all content (experience, projects, skills) in typed data files, so updates do not touch layout code.',
+      'Keeps all content (experience, projects, skills, articles) in typed data files, so updates do not touch layout code.',
     ],
     technical: {
       architecture:
