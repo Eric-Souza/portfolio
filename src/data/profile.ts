@@ -12,8 +12,8 @@ export const profile: Profile = {
   avatarSrc: '/avatar.webp',
   sourceUrl: 'https://github.com/Eric-Souza/portfolio',
   about: [
-    "I'm a Sr. Full Stack & AI Engineer based in Brazil, with 8+ years of shipping production software. I own products end to end, from system design and cloud infrastructure to the UI, on small and large teams, B2B and B2C, in legal-tech, healthcare, fintech, e-commerce and AI, among others.",
-    "I'm fully proficient in web and AI engineering, from front end and back end to LLMs and RAG, and I use AI tools every day. I lead teams and own what I build, and I talk to clients directly to turn their requests into work that ships. I do more than write code.",
+    "I'm a Sr. Full Stack & AI Engineer based in Brazil with 8+ years of shipping software. I handle system design, cloud infrastructure and UI alike, and I've done it on small and large teams, B2B and B2C, in legal-tech, healthcare, fintech, e-commerce, AI and more.",
+    "I work across the whole web and AI stack, including front end, back end, LLMs and RAG, and AI tools are part of my daily workflow. I lead teams, talk directly with clients and turn their requests into features that ship. I do more than write code.",
   ],
   links: {
     linkedin: 'https://www.linkedin.com/in/ericdeoliveira/',
@@ -25,8 +25,8 @@ export const profile: Profile = {
     'AI (LLMs & RAG)',
     'JS/TS',
     'Python',
-    'Founding Engineer Exp',
-    'Tech Lead Exp',
+    'Founding Engineer',
+    'Tech Lead',
   ],
 };
 
