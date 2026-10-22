@@ -21,10 +21,6 @@ export function Articles() {
       id="articles"
       title="Articles"
     >
-      <Typography variant="body1" color="text.secondary" sx={{ mb: 3, maxWidth: 720, lineHeight: 1.7 }}>
-        Technical articles I've written on Medium, mostly for Remedy Product Studio. They cover back-end
-        architecture, cloud fundamentals, front-end builds and language guides, drawn from the stacks I use day to day.
-      </Typography>
       <Grid container spacing={2}>
         {articles.map((article, index) => (
           <Grid key={article.id} size={{ xs: 12, sm: 6, md: 4 }}>
@@ -61,7 +57,7 @@ export function Articles() {
                       color="secondary.light"
                       sx={{ fontFamily: monoFont, fontWeight: 600 }}
                     >
-                      {article.publication} · {article.date}
+                      Published by {article.publication}
                     </Typography>
                     <OpenInNewIcon sx={{ fontSize: 16, color: 'text.secondary' }} />
                   </Box>
