@@ -3,6 +3,7 @@ import type { SkillGroup } from './types';
 export const skillGroups: SkillGroup[] = [
   {
     category: 'Frontend',
+    description: 'Responsive, accessible UIs, from component libraries to full product front ends.',
     skills: [
       'JavaScript',
       'TypeScript',
@@ -20,6 +21,7 @@ export const skillGroups: SkillGroup[] = [
   },
   {
     category: 'Backend',
+    description: 'APIs and services built for clear contracts, reliability and scale.',
     skills: [
       'Node.js',
       'NestJS',
@@ -33,8 +35,7 @@ export const skillGroups: SkillGroup[] = [
   },
   {
     category: 'AI Engineering',
-    description:
-      'Building AI integrations with LLMs (OpenAI, Anthropic, Gemini, Amazon Bedrock), RAG, image generation, and related tooling. Document processing is one example, but there is plenty more you can do with AI in a product.',
+    description: 'LLM integrations (OpenAI, Anthropic, Gemini, Bedrock), RAG, document processing and image generation.',
     skills: [
       'AI Integrations',
       'LLMs',
@@ -51,8 +52,7 @@ export const skillGroups: SkillGroup[] = [
   },
   {
     category: 'AI Tools',
-    description:
-      'Using AI to enhance day-to-day engineering workflows, from coding and review to planning and delivery.',
+    description: 'AI in my daily workflow, from coding and review to planning.',
     skills: [
       'Cursor',
       'Claude',
@@ -64,6 +64,7 @@ export const skillGroups: SkillGroup[] = [
   },
   {
     category: 'Cloud & DevOps',
+    description: 'Cloud infrastructure, containers and CI/CD for reliable deployments.',
     skills: [
       'AWS (S3, EC2, RDS, Lambda, CloudFront, ACM, IAM, Bedrock)',
       'GCP (Cloud Run, Cloud SQL, Pub/Sub, API Gateway)',
@@ -78,6 +79,7 @@ export const skillGroups: SkillGroup[] = [
   },
   {
     category: 'Architecture',
+    description: 'Systems designed to scale, from service boundaries to event-driven flows.',
     skills: [
       'Microservices',
       'Service-Oriented Architecture',
@@ -88,6 +90,7 @@ export const skillGroups: SkillGroup[] = [
   },
   {
     category: 'Data',
+    description: 'Relational and NoSQL data modeling, ORMs, caching and analytics.',
     skills: [
       'PostgreSQL',
       'DynamoDB',
@@ -103,10 +106,12 @@ export const skillGroups: SkillGroup[] = [
   },
   {
     category: 'Testing & Quality',
+    description: 'Unit, integration and end-to-end tests, plus thorough code review.',
     skills: ['Jest', 'Vitest', 'Code Review', 'E2E Testing'],
   },
   {
     category: 'Tools & Practices',
+    description: 'Version control, project tracking, analytics and agile delivery.',
     skills: [
       'Git',
       'GitHub',

@@ -9,9 +9,12 @@ export interface Profile {
   title: string;
   tagline: string;
   email: string;
+  emailComposeUrl: string;
   whatsapp: string;
   whatsappUrl: string;
   location: string;
+  locationUrl: string;
+  timezone: string;
   availability: string;
   avatarSrc: string;
   sourceUrl: string;

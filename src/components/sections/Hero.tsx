@@ -1,4 +1,4 @@
-import { Avatar, Box, Button, Chip, Container, Grid, Typography } from '@mui/material';
+import { Avatar, Box, Button, Chip, Container, Grid, Link, Typography } from '@mui/material';
 import { alpha } from '@mui/material/styles';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
@@ -8,6 +8,7 @@ import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import { motion } from 'framer-motion';
 import { profile } from '../../data/profile';
 import { CopyIconButton } from '../ui/CopyIconButton';
+import { MarkedText } from '../ui/Highlighted';
 import { colors, monoFont } from '../../theme/theme';
 
 const containerVariants = {
@@ -98,16 +99,16 @@ export function Hero() {
             <Typography
               variant="body1"
               color="text.secondary"
-              sx={{ mb: 3, maxWidth: 640, lineHeight: 1.8 }}
+              sx={{ mb: 3, maxWidth: 820, lineHeight: 1.8 }}
             >
-              {profile.tagline}
+              <MarkedText text={profile.tagline} />
             </Typography>
           </motion.div>
 
           {profile.about.map((paragraph) => (
             <motion.div key={paragraph.slice(0, 30)} variants={itemVariants}>
               <Typography variant="body1" color="text.secondary" sx={{ mb: 2, maxWidth: 820, lineHeight: 1.8 }}>
-                {paragraph}
+                <MarkedText text={paragraph} />
               </Typography>
             </motion.div>
           ))}
@@ -138,7 +139,9 @@ export function Hero() {
               <Button
                 variant="contained"
                 size="large"
-                href={`mailto:${profile.email}`}
+                href={profile.emailComposeUrl}
+                target="_blank"
+                rel="noopener noreferrer"
                 startIcon={<EmailIcon />}
                 aria-label={`Send email to ${profile.email}`}
               >
@@ -195,28 +198,47 @@ export function Hero() {
 
           <motion.div variants={itemVariants}>
             <Box sx={{ display: 'flex', alignItems: 'center', mt: 3 }}>
-              <Typography
-                component="a"
-                href={`mailto:${profile.email}`}
-                sx={{
+              <CopyIconButton
+                value={profile.email}
+                text={profile.email}
+                label="email address"
+                successMessage="Email copied to clipboard!"
+                textSx={{
                   fontFamily: monoFont,
                   color: 'primary.main',
-                  textDecoration: 'none',
                   wordBreak: 'break-all',
                   '&:hover': { textDecoration: 'underline' },
                 }}
-              >
-                {profile.email}
-              </Typography>
-              <CopyIconButton value={profile.email} label="email address" successMessage="Email copied to clipboard!" />
+              />
             </Box>
             <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
-              {profile.location} · {profile.availability}
+              <Link
+                href={profile.locationUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                color="inherit"
+                underline="hover"
+                aria-label={`${profile.location} on Google Maps`}
+              >
+                {profile.location}
+              </Link>
+              <Separator />
+              {profile.timezone}
+              <Separator />
+              {profile.availability}
             </Typography>
           </motion.div>
           </Grid>
         </Grid>
       </Container>
+    </Box>
+  );
+}
+
+function Separator() {
+  return (
+    <Box component="span" sx={{ mx: 1 }}>
+      ·
     </Box>
   );
 }

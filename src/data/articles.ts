@@ -1,23 +1,15 @@
 import type { Article } from './types';
 
+// Newest first. Dates are kept for ordering only; the cards don't show them.
 export const articles: Article[] = [
   {
-    id: 'nestjs-typeorm',
-    title: 'Building a Secure and Scalable Back End with NestJS/TypeScript and TypeORM',
-    publication: 'Remedy Product Studio',
-    date: 'Nov 2024',
-    url: 'https://medium.com/remedy-product-studio/building-a-secure-and-scalable-back-end-with-nestjs-typescript-and-typeorm-ad8ae5c9c0c0',
+    id: 'express-sequelize',
+    title: 'Building an Effective Node API Using Express and Sequelize',
+    publication: 'Stackademic',
+    date: 'Mar 2025',
+    url: 'https://medium.com/stackademic/building-an-effective-node-api-using-express-and-sequelize-9b875b7d7795',
     teaser:
-      'Explores a backend app with NestJS, TypeScript, and TypeORM for secure, scalable systems.',
-  },
-  {
-    id: 'github-finder-article',
-    title: 'Building a Global GitHub Profile Search App with React, Tailwind CSS, Daisy UI and Axios',
-    publication: 'Remedy Product Studio',
-    date: 'Nov 2024',
-    url: 'https://medium.com/remedy-product-studio/building-a-global-github-profile-search-app-with-react-tailwind-css-daisy-ui-and-axios-e854158bb7b2',
-    teaser:
-      'A responsive GitHub profile search tool powered by the GitHub API.',
+      'A clear and simple structure for Node APIs with Express and Sequelize.',
   },
   {
     id: 'aws-concepts',
@@ -47,6 +39,24 @@ export const articles: Article[] = [
       "Python's ecosystem and fundamentals for modern web development.",
   },
   {
+    id: 'nestjs-typeorm',
+    title: 'Building a Secure and Scalable Back End with NestJS/TypeScript and TypeORM',
+    publication: 'Remedy Product Studio',
+    date: 'Nov 2024',
+    url: 'https://medium.com/remedy-product-studio/building-a-secure-and-scalable-back-end-with-nestjs-typescript-and-typeorm-ad8ae5c9c0c0',
+    teaser:
+      'Explores a backend app with NestJS, TypeScript, and TypeORM for secure, scalable systems.',
+  },
+  {
+    id: 'github-finder-article',
+    title: 'Building a Global GitHub Profile Search App with React, Tailwind CSS, Daisy UI and Axios',
+    publication: 'Remedy Product Studio',
+    date: 'Nov 2024',
+    url: 'https://medium.com/remedy-product-studio/building-a-global-github-profile-search-app-with-react-tailwind-css-daisy-ui-and-axios-e854158bb7b2',
+    teaser:
+      'A responsive GitHub profile search tool powered by the GitHub API.',
+  },
+  {
     id: 'oop-js',
     title: 'Mastering Object-Oriented Programming in JavaScript ES2022: A Guide for Engineers',
     publication: 'Remedy Product Studio',
@@ -54,14 +64,5 @@ export const articles: Article[] = [
     url: 'https://medium.com/remedy-product-studio/mastering-object-oriented-programming-in-javascript-es2022-a-guide-for-engineers-5a89ebc0996e',
     teaser:
       'A practical guide to OOP patterns in modern JavaScript.',
-  },
-  {
-    id: 'express-sequelize',
-    title: 'Building an Effective Node API Using Express and Sequelize',
-    publication: 'Stackademic',
-    date: 'Mar 2025',
-    url: 'https://medium.com/stackademic/building-an-effective-node-api-using-express-and-sequelize-9b875b7d7795',
-    teaser:
-      'A clear and simple structure for Node APIs with Express and Sequelize.',
   },
 ];
