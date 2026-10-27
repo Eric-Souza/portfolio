@@ -4,6 +4,52 @@ const repo = (name: string) => `https://github.com/Eric-Souza/${name}`;
 
 export const batchA: CaseStudy[] = [
   {
+    id: 'renda-fixa-copilot',
+    kind: 'side-project',
+    industry: 'fintech',
+    tech: ['TypeScript', 'AI', 'CI/CD'],
+    year: 2026,
+    title: 'Renda Fixa Copilot',
+    company: 'Personal project',
+    tags: ['LLM Web Search', 'Scheduled Jobs', 'Fintech'],
+    headline:
+      'A daily email that finds the best Brazilian CDBs on the web, checks every rate against its source, and shows what R$ 75k, 100k and 150k would earn after tax in each.',
+    role: 'Solo build · search, verification, simulation, email, and scheduling',
+    challenge:
+      'Bank CDB, LCI and LCA rates have no public API: they live on bank apps, broker pages and daily ranking posts, and change every day. A model asked for them without search makes them up. The goal was a daily email that uses a model only to find and quote offers, then checks each quote and does all the money math in code, so every number in the email can be traced to a source or a formula.',
+    outcomes: [
+      'Every weekday at 08:00 Brasília time, an email ranks the best CDBs by net return for up to 1 year, 1 to 3, 3 to 6 and over 6 years, then compares them with Tesouro Direto, LCIs and LCAs.',
+      'Each offer shows the rate, maturity, net return a year against a CDB at 100% of CDI, and the net profit for R$ 75k, 100k and 150k, plus the app or broker to invest through.',
+      'Offers from the web are kept only when the page the search returned quotes the rate verbatim; the rest are listed as left out, with the reason.',
+      'Warns when an amount would pass the FGC guarantee of R$ 250k per bank at maturity, interest included, and when a Tesouro bond sold early can lose money.',
+      'A responsive HTML email that stacks on a phone, with a plain-text version for clients that drop the styles.',
+    ],
+    technical: {
+      architecture:
+        'A TypeScript job run by a GitHub Actions cron. It reads CDI, IPCA and the Focus survey from Banco Central, the bonds on sale from Tesouro Direto, and bank offers from one Groq call to gpt-oss-120b with the built-in browser_search tool. Code verifies and simulates every offer, a model writes a short summary, and Nodemailer sends the email through Gmail. An optional Neon database keeps yesterday\'s snapshot for a "since the last report" diff.',
+      howItWasBuilt: [
+        'Validated the search answer with Zod, and kept an offer only if its URL was in the search results, its quote appeared on the page, the quote stated the rate, and the rate and maturity were plausible.',
+        'Simulated every offer in code: floating rates projected year by year from the Focus survey, the regressive income tax table, the LCI and LCA exemption, Tesouro\'s custody fee, and the FGC limit for the largest amount.',
+        'Had the model write only the summary from computed facts, and replaced it with a template whenever it used a number that was not in them.',
+        'Fit Groq\'s free tier (8k tokens a minute, 200k a day per model) by searching and extracting in one call, falling back to gpt-oss-20b when the daily quota ran out, and searching again when the answer had no list.',
+        'Built the email with inline styles and a media query, and checked it with headless screenshots at desktop and phone widths.',
+        'Covered verification, tax and fee math, ranking, the summary check and rendering with 62 Vitest tests against fixtures from the live APIs.',
+      ],
+      stack: [
+        {
+          layer: 'Architecture',
+          items: ['Scheduled job', 'LLM web search', 'Verification in code', 'HTML email'],
+        },
+        { layer: 'Backend', items: ['Node', 'TypeScript', 'Zod', 'Nodemailer'] },
+        { layer: 'AI', items: ['Vercel AI SDK', 'Groq', 'gpt-oss browser_search'] },
+        { layer: 'Data', items: ['Banco Central SGS and Focus APIs', 'Tesouro Direto API', 'Neon Postgres', 'Drizzle ORM'] },
+        { layer: 'CI/CD', items: ['GitHub Actions cron'] },
+        { layer: 'Testing', items: ['Vitest', 'PGlite'] },
+      ],
+    },
+    links: [{ label: 'GitHub', url: repo('renda-fixa-copilot') }],
+  },
+  {
     id: 'currency-copilot',
     kind: 'side-project',
     industry: 'fintech',

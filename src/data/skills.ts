@@ -14,6 +14,7 @@ export const skillGroups: SkillGroup[] = [
       'Redux',
       'Framer Motion',
       'HTML/CSS',
+      'HTML Email',
       'Styled Components',
       'Tailwind CSS',
       'TanStack Query',
@@ -35,13 +36,14 @@ export const skillGroups: SkillGroup[] = [
   },
   {
     category: 'AI Engineering',
-    description: 'LLM integrations (OpenAI, Anthropic, Gemini, Bedrock), agents, RAG, MCP, evals, document processing and image generation.',
+    description: 'LLM integrations (OpenAI, Anthropic, Gemini, Bedrock, Groq), agents, RAG, MCP, evals, document processing and image generation.',
     skills: [
       'AI Integrations',
       'LLMs',
       'OpenAI',
       'Google Gemini',
       'Amazon Bedrock',
+      'Groq',
       'LiteLLM',
       'RAG',
       'AI Agents',
