@@ -4,6 +4,54 @@ const repo = (name: string) => `https://github.com/Eric-Souza/${name}`;
 
 export const batchA: CaseStudy[] = [
   {
+    id: 'job-application-copilot',
+    kind: 'side-project',
+    industry: 'productivity',
+    tech: ['Python', 'TypeScript', 'AI', 'Docker'],
+    year: 2026,
+    title: 'Job Application Copilot',
+    company: 'Personal project',
+    tags: ['AI Agents', 'RAG', 'Full Stack'],
+    headline:
+      'Tailors a resume to a job posting with bullets that cite the experience behind them, and a person approves every draft before it is final.',
+    role: 'Solo build · agent, RAG pipeline, API, web UI, and tests',
+    challenge:
+      'Tailoring a resume to each posting takes time, and asking an AI model to do it tends to produce claims the candidate never made. The goal was an agent that only writes what the resume can back up, shows where each bullet came from, and leaves the final call to the candidate.',
+    outcomes: [
+      'Paste a posting and get its must-have and nice-to-have requirements, each marked as strongly covered, partly covered, or missing from the resume.',
+      'Get tailored resume bullets and a summary, each bullet citing the resume lines it was written from.',
+      'Bullets with invented numbers, mixed roles, or tools that role never used are flagged before review.',
+      'Approve the draft, ask for changes in plain words, or edit it yourself. Edits get the same checks.',
+      'Watch each step finish and the draft appear as it is written, then close the tab and pick the run up later.',
+      'Optionally read the resume from a profile MCP server that combines a structured experience file with live GitHub and Medium data.',
+    ],
+    technical: {
+      architecture:
+        'A LangGraph agent behind a FastAPI API, with a React client. Resume bullets are embedded with Gemini and stored in Postgres with pgvector. The graph parses the posting, retrieves evidence per requirement, judges coverage, searches again with tool calls for weak spots, drafts, and pauses for review. A Postgres checkpointer saves every step, and progress streams to the browser over server-sent events.',
+      howItWasBuilt: [
+        'Chunked the resume one bullet per chunk with its role heading attached, and searched it with hybrid retrieval (vector plus Postgres full-text, merged with Reciprocal Rank Fusion).',
+        'Used Pydantic structured output for every model step, and checked each drafted bullet in code against the evidence it cites.',
+        'Gave the model a search tool in a bounded loop to find evidence the first search missed, then judged coverage again with the new hits.',
+        'Paused the graph with LangGraph interrupts for review, and streamed the partial draft to the UI as the model wrote it.',
+        'Fell back to a lighter Gemini model when the free tier is busy, and tracked calls, tokens, and time per run with optional Langfuse tracing.',
+        'Covered the agent, API, and ingestion with pytest against a real Postgres test database, and the UI with Vitest.',
+      ],
+      stack: [
+        {
+          layer: 'Architecture',
+          items: ['LangGraph state machine', 'Human-in-the-loop review', 'Tool-calling loop', 'REST API + SSE streaming'],
+        },
+        { layer: 'Frontend', items: ['React', 'TypeScript', 'Vite', 'MUI'] },
+        { layer: 'Backend', items: ['Python', 'FastAPI', 'SQLAlchemy (async)', 'MCP client'] },
+        { layer: 'AI', items: ['Google Gemini', 'LangGraph', 'LangChain', 'Structured output', 'Hybrid RAG', 'Langfuse'] },
+        { layer: 'Data', items: ['Postgres', 'pgvector', 'LangGraph Postgres checkpointer'] },
+        { layer: 'Infrastructure', items: ['Docker Compose'] },
+        { layer: 'Testing', items: ['pytest', 'Vitest', 'React Testing Library'] },
+      ],
+    },
+    links: [{ label: 'GitHub', url: repo('job-application-copilot') }],
+  },
+  {
     id: 'dollar-exchange-optimizer',
     kind: 'side-project',
     industry: 'fintech',
