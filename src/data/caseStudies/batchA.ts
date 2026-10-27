@@ -33,6 +33,7 @@ export const batchA: CaseStudy[] = [
         'Used Pydantic structured output for every model step, and checked each drafted bullet in code against the evidence it cites.',
         'Gave the model a search tool in a bounded loop to find evidence the first search missed, then judged coverage again with the new hits.',
         'Paused the graph with LangGraph interrupts for review, and streamed the partial draft to the UI as the model wrote it.',
+        'Wrote an MCP client that can read the resume from my profile MCP server, over stdio or Streamable HTTP, and index it in place of local files.',
         'Fell back to a lighter Gemini model when the free tier is busy, and tracked calls, tokens, and time per run with optional Langfuse tracing.',
         'Covered the agent, API, and ingestion with pytest against a real Postgres test database, and the UI with Vitest.',
       ],
@@ -49,7 +50,54 @@ export const batchA: CaseStudy[] = [
         { layer: 'Testing', items: ['pytest', 'Vitest', 'React Testing Library'] },
       ],
     },
-    links: [{ label: 'GitHub', url: repo('job-application-copilot') }],
+    links: [
+      { label: 'GitHub', url: repo('job-application-copilot') },
+      { label: 'Profile MCP server', url: repo('profile-mcp-server') },
+    ],
+  },
+  {
+    id: 'profile-mcp-server',
+    kind: 'side-project',
+    industry: 'developer-platform',
+    tech: ['TypeScript', 'AI'],
+    year: 2026,
+    title: 'Profile MCP Server',
+    company: 'Personal project',
+    tags: ['MCP', 'AI Agents', 'Backend'],
+    headline:
+      'Gives AI assistants like Claude live, structured access to my GitHub projects, Medium articles, and work experience, so they look things up instead of guessing.',
+    role: 'Solo build · MCP server, data sources, transports, and tests',
+    challenge:
+      'An AI assistant asked about my work only knows what is pasted into the chat, and that goes stale. The goal was one source of truth about my profile that any MCP client can query, and that my Job Application Copilot can index as its resume.',
+    outcomes: [
+      'Connect it to Claude Desktop or Claude Code and ask things like "Which of my projects use LangGraph?" or "Summarize my legal-tech experience".',
+      'Five tools list and read projects, list articles, filter experience by skill or industry, and search across all of it.',
+      'Serves the full resume as Markdown in the format the Job Application Copilot indexes, so the copilot can draw on it directly.',
+      'Includes a prompt that matches a job posting against the profile without inventing experience.',
+      'Keeps answering when one source fails: search skips it and reports the error.',
+    ],
+    technical: {
+      architecture:
+        'A TypeScript MCP server built on the official SDK. Tools, a profile://resume resource, and a tailor_for_job prompt sit on top of three sources: the GitHub REST API, the Medium RSS feed, and a local experience file. It runs over stdio for desktop clients or stateless Streamable HTTP for remote ones, and caches GitHub and Medium responses in memory.',
+      howItWasBuilt: [
+        'Defined every tool with Zod input and output schemas, returning structured content plus JSON text for older clients.',
+        'Turned source failures, like the GitHub rate limit, into tool errors that say what to do next.',
+        'Rendered the resume resource with one heading per role and one bullet per accomplishment, so each bullet becomes a piece of evidence in the copilot.',
+        'Added a TTL cache for GitHub and Medium that never caches failed requests.',
+        'Covered the tools with Vitest against faked sources, plus a smoke test that drives the built server with a real MCP client.',
+      ],
+      stack: [
+        {
+          layer: 'Architecture',
+          items: ['Model Context Protocol', 'Tools, resources, and prompts', 'stdio + Streamable HTTP', 'TTL cache'],
+        },
+        { layer: 'Backend', items: ['TypeScript', 'Node.js', 'MCP TypeScript SDK', 'Zod'] },
+        { layer: 'Data', items: ['GitHub REST API', 'Medium RSS', 'JSON experience file'] },
+        { layer: 'AI', items: ['Claude Desktop', 'Claude Code', 'MCP Inspector'] },
+        { layer: 'Testing', items: ['Vitest', 'MCP client smoke test'] },
+      ],
+    },
+    links: [{ label: 'GitHub', url: repo('profile-mcp-server') }],
   },
   {
     id: 'dollar-exchange-optimizer',
