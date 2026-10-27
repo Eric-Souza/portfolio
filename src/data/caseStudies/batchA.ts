@@ -4,6 +4,52 @@ const repo = (name: string) => `https://github.com/Eric-Souza/${name}`;
 
 export const batchA: CaseStudy[] = [
   {
+    id: 'doc-extraction-copilot',
+    kind: 'side-project',
+    industry: 'fintech',
+    tech: ['TypeScript', 'AI', 'CI/CD'],
+    year: 2026,
+    title: 'Doc Extraction Copilot',
+    company: 'Personal project',
+    tags: ['Vision Extraction', 'Evals', 'Fintech'],
+    headline:
+      'Reads a photo or PDF of a Brazilian boleto, nota fiscal or income statement into typed JSON, checks every field it can in code, and asks a person to review only the fields that failed.',
+    role: 'Solo build · extraction, checks, review UI, eval set, and tests',
+    challenge:
+      'Boletos, notas fiscais and informes de rendimentos arrive as PDFs and phone photos, and typing them in is slow. A vision model reads them well but can still drop a digit, and asking it to check its own answer proves little. These documents carry their own check digits and totals, so the goal was to let the model read, let code check, show a person only the fields that need a look, and measure with an eval set how many wrong fields would get through unseen.',
+    outcomes: [
+      'Upload a boleto, a DANFE or a broker\'s informe de rendimentos as a PNG, JPEG or PDF, and get every field as typed JSON for that document type.',
+      'Each field is marked checked, review or not checked, so a person only looks at the fields that failed a check or that the model was unsure of.',
+      'A boleto whose printed amount does not match its digit line, or a DANFE line total that is off by R$ 10, is flagged on the field that is actually wrong.',
+      'The JSON can only be downloaded once nothing is left to review.',
+      'On 36 synthetic documents, the default model read 99.9% of fields right, flagged with 100% precision and recall, left 0 silent errors and caught all 6 planted inconsistencies, at a median of 5.4s a document.',
+    ],
+    technical: {
+      architecture:
+        'A Next.js App Router app on the Vercel AI SDK. The extract route sends the upload to Gemini 3.5 Flash Lite as a file part: a first generateText call classifies the document, and a second extracts it with Output.object and that type\'s Zod schema. Deterministic TypeScript then checks the fields and decides which need review, and the React client shows them next to the document for correction.',
+      howItWasBuilt: [
+        'Told the model to copy what is printed and never fix it, and moved every decision about whether a digit or a total is right into code.',
+        'Checked CPF and CNPJ mod-11 digits, including the alphanumeric CNPJ that starts in July 2026, and the boleto digit lines, decoding the amount, the due date (with the factor that reset in February 2025) and the bank to compare with the printed fields.',
+        'Checked the NF-e 44-digit access key\'s digit and the state, month, issuer CNPJ, series and number it encodes, then that line totals, the products total and the invoice total add up.',
+        'Left lines that pass their own quantity × price check unflagged when a total is off, so the review points at the line that is wrong.',
+        'Built a seeded generator that renders 36 fictional documents with headless Chromium as clean PNGs, PDFs and phone-photo-style JPEGs, six with planted inconsistencies, and scored each run per field, with flag precision, recall and silent errors.',
+        'Covered the checks, the review rules and the scoring with 35 Vitest tests, and the upload and review flow with 4 Playwright tests against a scripted model, all run by GitHub Actions on every push.',
+      ],
+      stack: [
+        {
+          layer: 'Architecture',
+          items: ['Vision extraction', 'Verification in code', 'Human-in-the-loop review', 'Eval set'],
+        },
+        { layer: 'Frontend', items: ['React', 'Next.js', 'TypeScript', 'Tailwind CSS'] },
+        { layer: 'Backend', items: ['Next.js route handlers', 'Zod'] },
+        { layer: 'AI', items: ['Vercel AI SDK', 'Google Gemini', 'Structured output'] },
+        { layer: 'CI/CD', items: ['GitHub Actions'] },
+        { layer: 'Testing', items: ['Vitest', 'Playwright', 'AI SDK mock model'] },
+      ],
+    },
+    links: [{ label: 'GitHub', url: repo('doc-extraction-copilot') }],
+  },
+  {
     id: 'renda-fixa-copilot',
     kind: 'side-project',
     industry: 'fintech',
