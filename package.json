@@ -13,7 +13,8 @@
     "test:watch": "vitest",
     "test:e2e": "playwright test",
     "og-image": "node scripts/generate-og-image.js",
-    "sync-dates": "node scripts/sync-repo-dates.js"
+    "sync-dates": "node scripts/sync-repo-dates.js",
+    "resume": "node scripts/build-resume.js"
   },
   "dependencies": {
     "@emotion/cache": "^11.14.0",

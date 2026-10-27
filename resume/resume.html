@@ -1,0 +1,104 @@
+<!doctype html>
+<!-- Source of public/resume.pdf. Edit this file, then run `npm run resume`. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Eric de Oliveira Souza Resume</title>
+<meta name="author" content="Eric de Oliveira Souza">
+<style>
+  @page { size: letter; margin: 0.32in 0.5in 0.25in; }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: 'Noto Serif', serif; font-size: 8pt; line-height: 1.22; color: #141414; }
+  a { color: #000; }
+  h1 { margin: 0; font-size: 16pt; text-align: center; line-height: 1.2; }
+  .contact { text-align: center; margin: 1pt 0 1pt; }
+  .contact a { margin: 0 2pt; }
+  .summary p { margin: 0; }
+  h2 { font-size: 9pt; margin: 6pt 0 2pt; padding-bottom: 1pt; border-bottom: 0.75pt solid #888; }
+  h3 { font-size: 8.5pt; margin: 3pt 0 0.5pt; }
+  ul { margin: 0; padding-left: 11pt; }
+  li { padding-left: 1pt; }
+  .skills p { margin: 0; }
+  .edu p { margin: 0; }
+</style>
+</head>
+<body>
+<h1>Eric de Oliveira Souza</h1>
+<div class="contact">
+  <a href="https://www.google.com/maps/place/Belo+Horizonte,+State+of+Minas+Gerais">Belo Horizonte, Brazil</a> |
+  <a href="https://www.linkedin.com/in/ericdeoliveira/?locale=en_US">LinkedIn</a> |
+  <a href="https://github.com/Eric-Souza">GitHub</a> |
+  <a href="https://medium.com/@eric.bh18souza">Tech Blog</a> |
+  <a href="https://portfolio-mu-blond-54.vercel.app/">Portfolio</a> |
+  <a href="mailto:eric.bh18souza@gmail.com">eric.bh18souza@gmail.com</a>
+</div>
+<div class="summary">
+  <p>Senior Full Stack &amp; AI Engineer with 8+ years of experience building production software across banking, healthcare, e-commerce, AI, legal-tech, and internal systems. I'm comfortable with architecture, technical direction, cloud infrastructure, and end-to-end delivery as both a hands-on developer and engineering leader.</p>
+  <p>Strong in React, Node, Python, and AWS, with practical AI engineering experience building LLM/RAG workflows, agents, and MCP integrations, and applying AI to improve software delivery.</p>
+</div>
+
+<h2>EXPERIENCE</h2>
+<h3>FOUNDING FULL STACK &amp; AI ENGINEER | <a href="https://teamex.io/">TEAMEX</a> | FEB 2025 - PRESENT</h3>
+<ul>
+  <li>Founding engineer responsible for building, scaling, and operating Essential Estates, a production legal-tech platform owned by Summerall Law, a Silicon Valley law firm; owned product, engineering, people, and infrastructure end-to-end.</li>
+  <li>Built the platform from zero to production using React and TypeScript on the frontend, with NestJS, PostgreSQL, and TypeORM on the backend.</li>
+  <li>Led architecture and system design across API design, data modeling, scalability, maintainability, and reliable frontend/backend contracts.</li>
+  <li>Designed and managed AWS infrastructure using S3, EC2, RDS, CloudFront, and ACM, with GitHub Actions CI/CD for automated deployments and reliability.</li>
+  <li>Developed AI-powered features using Python and FastAPI, integrating LLMs and Retrieval-Augmented Generation (RAG) for intelligent document processing, automation, and knowledge-driven workflows.</li>
+  <li>Recruited, onboarded, and led the engineering team; defined coding standards, code review practices, and delivery processes.</li>
+  <li>Implemented Google Analytics 4 (GA4) to track user behavior, funnels, and product metrics, informing product and marketing decisions.</li>
+</ul>
+<h3>SR FULL STACK ENGINEER | <a href="https://exit83.com/">EXIT83</a> | JUN 2022 – FEB 2025</h3>
+<ul>
+  <li>Built UIs with React, Next, and Material UI for efficient patient and EEG data tracking.</li>
+  <li>Developed scalable backend systems with Node, Nest, PostgreSQL, and DynamoDB, deployed on AWS.</li>
+  <li>Integrated medical APIs for TMS session validation and EEG data automation, increasing accuracy.</li>
+  <li>Optimized EEG and treatment workflows, reducing admin overhead and improving patient management.</li>
+  <li>Improved performance with optimized queries and Redis caching, cutting report processing time.</li>
+</ul>
+<h3>FULL STACK ENGINEER | <a href="https://www.zrobank.com.br/en">ZRO BANK</a> | JUL 2020 – JUN 2022</h3>
+<ul>
+  <li>Developed and scaled the backend of the main financial app using Node, Nest, and PostgreSQL, implementing microservices with Apache Kafka to improve performance, reduce latency, and enhance scalability for high-volume transactions.</li>
+  <li>Leveraged Sequelize ORM to simplify database interactions, reduce query complexity, and improve API response times.</li>
+  <li>Built a financial remittance and client management system with React, Next, and Material UI on the frontend and Node, Nest, and PostgreSQL on the backend.</li>
+  <li>Automated reporting workflows by generating Jira-based reports in Google Sheets through a Node/Express integration.</li>
+</ul>
+<h3>FULL STACK ENGINEER | <a href="https://kognita.com.br/">KOGNITA</a> | DEC 2018 – JUL 2020</h3>
+<ul>
+  <li>Developed a web platform integrating AI-driven heatmaps to help clients identify optimal business locations based on real-time data analysis.</li>
+  <li>Built a full stack system using React, Next, and Material UI for a seamless UI, with Node, Nest, and PostgreSQL for scalable data management.</li>
+  <li>Optimized AI data processing workflows and integration between the AI R&amp;D team and the web platform, enabling accurate geospatial insights using AWS S3 as storage.</li>
+</ul>
+<h3>FULL STACK ENGINEER | <a href="https://www.mundiale.ai/">MUNDIALE</a> | JAN 2018 – DEC 2018</h3>
+<ul>
+  <li>Developed and maintained an e-commerce platform for an internet and telephone service provider in South America, improving the online purchase experience with a React, Next, and Material UI frontend and Node, Express, and PostgreSQL backend.</li>
+  <li>Built a customer and plan management system, enabling efficient user listing and plan details visualization with a React, Next, and Bootstrap frontend and Node, Express, and PostgreSQL backend.</li>
+</ul>
+
+<h2>AI PROJECTS</h2>
+<ul>
+  <li><strong><a href="https://github.com/Eric-Souza/currency-copilot">Currency Copilot</a>:</strong> streaming currency chat with Next, the Vercel AI SDK, and Gemini; typed tool calls render as React rate cards, charts, and tables; chats saved in Neon Postgres with Drizzle; Vitest and Playwright tests in GitHub Actions.</li>
+  <li><strong><a href="https://github.com/Eric-Souza/job-application-copilot">Job Application Copilot</a>:</strong> LangGraph agent with FastAPI and React that tailors a resume to a job posting, with hybrid RAG on pgvector, cited bullets checked in code, human-in-the-loop review, and SSE streaming.</li>
+  <li><strong><a href="https://github.com/Eric-Souza/gemini-rag-doc-processing">Doc Processing AI</a>:</strong> RAG chat with citations using hybrid search (pgvector, full-text, RRF) and a cross-encoder reranker, RAGAS evals as a CI quality gate, and Langfuse tracing.</li>
+  <li><strong><a href="https://github.com/Eric-Souza/profile-mcp-server">Profile MCP Server</a>:</strong> TypeScript MCP server that gives Claude and other agents live access to my GitHub, Medium, and experience data through tools, resources, and prompts.</li>
+</ul>
+
+<h2>TECHNICAL SKILLS &amp; TOOLS</h2>
+<div class="skills">
+  <p><strong>Languages &amp; Frameworks:</strong> JavaScript, TypeScript, React, Next, Node, Nest, Express, Python, FastAPI</p>
+  <p><strong>Databases &amp; Data Handling:</strong> PostgreSQL, pgvector, SQLite, MongoDB, DynamoDB, TypeORM, Sequelize, Drizzle, Mongoose, Redis</p>
+  <p><strong>Cloud &amp; DevOps:</strong> AWS (S3, Lambda, EC2, RDS, CloudFront, ACM), Azure, Vercel, Docker, Kubernetes, GitHub Actions (CI/CD)</p>
+  <p><strong>Architecture &amp; System Design:</strong> Microservices, RESTful APIs, SSR, CSR, WebSockets, SSE, Apache Kafka, service-oriented architectures</p>
+  <p><strong>AI Engineering:</strong> LLMs, RAG, agents, tool calling, LangGraph, LangChain, Vercel AI SDK, MCP, Gemini, RAGAS evals, Langfuse</p>
+  <p><strong>AI Fluency:</strong> Claude, Claude Code, Cursor, ChatGPT, Cursor Bugbot; efficient at enhancing planning, coding, debugging, review, documentation, and delivery with AI-assisted workflows</p>
+  <p><strong>Testing &amp; State Management:</strong> Jest, Vitest, Playwright, pytest, Redux</p>
+  <p><strong>Soft Skills:</strong> Leadership, adaptability, problem-solving, communication, cross-functional collaboration, US-hours flexibility</p>
+</div>
+
+<h2>EDUCATION</h2>
+<div class="edu">
+  <h3>BACHELOR IN <a href="https://www.incose.org/about-systems-engineering/what-is-systems-engineering">SYSTEMS ENGINEERING</a> | 2024 | <a href="https://ufmg.br/international-visitors">FEDERAL UNIVERSITY OF MINAS GERAIS</a></h3>
+  <p>The course focuses on designing, developing, and validating complex software systems by integrating user needs, architecture, quality, and performance to deliver innovative solutions.</p>
+</div>
+</body>
+</html>

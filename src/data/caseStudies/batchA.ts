@@ -4,6 +4,52 @@ const repo = (name: string) => `https://github.com/Eric-Souza/${name}`;
 
 export const batchA: CaseStudy[] = [
   {
+    id: 'currency-copilot',
+    kind: 'side-project',
+    industry: 'fintech',
+    tech: ['TypeScript', 'AI', 'CI/CD'],
+    year: 2026,
+    title: 'Currency Copilot',
+    company: 'Personal project',
+    tags: ['Generative UI', 'AI Agents', 'Full Stack'],
+    headline:
+      'A chat for currency questions that answers with rate cards, charts, and tables built from live central bank rates, never with numbers the model remembers.',
+    role: 'Solo build · chat UI, tools, persistence, and tests',
+    challenge:
+      'A chat model asked for an exchange rate answers from its training data, which is months old, and five rates inside a paragraph are hard to compare. The goal was a chat where every number comes from a tool call and shows up as UI, and where the "should I exchange today?" verdict is computed in code instead of made up.',
+    outcomes: [
+      'Ask for a rate and get a rate card with its inverse and the date the European Central Bank published it.',
+      'Ask how a pair moved and get a line chart with a hover tooltip and a table view for screen readers.',
+      'Convert an amount into up to ten currencies in one table, with the ones the source does not cover listed instead of dropped.',
+      'Ask whether today is a good day to exchange and get a verdict from 90 days of history, explained in a short summary.',
+      'Come back to any chat at its own URL, with recent chats listed and private to the browser that started them.',
+    ],
+    technical: {
+      architecture:
+        'A Next.js App Router app on the Vercel AI SDK. The chat route streams Gemini responses with four typed tools that call the Frankfurter API on the server, and the client renders each tool result as its own React component. Chats are saved to Neon Postgres with Drizzle when an answer finishes.',
+      howItWasBuilt: [
+        'Defined each tool with a Zod schema, and rendered every tool state (loading, result, error) as a component typed by the tool\'s return value.',
+        'Computed the exchange verdict in TypeScript from percentiles and trends, and had the model only write the summary, as validated structured output with a 10-second fallback.',
+        'Turned stream timeouts and free-tier quota errors into messages that say what to do, instead of an empty reply.',
+        'Saved chats on finish even if the tab closes, validated client messages against the tool schemas, and scoped each chat to an anonymous httpOnly cookie.',
+        'Covered tools, the chat route, and the store with Vitest against a scripted model and PGlite, and the production build with Playwright end-to-end tests, all run by GitHub Actions on every push.',
+      ],
+      stack: [
+        {
+          layer: 'Architecture',
+          items: ['Generative UI', 'Tool calling', 'Streaming chat', 'Server-side persistence'],
+        },
+        { layer: 'Frontend', items: ['React', 'Next.js', 'TypeScript', 'Tailwind CSS', 'Recharts'] },
+        { layer: 'Backend', items: ['Next.js route handlers', 'Zod', 'Frankfurter API'] },
+        { layer: 'AI', items: ['Vercel AI SDK', 'Google Gemini', 'Structured output'] },
+        { layer: 'Data', items: ['Neon Postgres', 'Drizzle ORM'] },
+        { layer: 'CI/CD', items: ['GitHub Actions'] },
+        { layer: 'Testing', items: ['Vitest', 'Playwright', 'PGlite', 'AI SDK mock model'] },
+      ],
+    },
+    links: [{ label: 'GitHub', url: repo('currency-copilot') }],
+  },
+  {
     id: 'job-application-copilot',
     kind: 'side-project',
     industry: 'productivity',
@@ -152,7 +198,7 @@ export const batchA: CaseStudy[] = [
     id: 'gemini-rag-doc-processing',
     kind: 'side-project',
     industry: 'productivity',
-    tech: ['Python', 'TypeScript', 'AI'],
+    tech: ['Python', 'TypeScript', 'AI', 'Docker', 'CI/CD'],
     year: 2026,
     title: 'Doc Processing AI, Chat With Your Documents',
     company: 'Personal project',
@@ -166,16 +212,19 @@ export const batchA: CaseStudy[] = [
       'Upload PDF or text files and see when each one is ready to query.',
       'Ask questions in a chat and get answers streamed word by word, with citations to the source passages.',
       'Choose between a direct question-and-answer mode and an agent mode that decides when to search the documents.',
-      'Run a quality check against a set of known questions to see whether retrieval and answers hold up.',
+      'Run a quality check against a set of known questions to see whether retrieval and answers hold up, and block a change that makes them worse.',
+      'Trace each answer step by step, from the search stages to the model call, to see where time and tokens go.',
     ],
     technical: {
       architecture:
-        'A React client and a FastAPI backend that run locally. Uploads are chunked, embedded with Gemini and stored in Chroma, and chat answers are built from the closest chunks and streamed back with citations.',
+        'A React client and a FastAPI backend that run locally. Uploads are chunked, embedded with Gemini and stored in Postgres with pgvector. Questions are answered from hybrid search (vector plus full-text, merged with Reciprocal Rank Fusion) and a cross-encoder reranker, and streamed back with citations.',
       howItWasBuilt: [
         'Built ingestion with PDF text extraction, overlapping chunks, Gemini embeddings and safe re-ingestion.',
         'Wrote two answer paths, a grounded RAG chain and a LangGraph agent, both returning citations.',
         'Streamed tokens and citations to the browser over server-sent events.',
-        'Added a golden-set eval that scores retrieval and faithfulness with an LLM judge, logged to LangSmith.',
+        'Moved from Chroma to pgvector, and measured vector, hybrid, and hybrid plus rerank retrieval on a golden set before picking the default.',
+        'Scored answers with RAGAS and made the scores a GitHub Actions quality gate on every retrieval mode.',
+        'Traced every retrieval stage and model call with Langfuse, keeping LangSmith as an option.',
       ],
       stack: [
         {
@@ -183,8 +232,11 @@ export const batchA: CaseStudy[] = [
           items: ['RAG pipeline', 'Tool-calling agent', 'REST API + SSE streaming', 'Background ingestion'],
         },
         { layer: 'Frontend', items: ['React', 'TypeScript', 'Vite', 'MUI', 'Framer Motion'] },
-        { layer: 'Backend', items: ['Python', 'FastAPI', 'SQLAlchemy (async)', 'SQLite'] },
-        { layer: 'AI', items: ['Google Gemini', 'LangChain', 'LangGraph', 'Chroma', 'LangSmith'] },
+        { layer: 'Backend', items: ['Python', 'FastAPI', 'SQLAlchemy (async)', 'asyncpg'] },
+        { layer: 'AI', items: ['Google Gemini', 'LangChain', 'LangGraph', 'Cross-encoder reranker', 'RAGAS', 'Langfuse'] },
+        { layer: 'Data', items: ['Postgres', 'pgvector', 'Postgres full-text search'] },
+        { layer: 'Infrastructure', items: ['Docker'] },
+        { layer: 'CI/CD', items: ['GitHub Actions quality gate'] },
       ],
     },
     links: [{ label: 'GitHub', url: repo('gemini-rag-doc-processing') }],
