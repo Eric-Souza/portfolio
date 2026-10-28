@@ -3,6 +3,69 @@ import type { Article } from './types';
 // Newest first. Dates are kept for ordering only; the cards don't show them.
 export const articles: Article[] = [
   {
+    id: 'voice-receptionist',
+    title: 'I built a voice receptionist you can interrupt, on a free stack',
+    publication: 'Dev Genius',
+    date: 'Oct 2026',
+    url: 'https://blog.devgenius.io/i-built-a-voice-receptionist-you-can-interrupt-on-a-free-stack-4f48b16a13ab',
+    teaser:
+      'A dental clinic voice agent with barge-in: Silero VAD, Groq Whisper and gpt-oss, and Kokoro speech on the CPU.',
+  },
+  {
+    id: 'exact-answer-retrieval',
+    title: 'Close enough isn’t good enough: teaching an AI assistant to find the exact answer',
+    publication: 'Dev Genius',
+    date: 'Oct 2026',
+    url: 'https://blog.devgenius.io/close-enough-isnt-good-enough-teaching-an-ai-assistant-to-find-the-exact-answer-1d127caad4b7',
+    teaser:
+      'Hybrid search and a reranker raised how often the right passage comes first from 73% to 91%.',
+  },
+  {
+    id: 'resume-copilot',
+    title: 'I built an AI that tailors my resume, then spent most of the time stopping it from making things up',
+    publication: 'Dev Genius',
+    date: 'Oct 2026',
+    url: 'https://blog.devgenius.io/i-built-an-ai-that-tailors-my-resume-then-spent-most-of-the-time-stopping-it-from-making-things-up-fbbee576a9ad',
+    teaser:
+      'A LangGraph agent whose every bullet must cite the resume, checked in code and approved by a person.',
+  },
+  {
+    id: 'rag-evals-ci',
+    title: 'How do you know your AI assistant didn’t get worse? Grading every change automatically',
+    publication: 'Stackademic',
+    date: 'Oct 2026',
+    url: 'https://blog.stackademic.com/how-do-you-know-your-ai-assistant-didnt-get-worse-grading-every-change-automatically-155bbbaa024d',
+    teaser:
+      'RAGAS grades as a CI quality gate, plus Langfuse tracing to see where every second goes.',
+  },
+  {
+    id: 'cdb-daily-email',
+    title: 'I built a daily email that finds the best Brazilian CDBs, and checks the AI before trusting it',
+    publication: 'Dev Genius',
+    date: 'Oct 2026',
+    url: 'https://blog.devgenius.io/i-built-a-daily-email-that-finds-the-best-brazilian-cdbs-and-checks-the-ai-before-trusting-it-e74e4747d163',
+    teaser:
+      'An LLM with web search finds bank offers; code verifies each one and simulates taxes and the FGC.',
+  },
+  {
+    id: 'boleto-vision-extraction',
+    title: 'I built a vision AI that reads Brazilian boletos and invoices, and code that checks every digit it reads',
+    publication: 'Dev Genius',
+    date: 'Oct 2026',
+    url: 'https://blog.devgenius.io/i-built-a-vision-ai-that-reads-brazilian-boletos-and-invoices-and-code-that-checks-every-digit-it-22b4b8ce2cc2',
+    teaser:
+      'Gemini reads documents into typed JSON; check digits and totals decide what a person reviews.',
+  },
+  {
+    id: 'currency-chat',
+    title: 'I built a currency chat where the answers are charts, not paragraphs',
+    publication: 'Stackademic',
+    date: 'Oct 2026',
+    url: 'https://blog.stackademic.com/i-built-a-currency-chat-where-the-answers-are-charts-not-paragraphs-58e74327b22f',
+    teaser:
+      'Typed tool calls on the Vercel AI SDK render as React rate cards, charts and tables.',
+  },
+  {
     id: 'usd-brl-advisor',
     title: 'Building a daily USD/BRL exchange advisor on free infrastructure',
     publication: 'Stackademic',
