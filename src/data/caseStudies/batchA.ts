@@ -4,6 +4,51 @@ const repo = (name: string) => `https://github.com/Eric-Souza/${name}`;
 
 export const batchA: CaseStudy[] = [
   {
+    id: 'voice-receptionist-copilot',
+    kind: 'side-project',
+    industry: 'health-tech',
+    tech: ['Python', 'TypeScript', 'AI'],
+    year: 2026,
+    title: 'Voice Receptionist Copilot',
+    company: 'Personal project',
+    tags: ['Voice Agent', 'Tool Calling', 'Barge-in'],
+    headline:
+      'A voice receptionist for a dental clinic that books, moves and cancels real appointments over a phone-style call, and that you can interrupt mid-sentence like a person.',
+    role: 'Solo build · voice pipeline, agent and tools, scheduling, dashboard, and tests',
+    challenge:
+      'Most voice demos are turn-based: the bot talks until it finishes, and anything you say meanwhile is lost. A receptionist has to be interruptible, answer fast enough to feel like a call, and never book a slot the caller did not actually hear read back. The goal was a full speech-to-speech loop on free tiers and a CPU, where talking over Sofia stops her within a third of a second, her memory keeps only what you heard, and every booking still matches the database.',
+    outcomes: [
+      'Talk to Sofia in the browser: she checks availability, books, reschedules and cancels appointments, and answers questions about prices, insurance, hours and parking for a fictional clinic in Austin, Texas.',
+      'Talking over her for 300 ms stops her and drops the audio already queued; short sounds like "uh-huh" do not, and the history keeps only the sentences the caller heard, marked as cut off.',
+      'Every change is proposed, read back, and only applied after the caller says yes on a later turn, so a change the caller cut off is withdrawn instead of booked.',
+      'Per-turn latency logging brought the time from the end of speech to the first audio from 4.8 seconds on the first live turn down to 1.7 to 2.0 seconds.',
+      'A React dashboard shows the live transcript, each tool call with its arguments and result, a latency bar per turn, and the week\'s bookings, which jump to and highlight each change Sofia confirms.',
+    ],
+    technical: {
+      architecture:
+        'The browser streams 16 kHz mic audio over a WebSocket to a FastAPI server. Silero VAD finds where each utterance ends, Groq Whisper transcribes it, and gpt-oss on Groq runs the agent loop with tool calls into a SQLite clinic schedule. The reply is split into sentences as it streams, each one synthesized by Kokoro on the CPU and sent back as PCM while the model writes the next. The server keeps listening the whole time, so it can cancel the reply when the caller cuts in.',
+      howItWasBuilt: [
+        'Kept the scheduling rules in code: opening hours, lunch, each dentist\'s services and conflicts are checked in Python, and the model only proposes changes through typed tools.',
+        'Tracked how long each sentence plays in the browser, so on an interruption the server knows which sentences the caller heard and rewrites the turn to match.',
+        'Shielded running tools from cancellation, so a booking that started is recorded before the turn stops and the history always matches the database, and gave calls that never ran a "not run" result.',
+        'When the caller pauses and goes on before Sofia speaks, sent both parts to Whisper together as one utterance instead of answering half a sentence.',
+        'Normalized text before speech, such as "Dr." to "Doctor", prices to spoken dollars and cents, and the narrow spaces the model puts in times, after hearing Kokoro misread them.',
+        'Covered the agent, tools, scheduling, speech text and the voice WebSocket with 63 pytest tests using scripted models and fake speech services, and the call state in the browser with 11 Vitest tests.',
+      ],
+      stack: [
+        {
+          layer: 'Architecture',
+          items: ['Speech-to-speech pipeline', 'Barge-in', 'Tool calling', 'Propose-and-confirm actions'],
+        },
+        { layer: 'Frontend', items: ['React', 'TypeScript', 'Vite', 'Web Audio API'] },
+        { layer: 'Backend', items: ['Python', 'FastAPI', 'WebSockets', 'SQLModel', 'SQLite'] },
+        { layer: 'AI', items: ['Groq', 'Whisper', 'gpt-oss', 'Silero VAD', 'Kokoro TTS'] },
+        { layer: 'Testing', items: ['pytest', 'Vitest', 'Scripted model and fake speech services'] },
+      ],
+    },
+    links: [{ label: 'GitHub', url: repo('voice-receptionist-copilot') }],
+  },
+  {
     id: 'doc-extraction-copilot',
     kind: 'side-project',
     industry: 'fintech',

@@ -36,7 +36,7 @@ export const skillGroups: SkillGroup[] = [
   },
   {
     category: 'AI Engineering',
-    description: 'LLM integrations (OpenAI, Anthropic, Gemini, Bedrock, Groq), agents, RAG, MCP, evals, vision models, document processing and image generation.',
+    description: 'LLM integrations (OpenAI, Anthropic, Gemini, Bedrock, Groq), agents, RAG, MCP, evals, vision and voice models, document processing and image generation.',
     skills: [
       'AI Integrations',
       'LLMs',
@@ -48,6 +48,11 @@ export const skillGroups: SkillGroup[] = [
       'LiteLLM',
       'RAG',
       'AI Agents',
+      'Tool Calling',
+      'Voice Agents',
+      'Speech-to-Text (Whisper)',
+      'Text-to-Speech (Kokoro)',
+      'Voice Activity Detection (Silero VAD)',
       'LangChain',
       'LangGraph',
       'Vercel AI SDK',
