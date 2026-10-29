@@ -26,8 +26,8 @@ export function Articles() {
 
   return (
     <Section
-      id="articles"
-      title="Articles"
+      id="publications"
+      title="Publications"
     >
       <Grid container spacing={2}>
         {articles.slice(0, visible).map((article, index) => (
