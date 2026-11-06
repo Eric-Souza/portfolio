@@ -1,143 +1,144 @@
 import type { CaseStudy } from '../types';
 
 export const clientCaseStudies: CaseStudy[] = [
-  {
-    id: 'ai-impact-analytics',
-    kind: 'client',
-    industry: 'ai-analytics',
-    tech: ['TypeScript', 'AI', 'AWS', 'GCP', 'CI/CD', 'Vercel'],
-    year: 2026,
-    ongoing: true,
-    title: 'Enterprise AI Impact Analytics Platform',
-    company: 'Enterprise SaaS client',
-    tags: ['Data', 'Architecture', 'Privacy'],
-    headline:
-      'Helped enterprises see what AI costs, what teams produce with it and which workflows to automate next, with usage data they can pull into their own BI tools without exposing any one employee.',
-    role: 'Sr. Full Stack & AI Engineer · customer-facing platform: API, web app, analytics, identity sync and infrastructure',
-    challenge:
-      "An analytics platform for AI-forward enterprises tracks AI spend, adoption, developer productivity and automatable workflows for Heads of AI, CTOs, engineering leaders and finance teams. Customers wanted that data in their own BI tools and their org charts synced from their identity providers, without the data singling out individual employees.",
-    outcomes: [
-      'Customers can pull usage data into their own BI tools through new public API endpoints, with customer-facing docs.',
-      "Individual-level data stays protected: admins set a minimum group size before individuals are shown, and totals and filters can't single out a person.",
-      'Every per-user endpoint follows one shared privacy policy, and every public route was audited against it.',
-      'Org charts sync from Okta, Entra ID, JumpCloud and Google Workspace with new employee attributes, and customers can enrich them without breaking the sync.',
-      "Worked directly with customers' IT teams to debug their identity provider integrations.",
-      'New and extended reporting marts are tested to reconcile with the existing reports.',
-    ],
-    technical: {
-      architecture:
-        'A multi-tenant TypeScript monorepo of about a dozen apps on Google Cloud. A browser extension and a desktop agent capture AI and app usage; an ingest API publishes events to Pub/Sub, and a streaming subscriber writes them to PostgreSQL tables holding hundreds of millions of rows. dbt turns the events into dimensional marts, served by an organization-scoped Express and Prisma API and Next.js web and admin apps, while LLM pipelines measure AI coding usage and discover automatable workflows.',
-      howItWasBuilt: [
-        'Built public API data endpoints end to end, from the dbt marts through GCP API Gateway with Terraform to the customer docs.',
-        'Designed one shared privacy policy for per-user endpoints, with a minimum group size setting and safeguards on totals and filters.',
-        'Extended WorkOS Directory Sync (SCIM) with new employee attributes, and built safe ways to enrich synced org charts.',
-        'Built dbt marts with reconciliation tests, and sized PostgreSQL indexes to real query patterns, checked with EXPLAIN ANALYZE on realistic data sizes.',
-        'Tested privacy, tenant scoping and query shapes first, with integration tests on real PostgreSQL and mutation checks that prove the tests catch regressions.',
-        'Wrote a reviewed design for every change before shipping it as small stacked PRs, using Claude Code for design, implementation and review, with a security review before each change shipped.',
-      ],
-      stack: [
-        {
-          layer: 'Architecture',
-          items: [
-            'Multi-tenant SaaS',
-            'Event streaming',
-            'Dimensional data marts',
-            'Monorepo (Turborepo, pnpm)',
-            'Infrastructure as code',
-          ],
-        },
-        { layer: 'Frontend', items: ['Next.js', 'React', 'TypeScript', 'TanStack Query', 'shadcn/ui', 'Tailwind CSS'] },
-        { layer: 'Backend', items: ['Node.js', 'Express', 'Prisma', 'PostgreSQL', 'Zod'] },
-        { layer: 'Data', items: ['dbt', 'PostgreSQL', 'GCP Pub/Sub'] },
-        { layer: 'AI', items: ['Amazon Bedrock', 'Anthropic', 'OpenAI', 'Google Gemini'] },
-        {
-          layer: 'Identity',
-          items: ['WorkOS AuthKit', 'WorkOS Directory Sync (SCIM)', 'Okta', 'Entra ID', 'JumpCloud', 'Google Workspace'],
-        },
-        {
-          layer: 'Infrastructure',
-          items: [
-            'GCP Cloud Run',
-            'GCP Cloud SQL',
-            'GCP API Gateway',
-            'GCP Cloud Functions',
-            'Terraform',
-            'Datadog',
-            'LaunchDarkly',
-          ],
-        },
-        { layer: 'CI/CD', items: ['GitHub Actions', 'Graphite stacked PRs and merge queue', 'Vercel preview deploys'] },
-        { layer: 'Testing', items: ['Integration tests on PostgreSQL', 'Mutation testing', 'EXPLAIN ANALYZE'] },
-      ],
-    },
-  },
-  {
-    id: 'listing-audit',
-    kind: 'client',
-    industry: 'marketing',
-    tech: ['TypeScript', 'AI', 'AWS', 'Docker', 'Vercel', 'CI/CD'],
-    year: 2026,
-    ongoing: true,
-    title: 'Amazon Listing Audit & AI Copy Platform',
-    company: 'Agency client',
-    tags: ['AI', 'Architecture', 'Data'],
-    headline:
-      'Gave a marketing agency a tool that audits whole Amazon catalogs and drafts better, evidence-backed listing copy for each marketplace and language.',
-    role: 'Full Stack & AI Engineer · designed and built the application',
-    challenge:
-      "The agency's teams reviewed Amazon product pages one at a time, by hand, across Amazon marketplaces. They needed a fast way to see which pages underperform across a whole catalog, why, and what better copy would look like, with evidence they could defend to brands.",
-    outcomes: [
-      'Audits catalogs of up to 100 products against 34 checks, from Amazon basics (lengths, counts, images, ratings) to effectiveness (keywords, claims, benefits, buyer language).',
-      'Pulls recurring strengths, concerns and buyer language out of customer reviews.',
-      'Drafts a new title, bullets, Item Highlights and description for each product, with the reason for each change and the evidence behind it.',
-      'Adds a page blueprint and a hero image prompt to brief the creative team.',
-      'Operators can change the marketplace, the marketplace locale and the app language, and the checks and generated copy follow.',
-      'Shows portfolio health across every client, and exports recommendations to CSV and Excel.',
-    ],
-    technical: {
-      architecture:
-        'A Next.js app on Vercel with a typed tRPC API over PostgreSQL. Scraping and analysis run as small staged background jobs from a Postgres-backed queue, so each fits serverless time limits; staging reaches Aurora PostgreSQL privately over AWS PrivateLink.',
-      howItWasBuilt: [
-        'Built the job queue on Postgres with leases, heartbeats and a reaper, so crashed runs are picked up again.',
-        'Wrote the 34 checks as a TypeScript rule engine with per-marketplace thresholds, and an LLM judging the semantic ones. Operators can change the marketplace, marketplace locale and app language.',
-        'Put the AI behind a Vercel AI SDK adapter that switches between OpenAI, Anthropic, Bedrock, Google and Azure.',
-        'Used LiteLLM for model access, and fal.ai with nano-banana for image generation.',
-        'Made text handling locale-aware, such as Japanese sentence splitting and phrase matching without spaces between words.',
-        'Tested with Vitest, Postgres integration and Playwright end-to-end tests on a mock LLM, run in GitHub Actions.',
-      ],
-      stack: [
-        {
-          layer: 'Architecture',
-          items: [
-            'Postgres-backed job queue',
-            'Staged job fan-out',
-            'Serverless functions',
-            'Provider-agnostic LLM adapter',
-            'Rule engine',
-          ],
-        },
-        { layer: 'Frontend', items: ['Next.js', 'React', 'TypeScript', 'MUI', 'next-intl'] },
-        { layer: 'Backend', items: ['tRPC', 'Drizzle ORM', 'PostgreSQL', 'Zod', 'Pino'] },
-        {
-          layer: 'AI',
-          items: ['Vercel AI SDK', 'Amazon Bedrock', 'LiteLLM', 'OpenAI', 'Anthropic', 'Google Gemini', 'fal.ai', 'nano-banana'],
-        },
-        { layer: 'Data', items: ['Apify (Amazon scraping)', 'CSV and Excel exports'] },
-        {
-          layer: 'Infrastructure',
-          items: [
-            'Vercel (functions, Cron)',
-            'AWS Aurora PostgreSQL',
-            'AWS PrivateLink',
-            'Vercel OIDC to AWS IAM',
-            'Docker (PostgreSQL)',
-          ],
-        },
-        { layer: 'CI/CD', items: ['GitHub Actions', 'Post-deploy smoke tests'] },
-        { layer: 'Testing', items: ['Vitest', 'React Testing Library', 'Playwright'] },
-      ],
-    },
-  },
+  // Temporarily hidden: AI Impact Analytics + Listing Audit (restore by uncommenting)
+//   {
+//     id: 'ai-impact-analytics',
+//     kind: 'client',
+//     industry: 'ai-analytics',
+//     tech: ['TypeScript', 'AI', 'AWS', 'GCP', 'CI/CD', 'Vercel'],
+//     year: 2026,
+//     ongoing: true,
+//     title: 'Enterprise AI Impact Analytics Platform',
+//     company: 'Enterprise SaaS client',
+//     tags: ['Data', 'Architecture', 'Privacy'],
+//     headline:
+//       'Helped enterprises see what AI costs, what teams produce with it and which workflows to automate next, with usage data they can pull into their own BI tools without exposing any one employee.',
+//     role: 'Sr. Full Stack & AI Engineer · customer-facing platform: API, web app, analytics, identity sync and infrastructure',
+//     challenge:
+//       "An analytics platform for AI-forward enterprises tracks AI spend, adoption, developer productivity and automatable workflows for Heads of AI, CTOs, engineering leaders and finance teams. Customers wanted that data in their own BI tools and their org charts synced from their identity providers, without the data singling out individual employees.",
+//     outcomes: [
+//       'Customers can pull usage data into their own BI tools through new public API endpoints, with customer-facing docs.',
+//       "Individual-level data stays protected: admins set a minimum group size before individuals are shown, and totals and filters can't single out a person.",
+//       'Every per-user endpoint follows one shared privacy policy, and every public route was audited against it.',
+//       'Org charts sync from Okta, Entra ID, JumpCloud and Google Workspace with new employee attributes, and customers can enrich them without breaking the sync.',
+//       "Worked directly with customers' IT teams to debug their identity provider integrations.",
+//       'New and extended reporting marts are tested to reconcile with the existing reports.',
+//     ],
+//     technical: {
+//       architecture:
+//         'A multi-tenant TypeScript monorepo of about a dozen apps on Google Cloud. A browser extension and a desktop agent capture AI and app usage; an ingest API publishes events to Pub/Sub, and a streaming subscriber writes them to PostgreSQL tables holding hundreds of millions of rows. dbt turns the events into dimensional marts, served by an organization-scoped Express and Prisma API and Next.js web and admin apps, while LLM pipelines measure AI coding usage and discover automatable workflows.',
+//       howItWasBuilt: [
+//         'Built public API data endpoints end to end, from the dbt marts through GCP API Gateway with Terraform to the customer docs.',
+//         'Designed one shared privacy policy for per-user endpoints, with a minimum group size setting and safeguards on totals and filters.',
+//         'Extended WorkOS Directory Sync (SCIM) with new employee attributes, and built safe ways to enrich synced org charts.',
+//         'Built dbt marts with reconciliation tests, and sized PostgreSQL indexes to real query patterns, checked with EXPLAIN ANALYZE on realistic data sizes.',
+//         'Tested privacy, tenant scoping and query shapes first, with integration tests on real PostgreSQL and mutation checks that prove the tests catch regressions.',
+//         'Wrote a reviewed design for every change before shipping it as small stacked PRs, using Claude Code for design, implementation and review, with a security review before each change shipped.',
+//       ],
+//       stack: [
+//         {
+//           layer: 'Architecture',
+//           items: [
+//             'Multi-tenant SaaS',
+//             'Event streaming',
+//             'Dimensional data marts',
+//             'Monorepo (Turborepo, pnpm)',
+//             'Infrastructure as code',
+//           ],
+//         },
+//         { layer: 'Frontend', items: ['Next.js', 'React', 'TypeScript', 'TanStack Query', 'shadcn/ui', 'Tailwind CSS'] },
+//         { layer: 'Backend', items: ['Node.js', 'Express', 'Prisma', 'PostgreSQL', 'Zod'] },
+//         { layer: 'Data', items: ['dbt', 'PostgreSQL', 'GCP Pub/Sub'] },
+//         { layer: 'AI', items: ['Amazon Bedrock', 'Anthropic', 'OpenAI', 'Google Gemini'] },
+//         {
+//           layer: 'Identity',
+//           items: ['WorkOS AuthKit', 'WorkOS Directory Sync (SCIM)', 'Okta', 'Entra ID', 'JumpCloud', 'Google Workspace'],
+//         },
+//         {
+//           layer: 'Infrastructure',
+//           items: [
+//             'GCP Cloud Run',
+//             'GCP Cloud SQL',
+//             'GCP API Gateway',
+//             'GCP Cloud Functions',
+//             'Terraform',
+//             'Datadog',
+//             'LaunchDarkly',
+//           ],
+//         },
+//         { layer: 'CI/CD', items: ['GitHub Actions', 'Graphite stacked PRs and merge queue', 'Vercel preview deploys'] },
+//         { layer: 'Testing', items: ['Integration tests on PostgreSQL', 'Mutation testing', 'EXPLAIN ANALYZE'] },
+//       ],
+//     },
+//   },
+//   {
+//     id: 'listing-audit',
+//     kind: 'client',
+//     industry: 'marketing',
+//     tech: ['TypeScript', 'AI', 'AWS', 'Docker', 'Vercel', 'CI/CD'],
+//     year: 2026,
+//     ongoing: true,
+//     title: 'Amazon Listing Audit & AI Copy Platform',
+//     company: 'Agency client',
+//     tags: ['AI', 'Architecture', 'Data'],
+//     headline:
+//       'Gave a marketing agency a tool that audits whole Amazon catalogs and drafts better, evidence-backed listing copy for each marketplace and language.',
+//     role: 'Full Stack & AI Engineer · designed and built the application',
+//     challenge:
+//       "The agency's teams reviewed Amazon product pages one at a time, by hand, across Amazon marketplaces. They needed a fast way to see which pages underperform across a whole catalog, why, and what better copy would look like, with evidence they could defend to brands.",
+//     outcomes: [
+//       'Audits catalogs of up to 100 products against 34 checks, from Amazon basics (lengths, counts, images, ratings) to effectiveness (keywords, claims, benefits, buyer language).',
+//       'Pulls recurring strengths, concerns and buyer language out of customer reviews.',
+//       'Drafts a new title, bullets, Item Highlights and description for each product, with the reason for each change and the evidence behind it.',
+//       'Adds a page blueprint and a hero image prompt to brief the creative team.',
+//       'Operators can change the marketplace, the marketplace locale and the app language, and the checks and generated copy follow.',
+//       'Shows portfolio health across every client, and exports recommendations to CSV and Excel.',
+//     ],
+//     technical: {
+//       architecture:
+//         'A Next.js app on Vercel with a typed tRPC API over PostgreSQL. Scraping and analysis run as small staged background jobs from a Postgres-backed queue, so each fits serverless time limits; staging reaches Aurora PostgreSQL privately over AWS PrivateLink.',
+//       howItWasBuilt: [
+//         'Built the job queue on Postgres with leases, heartbeats and a reaper, so crashed runs are picked up again.',
+//         'Wrote the 34 checks as a TypeScript rule engine with per-marketplace thresholds, and an LLM judging the semantic ones. Operators can change the marketplace, marketplace locale and app language.',
+//         'Put the AI behind a Vercel AI SDK adapter that switches between OpenAI, Anthropic, Bedrock, Google and Azure.',
+//         'Used LiteLLM for model access, and fal.ai with nano-banana for image generation.',
+//         'Made text handling locale-aware, such as Japanese sentence splitting and phrase matching without spaces between words.',
+//         'Tested with Vitest, Postgres integration and Playwright end-to-end tests on a mock LLM, run in GitHub Actions.',
+//       ],
+//       stack: [
+//         {
+//           layer: 'Architecture',
+//           items: [
+//             'Postgres-backed job queue',
+//             'Staged job fan-out',
+//             'Serverless functions',
+//             'Provider-agnostic LLM adapter',
+//             'Rule engine',
+//           ],
+//         },
+//         { layer: 'Frontend', items: ['Next.js', 'React', 'TypeScript', 'MUI', 'next-intl'] },
+//         { layer: 'Backend', items: ['tRPC', 'Drizzle ORM', 'PostgreSQL', 'Zod', 'Pino'] },
+//         {
+//           layer: 'AI',
+//           items: ['Vercel AI SDK', 'Amazon Bedrock', 'LiteLLM', 'OpenAI', 'Anthropic', 'Google Gemini', 'fal.ai', 'nano-banana'],
+//         },
+//         { layer: 'Data', items: ['Apify (Amazon scraping)', 'CSV and Excel exports'] },
+//         {
+//           layer: 'Infrastructure',
+//           items: [
+//             'Vercel (functions, Cron)',
+//             'AWS Aurora PostgreSQL',
+//             'AWS PrivateLink',
+//             'Vercel OIDC to AWS IAM',
+//             'Docker (PostgreSQL)',
+//           ],
+//         },
+//         { layer: 'CI/CD', items: ['GitHub Actions', 'Post-deploy smoke tests'] },
+//         { layer: 'Testing', items: ['Vitest', 'React Testing Library', 'Playwright'] },
+//       ],
+//     },
+//   },
   {
     id: 'legal-tech',
     kind: 'client',
