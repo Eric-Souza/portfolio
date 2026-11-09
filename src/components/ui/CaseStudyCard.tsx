@@ -1,4 +1,4 @@
-import { useId, useState } from 'react';
+import { useEffect, useId, useRef, useState, type UIEvent } from 'react';
 import { Box, Button, Card, CardContent, Collapse, Grid, IconButton, Tab, Tabs, Typography } from '@mui/material';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutlineRounded';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -22,6 +22,26 @@ interface CaseStudyCardProps {
 type View = 'business' | 'technical';
 
 const MotionCard = motion.create(Card);
+
+// An open card has a fixed height, so a long breakdown scrolls inside it instead of pushing the page down.
+const OPEN_HEIGHT = { xs: 440, md: 480 };
+const FADE = 28;
+
+const scrollbar = {
+  scrollbarWidth: 'thin',
+  scrollbarColor: `${alpha(colors.cyan, 0.35)} transparent`,
+  '&::-webkit-scrollbar': { width: 6 },
+  '&::-webkit-scrollbar-thumb': { borderRadius: 3, bgcolor: alpha(colors.cyan, 0.35) },
+  '&::-webkit-scrollbar-thumb:hover': { bgcolor: alpha(colors.cyan, 0.6) },
+} as const;
+
+// Fades the edge the content continues past, so it's clear there's more to scroll to.
+function fadeMask(top: boolean, bottom: boolean) {
+  const mask = `linear-gradient(to bottom, ${top ? `transparent, #000 ${FADE}px` : '#000'}, ${
+    bottom ? `#000 calc(100% - ${FADE}px), transparent` : '#000'
+  })`;
+  return { maskImage: mask, WebkitMaskImage: mask };
+}
 
 // Client work is framed as business results; personal and learning work as what the thing does.
 function businessCopy(study: CaseStudy) {
@@ -109,7 +129,7 @@ function BusinessView({ study }: { study: CaseStudy }) {
 }
 
 function TechnicalView({ study }: { study: CaseStudy }) {
-  const { architecture, howItWasBuilt, stack } = study.technical;
+  const { architecture, howItWasBuilt, decisions, stack } = study.technical;
 
   return (
     <>
@@ -136,6 +156,30 @@ function TechnicalView({ study }: { study: CaseStudy }) {
           ))}
         </Box>
       </Box>
+
+      {decisions && decisions.length > 0 && (
+        <Box sx={{ mb: 2.5 }}>
+          <Label>Key decisions</Label>
+          <Box component="ul" sx={{ listStyle: 'none', m: 0, p: 0 }}>
+            {decisions.map((decision) => (
+              <Typography
+                component="li"
+                key={decision}
+                variant="body2"
+                color="text.secondary"
+                sx={{
+                  mb: 1.25,
+                  pl: 1.5,
+                  lineHeight: 1.7,
+                  borderLeft: `2px solid ${alpha(colors.violet, 0.5)}`,
+                }}
+              >
+                <Highlighted text={decision} />
+              </Typography>
+            ))}
+          </Box>
+        </Box>
+      )}
 
       <Label>Stack</Label>
       <Box
@@ -178,6 +222,18 @@ export function CaseStudyCard({ study, index, defaultExpanded = false }: CaseStu
   const copy = businessCopy(study);
   const meta = [kindLabels[study.kind], industryLabels[study.industry], timeframe(study)].filter(Boolean);
   const toggle = () => setExpanded((open) => !open);
+
+  const panelRef = useRef<HTMLDivElement>(null);
+  const [edges, setEdges] = useState({ top: false, bottom: false });
+  const measure = (el: HTMLElement) =>
+    setEdges({ top: el.scrollTop > 1, bottom: el.scrollTop + el.clientHeight < el.scrollHeight - 1 });
+  // Each tab starts at the top, and the fades follow the new content's length.
+  useEffect(() => {
+    const el = panelRef.current;
+    if (!el) return;
+    el.scrollTop = 0;
+    measure(el);
+  }, [view, expanded]);
 
   return (
     <MotionCard
@@ -235,8 +291,8 @@ export function CaseStudyCard({ study, index, defaultExpanded = false }: CaseStu
         </Box>
 
         <Collapse in={expanded} id={detailsId}>
-          <Grid container spacing={{ xs: 3, md: 5 }} sx={{ pt: 3 }}>
-            <Grid size={{ xs: 12, md: 5 }}>
+          <Grid container spacing={{ xs: 3, md: 5 }} sx={{ pt: 3, height: { md: OPEN_HEIGHT.md } }}>
+            <Grid size={{ xs: 12, md: 5 }} sx={{ height: { md: '100%' }, overflowY: { md: 'auto' }, ...scrollbar }}>
               <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, mb: 2 }}>
                 {study.tags.map((tag) => (
                   <Typography
@@ -298,12 +354,15 @@ export function CaseStudyCard({ study, index, defaultExpanded = false }: CaseStu
               )}
             </Grid>
 
-            <Grid size={{ xs: 12, md: 7 }}>
+            <Grid
+              size={{ xs: 12, md: 7 }}
+              sx={{ display: 'flex', flexDirection: 'column', height: { xs: OPEN_HEIGHT.xs, md: '100%' }, minHeight: 0 }}
+            >
               <Tabs
                 value={view}
                 onChange={(_, next: View) => setView(next)}
                 aria-label={`${study.title} details`}
-                sx={{ mb: 2.5, minHeight: 40, borderBottom: 1, borderColor: 'divider' }}
+                sx={{ mb: 1, minHeight: 40, flexShrink: 0, borderBottom: 1, borderColor: 'divider' }}
               >
                 <Tab
                   value="business"
@@ -321,7 +380,28 @@ export function CaseStudyCard({ study, index, defaultExpanded = false }: CaseStu
                 />
               </Tabs>
 
-              <Box role="tabpanel" id={panelId(view)} aria-labelledby={tabId(view)}>
+              <Box
+                ref={panelRef}
+                role="tabpanel"
+                id={panelId(view)}
+                aria-labelledby={tabId(view)}
+                tabIndex={0}
+                onScroll={(event: UIEvent<HTMLDivElement>) => measure(event.currentTarget)}
+                sx={{
+                  flex: 1,
+                  minHeight: 0,
+                  overflowY: 'auto',
+                  overscrollBehavior: 'contain',
+                  pt: 1.5,
+                  pr: 1.5,
+                  pb: 1,
+                  outline: 'none',
+                  borderRadius: 1,
+                  '&:focus-visible': { boxShadow: `inset 0 0 0 2px ${alpha(colors.cyan, 0.5)}` },
+                  ...scrollbar,
+                  ...fadeMask(edges.top, edges.bottom),
+                }}
+              >
                 {view === 'business' ? <BusinessView study={study} /> : <TechnicalView study={study} />}
               </Box>
             </Grid>

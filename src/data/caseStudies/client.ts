@@ -162,26 +162,34 @@ export const clientCaseStudies: CaseStudy[] = [
     productUrl: 'https://www.essentialestates.com',
     tags: ['Leadership', 'Architecture', 'AI'],
     headline:
-      "Turned a law firm's manual estate planning service into a production software platform, as its first engineer.",
+      "Turned a law firm's manual estate planning service into Essential Estates, a production software platform, as its first engineer.",
     role: 'Founding Full Stack & AI Engineer at Summerall Law, through TeamEx · owned product, engineering, hiring, and infrastructure',
     challenge:
-      'Summerall Law, a Silicon Valley law firm, ran estate planning workflows by hand. There was no product, no engineering team, and no infrastructure, and they needed a platform clients could rely on in production.',
+      'Summerall Law, a Silicon Valley law firm, ran its estate planning workflows by hand, including the handling of legal documents. It had no product, no engineering team, and no infrastructure. The firm needed a platform its clients could rely on in production, and one engineer to own it end to end.',
     outcomes: [
       'Launched Essential Estates to production, built from zero.',
-      'Brought AI document processing into the client workflow, replacing manual handling of legal documents.',
-      'Hired, onboarded, and led the engineering team, with coding standards, code review, and a clear delivery process.',
-      'Releases ship through automated CI/CD instead of manual deploys.',
-      'Gave the firm product analytics (funnels and usage metrics) to guide product and marketing decisions.',
+      'Cut manual document work: AI document processing and automation now run inside the client workflow.',
+      'Gave the firm an engineering team: hired, onboarded, and led it, with coding standards, code review, and a clear delivery process.',
+      'Removed manual release work: every release ships through automated CI/CD.',
+      'Gave the firm product analytics (user behavior, funnels, and product metrics) that inform its product and marketing decisions.',
     ],
     technical: {
       architecture:
-        'A React/TypeScript web app talks to a NestJS REST API on PostgreSQL, with separate Python services running the AI features. It all runs on AWS and ships through GitHub Actions pipelines.',
+        'A React and TypeScript single-page app, delivered through CloudFront, talks to a NestJS REST API that owns the data model in PostgreSQL through TypeORM. The AI features run as separate Python services in FastAPI and Flask, which call LLMs with RAG to process and automate legal documents. Everything runs on AWS (EC2, RDS, S3) and ships through GitHub Actions pipelines.',
       howItWasBuilt: [
-        'Led the architecture and designed the API and data model in NestJS and TypeORM on PostgreSQL.',
-        'Built Python AI services that use LLMs with RAG to process and automate legal documents.',
-        'Set up the AWS infrastructure: EC2, RDS, S3, and CloudFront with ACM for CDN and TLS.',
+        'Led the architecture and system design: API design, data modeling, and reliable contracts between the React frontend and the NestJS backend.',
+        'Modeled the domain as TypeORM entities on PostgreSQL behind a NestJS REST API, designed for scalability and maintainability.',
+        'Built the AI features as Python services in FastAPI and Flask, using LLMs with RAG for document processing and workflow automation.',
+        'Set up and ran the AWS infrastructure: EC2, RDS, and S3, with CloudFront and ACM for CDN delivery and TLS.',
         'Automated deployments with GitHub Actions CI/CD, replacing manual releases.',
-        'Set coding standards and code review as the team grew, and tracked funnels in Google Analytics 4.',
+        'Set coding standards, code review practices, and a delivery process as the team grew.',
+        'Instrumented the product with Google Analytics 4 to track user behavior, funnels, and product metrics.',
+      ],
+      decisions: [
+        'Chose separate Python services for the AI work: the LLM and RAG document processing runs in FastAPI and Flask, apart from the TypeScript product API.',
+        'Automated GitHub Actions deploys over manual releases, for repeatable and reliable releases.',
+        'Chose CloudFront with ACM in front of the app: CDN delivery plus managed TLS certificates.',
+        'Chose GA4 funnels and product metrics: product and marketing decisions rest on how people use the platform.',
       ],
       stack: [
         { layer: 'Architecture', items: ['Service-oriented', 'REST API', 'RAG pipeline', 'CDN-fronted SPA'] },
@@ -216,32 +224,42 @@ export const clientCaseStudies: CaseStudy[] = [
     ],
     relatedLinks: [{ name: 'MeRT', url: 'https://mert.wavesynchrony.com/en/' }],
     tags: ['Leadership', 'Architecture', 'Performance'],
-    headline:
-      'Gave healthcare partners reliable patient and EEG tracking, with less admin work and faster reports.',
+    headline: 'Gave clinics reliable patient and EEG tracking, with less admin work, fewer manual errors, and faster reports.',
     role: 'Sr. Full Stack Engineer at EXIT83 · for Remedy Product Studio and its client Wave Neuroscience',
     challenge:
-      'Wave Neuroscience, served by EXIT83 through its client Remedy Product Studio, needed reliable patient and EEG data tracking, integrations with medical systems, and less admin overhead in its treatment workflows.',
+      "Wave Neuroscience's healthcare products, built by Remedy Product Studio and used by clinics worldwide, run treatments and track EEG data. Clinic staff carried heavy admin work in treatment workflows, TMS sessions had to be validated against medical systems, and EEG reports were slow to produce. EXIT83 staffed the engineering work for Remedy.",
     outcomes: [
-      'Cut admin overhead in EEG and treatment workflows.',
-      'Improved data accuracy by automating TMS session validation and EEG data handling.',
-      'Made reports faster through query tuning and caching.',
-      'Gave clinical staff a better way to manage patients.',
+      'Cut admin work for clinic staff by reworking the EEG and treatment workflows.',
+      'Fewer manual errors and more accurate data: TMS sessions are validated and EEG data is processed automatically.',
+      'Faster EEG reports, from query tuning and caching.',
+      'Clinic staff manage patients faster, with interfaces built for patient tracking and EEG analysis.',
+      'Medical data is handled securely by the backend services.',
+      'Deploys, monitoring, and operations on AWS are automated.',
     ],
     technical: {
       architecture:
-        'React/Next.js clinical interfaces on top of NestJS/Node services deployed on AWS, with PostgreSQL and DynamoDB for storage and Redis caching expensive report queries.',
+        'React and Next.js clinical interfaces for patient tracking and EEG analysis call Node and NestJS backend services on AWS. Patient and treatment data lives in PostgreSQL and DynamoDB, and Redis caches the expensive report queries. Integrations with medical APIs validate TMS sessions and feed EEG data into the system automatically.',
       howItWasBuilt: [
-        'Built patient and EEG tracking interfaces in React, Next.js, and MUI.',
-        'Developed NestJS/Node backends on AWS with PostgreSQL and DynamoDB.',
-        'Integrated medical APIs to validate TMS sessions and automate EEG data processing.',
-        'Optimized slow report queries and added Redis caching on top.',
+        'Built patient tracking and EEG analysis interfaces in React, Next.js, and MUI.',
+        'Developed the backend services in Node and NestJS, storing medical data in PostgreSQL and DynamoDB.',
+        'Integrated medical APIs to validate TMS sessions and process EEG data automatically, replacing error-prone manual steps.',
+        'Reworked the EEG and treatment workflows to remove admin steps for clinic staff.',
+        'Tuned the slow report queries and added Redis caching on top, cutting EEG report processing time.',
+        'Automated deploys, monitoring, and operations on AWS with EC2, S3, Lambda, and CloudWatch.',
+      ],
+      decisions: [
+        'Automated TMS session validation through medical APIs over manual checks: fewer manual errors and more accurate data.',
+        'Chose query tuning plus a Redis cache for reports: report generation was the slow path, and the two together cut processing time.',
       ],
       stack: [
         { layer: 'Architecture', items: ['REST API', 'Caching layer', 'Third-party API integration'] },
         { layer: 'Frontend', items: ['React', 'Next.js', 'MUI'] },
         { layer: 'Backend', items: ['NestJS', 'Node.js'] },
         { layer: 'Data', items: ['PostgreSQL', 'DynamoDB', 'Redis'] },
-        { layer: 'Infrastructure', items: ['AWS', 'Docker (PostgreSQL, Redis)'] },
+        {
+          layer: 'Infrastructure',
+          items: ['AWS EC2', 'AWS S3', 'AWS Lambda', 'AWS CloudWatch', 'Docker (PostgreSQL, Redis)'],
+        },
         { layer: 'Integrations', items: ['Medical APIs (TMS, EEG)'] },
       ],
     },
@@ -266,25 +284,29 @@ export const clientCaseStudies: CaseStudy[] = [
       },
     ],
     tags: ['Architecture', 'Performance'],
-    headline:
-      "Scaled a multi-currency banking app's backend to handle more transactions with lower latency.",
+    headline: 'Scaled the backend of a multi-currency digital bank so it handles high transaction volume with lower latency.',
     role: 'Full Stack Engineer · backend of the main financial app',
     challenge:
-      "Zro Bank's multi-currency banking app needed to process high transaction volume with low latency and reliable remittance flows, while ops spent time building reports by hand.",
+      "Zro Bank was Brazil's first multi-currency digital bank, with currency exchange, crypto, and transfers made through chat. Its main app had to process high transaction volume with low latency and run reliable remittance flows. Ops also spent time building Jira reports by hand.",
     outcomes: [
-      'Handled more transaction volume with less latency on the core financial app.',
+      'The core banking app handles more transaction volume with lower latency, after the move to microservices.',
       'Shipped a remittance and client management system.',
       'Faster API responses from simpler, cleaner database access.',
-      'Automated Jira reporting into Google Sheets, so ops stopped building reports by hand.',
+      'Ops stopped building reports by hand: Jira reporting now lands in Google Sheets automatically.',
     ],
     technical: {
       architecture:
-        'Event-driven NestJS microservices communicating through Apache Kafka, backed by PostgreSQL, with React/Next.js front ends for remittance and client management.',
+        'The core banking backend runs as NestJS microservices on PostgreSQL that communicate through Apache Kafka events, built to scale for high transaction volume. React and Next.js front ends for remittance and client management sit on NestJS and PostgreSQL. A separate Node and Express integration turns Jira data into Google Sheets reports.',
       howItWasBuilt: [
-        'Split the backend into NestJS microservices talking over Kafka events, raising throughput for high transaction volume.',
-        'Replaced awkward queries with Sequelize on PostgreSQL to speed up API responses.',
-        'Built remittance and client management interfaces with React, Next.js, and MUI.',
-        'Wrote a Node/Express integration that generates Jira-based reports in Google Sheets.',
+        'Moved the core banking backend in Node, NestJS, and PostgreSQL to microservices that communicate over Apache Kafka, to handle high transaction volume with lower latency.',
+        'Simplified data access with Sequelize on PostgreSQL, replacing awkward queries and speeding up API responses.',
+        'Built the remittance and client management system: React, Next.js, and MUI in front, NestJS and PostgreSQL behind.',
+        'Wrote a Node and Express integration on the Jira and Google Sheets APIs that generates the reports automatically.',
+      ],
+      decisions: [
+        'Chose event-driven microservices on Apache Kafka for the core backend: better performance, lower latency, and room to scale for high-volume transactions.',
+        'Chose Sequelize ORM over hand-written awkward queries: simpler data access and faster API responses.',
+        'Automated Jira-to-Google Sheets reports over manual reporting, to take recurring work off ops.',
       ],
       stack: [
         { layer: 'Architecture', items: ['Microservices', 'Event-driven (Kafka)', 'REST API'] },
@@ -314,19 +336,21 @@ export const clientCaseStudies: CaseStudy[] = [
       "Turned an AI team's location models into GeoEdge, a product clients use to decide where to open a business.",
     role: 'Full Stack Engineer · web platform and AI team integration',
     challenge:
-      "Kognita needed to turn its AI team's heatmaps and location data into a product clients could use to compare sites and choose where to open a business.",
+      "Kognita builds AI tools for geospatial analysis that help businesses decide where to open, based on market patterns and consumer behavior. It needed to put its AI team's heatmaps and location data in front of clients, in a product they could use to compare sites on real-time data.",
     outcomes: [
-      'Delivered GeoEdge, giving clients a clear UI for location decisions.',
-      'Got geospatial insights working at scale on real-time data.',
-      'Sped up the handoff of AI research output into the product.',
+      'Delivered GeoEdge, giving clients a clear way to compare locations and decide where to open.',
+      'Clients compare sites with AI heatmaps on real-time data.',
+      'Geospatial insights stay accurate and work at scale.',
+      "The AI R&D team's output reaches the product faster, through a smoother handoff into the platform.",
     ],
     technical: {
       architecture:
-        "React/Next.js frontend rendering AI heatmaps, a NestJS API on PostgreSQL, and Azure Blob Storage for the large geospatial files coming from the AI team's workflows, with DevOps on Azure.",
+        "A React and Next.js frontend renders the AI team's heatmaps for clients and calls a NestJS API on PostgreSQL. Large geospatial files from the AI R&D team's workflows are stored in Azure Blob Storage and served into the platform, with DevOps on Azure.",
       howItWasBuilt: [
-        'Built the full stack: React, Next.js, and MUI in front, Node and NestJS on PostgreSQL behind.',
-        "Connected the AI R&D team's workflows so their output flowed into the product.",
-        'Rendered AI heatmaps so clients could compare locations using real-time data.',
+        'Built the frontend in React, Next.js, and MUI, including the AI heatmap views clients use to compare locations on real-time data.',
+        'Built the backend in Node and NestJS on PostgreSQL.',
+        "Connected the AI R&D team's data pipeline to the web platform, so their output flowed into the product.",
+        'Optimized the AI data processing workflows between the AI team and the platform.',
         'Stored and served large geospatial files from Azure Blob Storage, and handled DevOps on Azure.',
       ],
       stack: [
@@ -354,22 +378,23 @@ export const clientCaseStudies: CaseStudy[] = [
       { name: 'Claro', url: 'https://www.claro.com.br/' },
     ],
     tags: ['Performance', 'Architecture'],
-    headline:
-      'Modernized online plan sales and customer management for major South American telecom providers.',
+    headline: 'Modernized online plan sales and customer management for major South American telecom providers.',
     role: 'Full Stack Engineer',
     challenge:
-      'Major telecom providers in South America needed a better way to sell internet and phone plans online, and a simpler tool for ops teams to manage customers and plans.',
+      'Mundiale builds software for internet and telecom providers. Its telecom clients in South America needed a better way to sell internet and phone plans online, and a simpler tool for ops teams to list customers and view plan details.',
     outcomes: [
-      'Smoother online purchase flow for internet and phone plans.',
-      'Gave ops teams one place to browse customers and plan details.',
+      'Customers buy internet and phone plans through a smoother online purchase flow.',
+      'Ops teams browse customers and plan details in one place.',
+      'Kept the store improving: developed and maintained the e-commerce platform through the year.',
+      'Delivered both apps full stack, from the UI to the API and database.',
     ],
     technical: {
       architecture:
-        'Two React/Next.js apps backed by Node/Express APIs on PostgreSQL: a customer-facing store and an internal customer and plan management tool.',
+        'Two React and Next.js apps backed by Node and Express REST APIs on PostgreSQL: a customer-facing store for internet and phone plans, and an internal tool for listing customers and viewing plan details.',
       howItWasBuilt: [
-        'Developed and maintained the e-commerce platform with React, Next.js, and MUI.',
-        'Built the customer and plan management system with React, Next.js, and Bootstrap.',
-        'Built the Node/Express APIs on PostgreSQL behind both apps.',
+        'Developed and maintained the store frontend in React, Next.js, and MUI, improving the online purchase flow.',
+        'Built the customer and plan management system in React, Next.js, and Bootstrap, with customer listings and plan detail views.',
+        'Built the Node and Express APIs on PostgreSQL behind both apps.',
       ],
       stack: [
         { layer: 'Architecture', items: ['Two apps, shared REST APIs', 'Storefront + back office'] },
@@ -389,16 +414,21 @@ export const clientCaseStudies: CaseStudy[] = [
     headline: 'Replaced paperwork and email chains with one enrollment app for post-grad courses.',
     role: 'Full Stack Developer · college internal project',
     challenge:
-      'Students and teachers needed a simpler way to sign up for post-graduate courses, instead of manual paperwork and back-and-forth emails.',
+      'Students and teachers signed up for post-graduate courses through manual paperwork and back-and-forth emails. The college needed one simple place to handle enrollment.',
     outcomes: [
+      'Students enroll in post-grad courses in one app, instead of through paperwork and email.',
+      'Teachers manage signups in one place.',
       'Reduced admin work for staff.',
       'Made enrollment clearer for students.',
     ],
     technical: {
-      architecture: 'Client-server: a React single-page app calling a Node.js REST API on PostgreSQL, with separate student and teacher views.',
+      architecture:
+        'A client-server app: a React single-page app calls a Node.js REST API on PostgreSQL, with separate views for students and teachers.',
       howItWasBuilt: [
         'Built the student flow to enroll in courses.',
         'Built a teacher view to manage signups in one place.',
+        'Split the UI into role-based views for students and teachers.',
+        'Built the Node.js REST API on PostgreSQL behind both views.',
       ],
       stack: [
         { layer: 'Architecture', items: ['SPA', 'REST API', 'Role-based views'] },
@@ -418,16 +448,17 @@ export const clientCaseStudies: CaseStudy[] = [
     headline: 'Built internal tools that save teammates time on recurring operational work.',
     role: 'Full Stack Engineer · across roles',
     challenge:
-      'Teams often need internal apps, dashboards, or automations that do not get the same attention as customer-facing products.',
+      'Teams often need internal apps, dashboards, or automations that never get the attention customer-facing products do. Without them, recurring operational work, like building reports by hand, takes time away from the product.',
     outcomes: [
       'Saved teammates time on recurring tasks.',
+      'Removed manual reporting at Zro Bank by automating Jira reports into Google Sheets.',
       'Improved how teams handle day-to-day operational work.',
     ],
     technical: {
       architecture:
-        'Small, focused apps and automations built on the same stack as the products: React/TypeScript front ends, Node.js services, and PostgreSQL.',
+        'Small, focused apps and automations built on the same stack as the products: React and TypeScript front ends, Node.js services, and PostgreSQL.',
       howItWasBuilt: [
-        'Reporting helpers, such as the Jira-to-Google Sheets reports at Zro Bank.',
+        'Reporting helpers, such as the Node and Express integration at Zro Bank that generates Jira-based reports in Google Sheets.',
         'Dashboards and workflow automations for recurring operational tasks.',
       ],
       stack: [

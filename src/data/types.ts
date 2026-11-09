@@ -64,6 +64,8 @@ export interface StackLayer {
 export interface TechnicalBreakdown {
   architecture: string;
   howItWasBuilt: string[];
+  /** The calls another engineer would ask about: what was chosen over what, and why. */
+  decisions?: string[];
   stack: StackLayer[];
 }
 
