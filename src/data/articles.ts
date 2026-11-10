@@ -3,6 +3,15 @@ import type { Article } from './types';
 // Newest first. Dates are kept for ordering only; the cards don't show them.
 export const articles: Article[] = [
   {
+    id: 'irpf-agent',
+    title: 'An agent for the Brazilian tax manual that rarely needed to be one',
+    publication: 'Medium',
+    date: 'Nov 2026',
+    url: 'https://medium.com/@eric.bh18souza/an-agent-for-the-brazilian-tax-manual-that-rarely-needed-to-be-one-2bb598629a64',
+    teaser:
+      'LlamaIndex Workflows and Gemini on the IRPF manual: a 76-question golden set shows where an agent beats plain RAG.',
+  },
+  {
     id: 'voice-receptionist',
     title: 'I built a voice receptionist you can interrupt, on a free stack',
     publication: 'Dev Genius',

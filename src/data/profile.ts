@@ -18,7 +18,7 @@ export const profile: Profile = {
   avatarSrc: '/avatar.webp',
   sourceUrl: 'https://github.com/Eric-Souza/portfolio',
   about: [
-    "I'm fluent in both **web** and **AI**. I build everything from **complex UIs** to integrated **REST APIs** with **React**, **Node** and **Python**, and AI features from **document processing** and **image generation** to **prompt optimization**, using **LLMs** and **RAG** with **OpenAI**, **Anthropic** and **Gemini**.",
+    "I'm fluent in both **web** and **AI**. I build everything from **complex UIs** to integrated **REST APIs** with **React**, **Node** and **Python**, and AI features from **document processing** and **image generation** to **prompt optimization**, using **LLMs**, **RAG** and **agents** with **OpenAI**, **Anthropic** and **Gemini**, measured with **evals** and **tracing**.",
     "I also own what surrounds the code: **system design**, **CI/CD** and **cloud infrastructure** on **AWS** and **GCP**. I've led teams, set code and delivery standards, and I work directly with clients to turn what they need into features that ship.",
   ],
   links: {

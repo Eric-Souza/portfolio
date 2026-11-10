@@ -4,6 +4,65 @@ const repo = (name: string) => `https://github.com/Eric-Souza/${name}`;
 
 export const batchA: CaseStudy[] = [
   {
+    id: 'irpf-copilot',
+    kind: 'side-project',
+    industry: 'fintech',
+    tech: ['Python', 'AI', 'CI/CD'],
+    year: 2026,
+    title: 'IRPF Copilot',
+    company: 'Personal project',
+    tags: ['Agentic RAG', 'Evals', 'Fintech'],
+    headline:
+      'Answers questions about the Brazilian income tax return in Portuguese from the Receita Federal\'s own manual, cites the question numbers it used, and measures on a golden set what an agent adds over plain RAG.',
+    role: 'Solo build · parser, indexes, agent, citation check, golden set, eval, and tests',
+    challenge:
+      'The Receita Federal publishes the IRPF rules as a 340-page PDF of 745 numbered questions, and many answers end with "Consulte a pergunta 354": the rest of the answer is in another question. Plain RAG retrieves the closest questions and stops there. An agent can follow the reference, but every tool call costs quota on a free tier. The goal was answers grounded in the manual alone, honest refusals for what it does not cover, and a measurement of where the agent is actually worth its calls.',
+    outcomes: [
+      'Ask in Portuguese about dependents, deductions, deadlines or income, and get an answer from the IRPF 2026 manual that cites the questions it used, or a refusal when the manual does not cover it.',
+      'The agent and RAG over questions both got 94% of golden facts right, against 86% for RAG over fixed-size page chunks, with a third less context per question.',
+      'On the 7 hard-hop items, where the referenced question is outside the top 5, the agent got 5 right against 4, following references like 353 to 354 for grandchildren as dependents.',
+      'All 11 out-of-scope questions were refused and no answerable one was, and the citation check dropped no citation across the 228 answers of the final run.',
+      'Runs on free tiers: Gemini\'s free quota, local embeddings, Chroma on disk and Pinecone\'s free plan.',
+    ],
+    technical: {
+      architecture:
+        'A parser reads the 340-page PDF with pypdf and splits it into 745 questions with their chapters, topics and the 261 questions that point to others, as 1,106 question nodes, with 819 fixed-size page chunks as the baseline index. Both are embedded locally with multilingual-e5-base into Chroma on disk or Pinecone serverless, behind one Search class. A LlamaIndex Workflow (start, think, act, think, answer) starts from the top 5 and gives Gemini 3.5 Flash Lite two FunctionTools, search_manual and read_question, for up to 4 calls, and the [NNN] citations in the answer are checked in code. OpenInference sends every step to a local Arize Phoenix.',
+      howItWasBuilt: [
+        'Parsed the PDF line by line: three digits and a dash open a question, headings in capitals give the chapter and topic, and "Consulte a(s) pergunta(s)" gives the cross-references; long answers are split under their question, so every chunk knows what to cite.',
+        'Fixed the numbers pypdf splits ("R$ 3. 561,50", "20 26") in the parser, found when golden facts did not match the text.',
+        'Wrote a 76-question golden set of numbers, direct, colloquial, multi-hop, hard-hop and out-of-scope questions, with tests that check each fact against the labeled question\'s text, and that a multi-hop fact is only in the referenced question.',
+        'Picked the hard-hop items by running retrieval: multi-hop pairs whose second question is outside the top 5.',
+        'Measured retrieval before any model call, with hit@1, hit@5, MRR and multi-hop coverage per index and per vector store.',
+        'Checked every citation against what was retrieved or read in that conversation, dropping any other, on the agent and both baselines alike.',
+        'Cached answers keyed by a hash of what the model is given, so rescoring and reruns cost no quota, and logged each system\'s cached answers as a Phoenix experiment scored by the eval\'s own code.',
+        'Covered the parser, the golden set, the citation check, the scoring, and the RAG and the Workflow with a scripted model and a fake search in 123 pytest tests that need no key, index or model, run by GitHub Actions with torch from PyTorch\'s CPU index.',
+      ],
+      decisions: [
+        'Questions as the retrieval unit over fixed-size chunks: hit@1 went from 55% to 75%, with a third less context.',
+        'Refusals left to the model over a similarity threshold, because out-of-scope questions scored almost as high (median top similarity 0.853 against 0.888).',
+        'Local multilingual-e5 embeddings over Gemini\'s, because the free tier\'s 1,000 embedding requests a day do not cover the 1,925 nodes of both indexes.',
+        'A limit of 4 tool calls, so a confused agent cannot spend the day\'s free quota.',
+        'Plain RAG kept as the baseline to beat: retrieval already brought the second question of 11 of 12 multi-hop pairs, so the agent only earns its calls on the hard-hop items.',
+      ],
+      stack: [
+        {
+          layer: 'Architecture',
+          items: ['Agentic RAG', 'Tool calling', 'Citations checked in code', 'Golden-set eval', 'Retrieval eval'],
+        },
+        { layer: 'Backend', items: ['Python', 'pypdf', 'uv'] },
+        {
+          layer: 'AI',
+          items: ['LlamaIndex', 'LlamaIndex Workflows', 'Google Gemini', 'Hugging Face embeddings', 'multilingual-e5'],
+        },
+        { layer: 'Data', items: ['Chroma', 'Pinecone'] },
+        { layer: 'Observability', items: ['Arize Phoenix', 'OpenInference', 'OpenTelemetry'] },
+        { layer: 'CI/CD', items: ['GitHub Actions'] },
+        { layer: 'Testing', items: ['pytest', 'Scripted model and fake search', 'Golden set'] },
+      ],
+    },
+    links: [{ label: 'GitHub', url: repo('irpf-copilot') }],
+  },
+  {
     id: 'voice-receptionist-copilot',
     kind: 'side-project',
     industry: 'health-tech',
