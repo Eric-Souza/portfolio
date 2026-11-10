@@ -3,6 +3,24 @@ import type { Article } from './types';
 // Newest first. Dates are kept for ordering only; the cards don't show them.
 export const articles: Article[] = [
   {
+    id: 'doc-extraction-finetune',
+    title: 'I fine-tuned a 2B vision model on a gaming GPU to read Brazilian invoices',
+    publication: 'Medium',
+    date: 'Nov 2026',
+    url: 'https://medium.com/@eric.bh18souza/i-fine-tuned-a-2b-vision-model-on-a-gaming-gpu-to-read-brazilian-invoices-3db05f9c943d',
+    teaser:
+      'QLoRA with Unsloth on Qwen3.5-2B, 20 minutes on an 8 GB GPU: from 7% to 99.7% of fields right, against Gemini\'s 99.9%, with zero silent errors.',
+  },
+  {
+    id: 'agent-frameworks-bakeoff',
+    title: 'I built the same two-agent refund desk in CrewAI, AutoGen and LangGraph',
+    publication: 'Medium',
+    date: 'Nov 2026',
+    url: 'https://medium.com/@eric.bh18souza/i-built-the-same-two-agent-refund-desk-in-crewai-autogen-and-langgraph-526afdb50750',
+    teaser:
+      'Same model, prompts and tools, 24 graded cases: they differ less in accuracy than in how they fail, and a $300 limit in the tool stopped a prompt injection.',
+  },
+  {
     id: 'irs-agent',
     title: 'An agent that reads IRS Publication 17, and the cross-references it chose not to follow',
     publication: 'Medium',
