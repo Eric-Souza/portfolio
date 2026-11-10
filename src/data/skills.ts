@@ -36,7 +36,7 @@ export const skillGroups: SkillGroup[] = [
   },
   {
     category: 'AI Engineering',
-    description: 'LLM integrations (OpenAI, Anthropic, Gemini, Bedrock, Groq), agents, RAG, MCP, evals and tracing, vision and voice models, document processing and image generation.',
+    description: 'LLM integrations (OpenAI, Anthropic, Gemini, Bedrock, Groq), agents, RAG, MCP, evals, tracing and guardrails, vision and voice models, document processing and image generation.',
     skills: [
       'AI Integrations',
       'LLMs',
@@ -66,6 +66,8 @@ export const skillGroups: SkillGroup[] = [
       'OpenInference',
       'LLM Evals',
       'Golden-Set Evals',
+      'Guardrails (NeMo Guardrails)',
+      'Prompt Guard',
       'Embeddings (Hugging Face)',
       'FastAPI',
       'Document Processing',

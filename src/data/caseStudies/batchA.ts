@@ -4,6 +4,65 @@ const repo = (name: string) => `https://github.com/Eric-Souza/${name}`;
 
 export const batchA: CaseStudy[] = [
   {
+    id: 'irs-copilot',
+    kind: 'side-project',
+    industry: 'fintech',
+    tech: ['Python', 'AI', 'CI/CD'],
+    year: 2026,
+    title: 'IRS Copilot',
+    company: 'Personal project',
+    tags: ['Agentic RAG', 'Evals', 'Fintech'],
+    headline:
+      'Answers questions about the U.S. federal income tax return from IRS Publication 17, cites the sections it used, and measures on a golden set what an agent adds over plain RAG, and whether it follows the publication\'s links.',
+    role: 'Solo build · parser, indexes, agent, citation check, golden set, eval, experiments, and tests',
+    challenge:
+      'Publication 17 is the IRS\'s 14-chapter guide to the federal return, and its answers are spread across sections that point to each other ("see Qualifying Relative, later"). It is the U.S. counterpart of IRPF Copilot, with a new corpus, parser and golden set on the same agent, eval, stores and tracing. The goal was answers grounded in Pub 17 alone, refusals for the topics it now only points elsewhere for, and an honest measure of what the agent adds: does it gain more here than on the Brazilian manual, and does it use the links it is given?',
+    outcomes: [
+      'Ask about filing status, dependents, income, IRAs, deductions or the child tax credit, and get an answer from Pub 17 (2025) that cites its sections, or a refusal when Pub 17 does not cover the question.',
+      'The agent got 91% of golden facts right, against 84% for RAG over sections and 75% over fixed-size chunks, at about 60% more tokens than RAG over sections.',
+      'On the 6 hard-hop items, where the referenced section is outside the top 5, the agent got 4 right against 2, each time by searching again with other words.',
+      'An experiment showed the agent never followed a link, even with the linked section\'s title in view: its 3 extra right answers came from more searches, and two runs of the unchanged agent showed a gap that size is within run-to-run noise.',
+      'Runs on free tiers: Gemini\'s free quota, local embeddings, Chroma on disk and Pinecone\'s free plan.',
+    ],
+    technical: {
+      architecture:
+        'A parser reads the HTML edition of Pub 17 with its 14 chapters into 356 sections, each with its heading path and the sections it links to (285 links, taken from the anchors in the markup, not from the prose), as 557 section nodes, with 354 fixed-size chunks as the baseline index. Both are embedded locally with bge-base-en-v1.5 into Chroma on disk or Pinecone serverless, behind one Search class. A LlamaIndex Workflow starts from the top 5 and gives Gemini 3.5 Flash Lite two FunctionTools, search_publication and read_section, for up to 4 calls, and the [3.9] citations in the answer are checked in code. OpenInference sends every step to a local Arize Phoenix.',
+      howItWasBuilt: [
+        'Parsed the HTML into numbered sections by heading, keeping the heading path ("Chapter 3. Dependents > Qualifying Child > Age Test") and the links each "see ..., earlier" points to; long sections are split under their heading, so every node knows what to cite.',
+        'Reused IRPF Copilot\'s agent, citation check, eval, stores and tracing, so the two projects compare the same agent on two documents.',
+        'Wrote an 80-question golden set of numbers, direct, colloquial, multi-hop, hard-hop and out-of-scope questions, with tests that check each fact against the labeled section\'s text.',
+        'Picked the hard-hop items by running retrieval: multi-hop pairs whose second section is outside the top 5 of the sections index.',
+        'Measured retrieval before any model call, with hit@1, hit@5, MRR and multi-hop coverage per index and per vector store.',
+        'Ran a titled-links experiment that shows each link with the linked section\'s title, and ran the unchanged agent twice to measure how much a run varies on its own.',
+        'Cached answers per system and prompt version, so rescoring costs no quota, and logged each system\'s cached answers as a Phoenix experiment scored by the eval\'s own code.',
+        'Covered the parser, the golden set, the citation check, the scoring, and the RAG and the Workflow with a scripted model and a fake search in 130 pytest tests that need no key, index or model, run by GitHub Actions.',
+      ],
+      decisions: [
+        'Sections as the retrieval unit over fixed-size chunks: they fixed 13 of the chunk baseline\'s 18 misses and cut tokens by a quarter, since chunks without headings often led the model to refuse.',
+        'Cross-references from the HTML anchors over parsing the prose, so every link is exact.',
+        'Refusals left to the model over a similarity threshold, because out-of-scope questions scored almost as high (median top similarity 0.708 against 0.782).',
+        'Two runs of the same agent before reading a 3-point gain as real: Gemini is not deterministic at temperature 0, and only 27 of 80 answers matched word for word.',
+        'A limit of 4 tool calls, so a confused agent cannot spend the day\'s free quota.',
+      ],
+      stack: [
+        {
+          layer: 'Architecture',
+          items: ['Agentic RAG', 'Tool calling', 'Citations checked in code', 'Golden-set eval', 'Retrieval eval'],
+        },
+        { layer: 'Backend', items: ['Python', 'uv'] },
+        {
+          layer: 'AI',
+          items: ['LlamaIndex', 'LlamaIndex Workflows', 'Google Gemini', 'Hugging Face embeddings', 'bge-base-en-v1.5'],
+        },
+        { layer: 'Data', items: ['Chroma', 'Pinecone'] },
+        { layer: 'Observability', items: ['Arize Phoenix', 'OpenInference', 'OpenTelemetry'] },
+        { layer: 'CI/CD', items: ['GitHub Actions'] },
+        { layer: 'Testing', items: ['pytest', 'Scripted model and fake search', 'Golden set'] },
+      ],
+    },
+    links: [{ label: 'GitHub', url: repo('irs-copilot') }],
+  },
+  {
     id: 'irpf-copilot',
     kind: 'side-project',
     industry: 'fintech',

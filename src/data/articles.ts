@@ -3,6 +3,24 @@ import type { Article } from './types';
 // Newest first. Dates are kept for ordering only; the cards don't show them.
 export const articles: Article[] = [
   {
+    id: 'irs-agent',
+    title: 'An agent that reads IRS Publication 17, and the cross-references it chose not to follow',
+    publication: 'Medium',
+    date: 'Nov 2026',
+    url: 'https://medium.com/@eric.bh18souza/an-agent-that-reads-irs-publication-17-and-the-cross-references-it-chose-not-to-follow-39c37706dd43',
+    teaser:
+      'The same LlamaIndex agent on IRS Publication 17: 91% of facts right against 84% for RAG, all from searching again, never from its links.',
+  },
+  {
+    id: 'voice-guardrails',
+    title: 'Putting guardrails on a voice agent without breaking the latency budget',
+    publication: 'Medium',
+    date: 'Nov 2026',
+    url: 'https://medium.com/@eric.bh18souza/putting-guardrails-on-a-voice-agent-without-breaking-the-latency-budget-f13aa86fb2fd',
+    teaser:
+      'NeMo Guardrails racing the model and checking every sentence before it is spoken, with Prompt Guard 2 and a self check measured on attacks.',
+  },
+  {
     id: 'irpf-agent',
     title: 'An agent for the Brazilian tax manual that rarely needed to be one',
     publication: 'Medium',
