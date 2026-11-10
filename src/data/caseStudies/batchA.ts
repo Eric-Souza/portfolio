@@ -4,6 +4,113 @@ const repo = (name: string) => `https://github.com/Eric-Souza/${name}`;
 
 export const batchA: CaseStudy[] = [
   {
+    id: 'doc-extraction-finetune',
+    kind: 'side-project',
+    industry: 'fintech',
+    tech: ['Python', 'AI'],
+    year: 2026,
+    title: 'Doc Extraction Fine-tune',
+    company: 'Personal project',
+    tags: ['Fine-tuning', 'Vision Model', 'Evals'],
+    headline:
+      'Fine-tunes a 2B vision-language model to read Brazilian boletos, notas fiscais and informes de rendimentos into typed JSON almost as well as Gemini, running locally on an 8 GB GPU.',
+    role: 'Solo build · training set, QLoRA training, GGUF export, Hugging Face publishing, and eval',
+    challenge:
+      'Doc Extraction Copilot reads financial documents with Gemini, and its eval showed that a small local model is far from that: the base Qwen3.5-2B called almost every document a boleto and got 7.3% of fields right. The question was whether a short fine-tune on generated documents could close the gap on a free GPU, scored by the same eval harness and check-digit review as Gemini, without hiding that it has only seen these layouts.',
+    outcomes: [
+      'Fine-tuned, the 2B model reads 99.7% of 768 fields right on the copilot\'s 36 eval documents, against Gemini 3.5 Flash Lite\'s 99.9% and its own 7.3% before.',
+      'It classifies all 36 documents, leaves 0 silent errors and catches all 6 planted inconsistencies: its 2 misread digits are both flagged by the check digits.',
+      'One epoch over 1,156 training chats took 20 minutes on an RTX 4060 Ti, using 3.2 GB of GPU memory, at a median of 4.2 seconds a document on Ollama.',
+      'Published on the Hugging Face Hub as a Q8_0 GGUF with its vision projector and as a LoRA adapter, so anyone can run it with one ollama create.',
+      'The caveat is stated up front: training and eval documents come from the same templates with other seeds, so this shows training on your own layouts, not reading unseen ones.',
+    ],
+    technical: {
+      architecture:
+        'Doc Extraction Copilot\'s generator renders 900 fictional documents from seeds outside its eval set into chats with the app\'s exact system prompt, page images and known answer, a third of them also teaching the classification call. Unsloth trains a rank-16 QLoRA on the language layers of the 4-bit Qwen3.5-2B, with the vision layers frozen, in WSL on a local GPU or in a Colab notebook. llama.cpp converts the merged model to a Q8_0 GGUF plus its vision projector, Ollama serves it through an OpenAI-compatible endpoint, and the copilot\'s eval scores it with AI_PROVIDER=local.',
+      howItWasBuilt: [
+        'Rendered PDFs page by page with the same code the app uses before sending one to a local model, so training and inference see the same pixels.',
+        'Kept the planted inconsistencies in the training set, so the model learns to copy a wrong total as printed and leave the checking to code.',
+        'Put the loss on the reply only, kept images at full size and turned thinking off in the chat template, as at inference, with a cell that checks the rendered chat starts with the exact prompt the server sends.',
+        'Trained locally in WSL with a script that reads the dataset from disk and writes the loss history, a run summary and the held-out replies to runs/, and generated the Colab notebooks from plain Python so they can be reviewed as code.',
+        'Converted the model with llama.cpp, built it on Ollama, and scored it with the copilot\'s eval, with the document type detected and given.',
+        'Published the GGUF and the adapter to the Hugging Face Hub with model cards that give the results and the same-templates caveat, and pointed the Modelfile at the Hub.',
+      ],
+      decisions: [
+        'Fine-tuning over prompting: the best plain prompt, with the type given and the schema in the prompt, reached 89.5% of fields and left 38 wrong fields unflagged.',
+        'A 2B model and QLoRA over a larger one, so training fits a free T4 or an 8 GB consumer GPU and inference stays at 4.2 seconds a document.',
+        'Language layers only, with the vision layers frozen, because the base model already read the digits and failed at putting them in the right fields.',
+        'Scored with the copilot\'s own eval and check-digit review over a separate metric, so the fine-tune and Gemini are compared on silent errors, the number that matters.',
+      ],
+      stack: [
+        {
+          layer: 'Architecture',
+          items: ['Fine-tuning', 'QLoRA', 'Synthetic training data', 'Eval harness reuse', 'Local inference'],
+        },
+        { layer: 'Backend', items: ['Python', 'WSL', 'Jupyter notebooks'] },
+        {
+          layer: 'AI',
+          items: ['Unsloth', 'Qwen3.5-2B', 'Vision Models', 'Hugging Face Hub', 'llama.cpp', 'GGUF', 'Ollama', 'vLLM'],
+        },
+        { layer: 'Testing', items: ['Field-level eval set', 'Held-out set'] },
+      ],
+    },
+    links: [
+      { label: 'GitHub', url: repo('doc-extraction-finetune') },
+      { label: 'Hugging Face', url: 'https://huggingface.co/eric-hugging-crazy/qwen3.5-2b-doc-extraction-br-GGUF' },
+    ],
+  },
+  {
+    id: 'agent-frameworks-bakeoff',
+    kind: 'side-project',
+    industry: 'e-commerce',
+    tech: ['Python', 'AI'],
+    year: 2026,
+    title: 'Agent Frameworks Bakeoff',
+    company: 'Personal project',
+    tags: ['Multi-Agent', 'CrewAI vs AutoGen vs LangGraph', 'Evals'],
+    headline:
+      'The same two-agent refund desk built in CrewAI, AutoGen and LangGraph, on the same model, prompts and tools, graded on 24 cases and traced in Phoenix, to see how each framework fails.',
+    role: 'Solo build · task, policy, graded cases, three implementations, proxy, tracing, and report',
+    challenge:
+      'Agent frameworks are usually compared on demos and feature lists. The goal was one realistic task built three ways, each in its own idiom, and measured the same way: what each one got right, how it failed, and what it cost in model calls and tokens, all on a free tier.',
+    outcomes: [
+      'LangGraph got 22 of 24 cases right, AutoGen 21 and CrewAI 20, on gpt-oss-120b at temperature 0, and all three got the 18 cases that test the policy\'s rules and boundaries.',
+      'Every miss is explained case by case: a refund to someone who does not own the order, the older of two identical orders, a lost order\'s shipping left out, and an injected "system note".',
+      'AutoGen followed the injected note and tried a $500 refund; the $300 limit inside the refund tool is what stopped it, which is the main lesson: rules belong in the action tools, where code can refuse.',
+      'AutoGen makes one extra model call per case, about 21% more tokens than CrewAI and 34% more than LangGraph for the same work.',
+      'Runs on Groq\'s free tier; the whole bakeoff took about 306,000 tokens over two days.',
+    ],
+    technical: {
+      architecture:
+        'A customer email goes to an investigator agent with read-only tools (find_customer, list_orders, get_order), which writes a brief, and then to a reviewer agent with the refund policy, get_order and three action tools, of which it must call exactly one. CrewAI runs two sequential tasks with result_as_answer on the decision tools, AutoGen a round-robin group chat that ends on a FunctionCallTermination, and LangGraph an explicit StateGraph with a model node and a ToolNode per agent. All three call a local OpenAI-compatible proxy in front of Groq, and OpenInference sends every run to its own Arize Phoenix project.',
+      howItWasBuilt: [
+        'Wrote a refund policy with the edges where agents slip: inclusive 30- and 60-day windows, late delivery past 5 days, final-sale items, lost orders, a $300 escalation limit, and acting only on the sender\'s own orders.',
+        'Wrote 24 cases that hit each rule and its boundary, plus a sender who is not a customer, two orders of the same mug, and an email carrying a fake system note.',
+        'Graded what the reviewer did, read from its tool call, against answers computed by plain code from the policy and checked by hand in pytest tests.',
+        'Shared the prompts and tools as code, and let each framework turn the same Python functions into its own tool schema.',
+        'Built a proxy that counts every model call and its tokens, fixes temperature and reasoning effort, and waits out the free tier\'s rate limits so no framework sees a 429 and the waiting stays out of the latency numbers.',
+        'Rebuilt the data store and the crew or team for every case, and ran each framework in its own process and Phoenix project.',
+      ],
+      decisions: [
+        'Each framework written its own way over one shared shape, so the comparison is of the frameworks as people use them.',
+        'Grading the tool call over the reply text, because what matters is what the agent did.',
+        'One proxy for all three over each framework\'s own client, so calls, tokens and model options are counted and set the same way.',
+        'One run per case reported as such: a one-case gap is within noise, so the report is about how each one fails, not a leaderboard.',
+      ],
+      stack: [
+        {
+          layer: 'Architecture',
+          items: ['Multi-agent systems', 'Tool calling', 'Graded test cases', 'Prompt injection test'],
+        },
+        { layer: 'Backend', items: ['Python', 'Starlette', 'uv'] },
+        { layer: 'AI', items: ['CrewAI', 'AutoGen', 'LangGraph', 'LangChain', 'Groq', 'gpt-oss'] },
+        { layer: 'Observability', items: ['Arize Phoenix', 'OpenInference', 'OpenTelemetry'] },
+        { layer: 'Testing', items: ['pytest', 'Reference answers in code'] },
+      ],
+    },
+    links: [{ label: 'GitHub', url: repo('agent-frameworks-bakeoff') }],
+  },
+  {
     id: 'irs-copilot',
     kind: 'side-project',
     industry: 'fintech',
@@ -198,7 +305,9 @@ export const batchA: CaseStudy[] = [
       'Each field is marked checked, review or not checked, so a person only looks at the fields that failed a check or that the model was unsure of, and the JSON can only be downloaded once nothing is left to review.',
       'A boleto whose printed amount does not match its digit line, or a DANFE line total that is off by R$ 10, is flagged on the field that is actually wrong.',
       'On 36 synthetic documents, the default model read 99.9% of fields right, flagged with 100% precision and recall, left 0 silent errors and caught all 6 planted inconsistencies, at a median of 5.4s a document.',
-      'Can also run on a local model through Ollama or vLLM: the same eval shows how far a base 2B model is from that (89.5% of fields at best), which is the gap a fine-tune on generated training data is meant to close.',
+      'Can also run on a local model through Ollama or vLLM: a base 2B model reaches 89.5% of fields at best, and the same model fine-tuned on generated documents in Doc Extraction Fine-tune reaches 99.7% with 0 silent errors.',
+      'The same checks also run as Guardrails AI validators that send a failed reading back to the model once: the small local model fixed 38 fields and broke 1, while Gemini gained nothing.',
+      'Every model call, guard call and validator is one Arize Phoenix trace, and each eval run is a Phoenix experiment, compared document by document without calling a model.',
     ],
     technical: {
       architecture:
@@ -211,6 +320,8 @@ export const batchA: CaseStudy[] = [
         'For the local provider, rasterized each PDF page with pdf.js and @napi-rs/canvas, since local vision models take images, set temperature 0 with thinking off, and added AI_SCHEMA_IN_PROMPT to put the JSON schema in the system prompt, because the server only turns it into a grammar and the model never sees what the fields mean.',
         'Built a seeded generator that renders 36 fictional documents with headless Chromium as clean PNGs, PDFs and phone-photo-style JPEGs, six with planted inconsistencies, and an eval script that caches answers and scores each run per field, with flag precision, recall and silent errors.',
         'Wrote a training-set generator for the doc-extraction-finetune repo that reuses the same renderer and rasterizer, skips any document that appears in the eval set, and writes 900 images as train and val JSONL rows with the exact system prompt and schema-ordered answers, plus classify rows.',
+        'Wrote the checks again as custom Guardrails AI validators on a Pydantic model per document type, in a small FastAPI server that the route calls to decide on a re-ask, with a parity test on 400 documents that asserts it flags exactly the fields the TypeScript review flags.',
+        'Sent OpenTelemetry spans from the app, the eval and the guard server to Phoenix through OpenInference, passing the traceparent header so one document is one trace, and logged cached eval runs as Phoenix experiments scored by the eval\'s own code.',
         'Covered the checks, the review rules and the scoring with 35 Vitest tests, and the upload and review flow with 4 Playwright tests against the production build and a scripted model, all run by GitHub Actions on pushes to main and pull requests.',
       ],
       decisions: [
@@ -219,6 +330,7 @@ export const batchA: CaseStudy[] = [
         'One extract call per document type over one call with a union schema, which exists only for the compiler.',
         'Planted inconsistencies in the training set too, so the model learns to copy a wrong total rather than fix it.',
         'Measured the base local model before fine-tuning: Qwen3.5-2B detected only 12 of 36 types on its own and reached 89.5% field accuracy with the type given and the schema in the prompt, so the fine-tune has a real baseline.',
+        'Validators that never fix a value (on_fail="noop") over Guardrails\' fix actions, because a tampered document has to stay as printed; the eval showed a re-ask can still talk a model into hiding a planted error.',
       ],
       stack: [
         {
@@ -226,11 +338,12 @@ export const batchA: CaseStudy[] = [
           items: ['Vision extraction', 'Verification in code', 'Human-in-the-loop review', 'Eval set', 'Provider switch'],
         },
         { layer: 'Frontend', items: ['React', 'Next.js', 'TypeScript', 'Tailwind CSS'] },
-        { layer: 'Backend', items: ['Next.js route handlers', 'Zod', 'pdf.js', '@napi-rs/canvas'] },
+        { layer: 'Backend', items: ['Next.js route handlers', 'Zod', 'pdf.js', '@napi-rs/canvas', 'Python', 'FastAPI'] },
         {
           layer: 'AI',
-          items: ['Vercel AI SDK', 'Google Gemini', 'OpenAI-compatible provider', 'Ollama', 'vLLM', 'Qwen', 'Structured output'],
+          items: ['Vercel AI SDK', 'Google Gemini', 'OpenAI-compatible provider', 'Ollama', 'vLLM', 'Qwen', 'Structured output', 'Guardrails AI'],
         },
+        { layer: 'Observability', items: ['Arize Phoenix', 'OpenInference', 'OpenTelemetry'] },
         { layer: 'CI/CD', items: ['GitHub Actions'] },
         { layer: 'Testing', items: ['Vitest', 'Playwright', 'AI SDK mock model', 'Field-level eval set'] },
       ],
@@ -530,7 +643,9 @@ export const batchA: CaseStudy[] = [
       'Ask questions in a chat and get streamed answers with citations to the source passages.',
       'Choose between a direct question-and-answer mode and an agent mode that decides when to search the documents.',
       'Measured retrieval before picking the default: hybrid search plus a reranker puts the right passage first 91% of the time on a 22-question golden set, against 73% for vector search alone.',
-      'A quality gate runs the evals on every change to the API, and blocks one that makes retrieval or answers worse.',
+      'Runs on pgvector or Qdrant behind one interface: on the same chunks and embeddings, Qdrant\'s BM25 hybrid search reached 91% hit@1 against 86% for Postgres full-text search, and the two tie once the reranker runs.',
+      'Answers are scored by both RAGAS and the TruLens RAG triad, and reading them together showed that ranking is good but four chunks send more context than these questions need.',
+      'A quality gate runs the evals on every change to the API, on both vector stores, and blocks one that makes retrieval or answers worse.',
       'Trace each answer step by step, from the search stages to the model call, to see where time and tokens go.',
     ],
     technical: {
@@ -544,6 +659,8 @@ export const batchA: CaseStudy[] = [
         'Moved from Chroma to pgvector, and scored vector, hybrid and hybrid plus rerank on the golden set: hit@1 of 73%, 86% and 91%, and MRR of 0.864, 0.924 and 0.936.',
         'Scored answers with RAGAS (faithfulness 1.000, answer relevancy 0.898, context precision 0.905, context recall 1.000 on the CI subset), paced at a set number of requests a minute with retries on 429s.',
         'Ran pytest against a pgvector service in GitHub Actions, then an eval gate that fails when hit@1 or MRR drops by more than 0.01 in any mode, or a RAGAS mean for the default mode by more than 0.1.',
+        'Added Qdrant as a second store with a dense and a BM25 sparse vector per chunk, fused with RRF on the server in one Query API call, rebuilt from Postgres without re-embedding so both stores see the same data.',
+        'Added the TruLens RAG triad (context relevance, groundedness, answer relevance), judged by Gemini, next to RAGAS in the evals and the gate.',
         'Traced embed_query, vector_search, keyword_search, rrf, rerank and the generation as Langfuse spans, keeping LangSmith as an option.',
       ],
       decisions: [
@@ -559,11 +676,11 @@ export const batchA: CaseStudy[] = [
         },
         { layer: 'Frontend', items: ['React', 'TypeScript', 'Vite', 'MUI', 'Framer Motion'] },
         { layer: 'Backend', items: ['Python', 'FastAPI', 'SQLAlchemy (async)', 'asyncpg'] },
-        { layer: 'AI', items: ['Google Gemini', 'LangChain', 'LangGraph', 'Cross-encoder reranker', 'RAGAS', 'Langfuse'] },
-        { layer: 'Data', items: ['Postgres', 'pgvector', 'Postgres full-text search'] },
-        { layer: 'Infrastructure', items: ['Docker Compose (Postgres, optional Langfuse)'] },
+        { layer: 'AI', items: ['Google Gemini', 'LangChain', 'LangGraph', 'Cross-encoder reranker', 'RAGAS', 'TruLens', 'Langfuse'] },
+        { layer: 'Data', items: ['Postgres', 'pgvector', 'Postgres full-text search', 'Qdrant'] },
+        { layer: 'Infrastructure', items: ['Docker Compose (Postgres, Qdrant, optional Langfuse)'] },
         { layer: 'CI/CD', items: ['GitHub Actions (pytest on pgvector, eval quality gate)'] },
-        { layer: 'Testing', items: ['pytest', 'Golden set evals', 'RAGAS'] },
+        { layer: 'Testing', items: ['pytest', 'Golden set evals', 'RAGAS', 'TruLens'] },
       ],
     },
     links: [{ label: 'GitHub', url: repo('gemini-rag-doc-processing') }],
