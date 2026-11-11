@@ -34,7 +34,7 @@ export const industryLabels: Record<Industry, string> = {
 
 export const languageTags: LanguageTag[] = ['TypeScript', 'JavaScript', 'Python', 'AI'];
 
-export const platformTags: PlatformTag[] = ['AWS', 'Azure', 'GCP', 'Docker', 'CI/CD'];
+export const platformTags: PlatformTag[] = ['AWS', 'Azure', 'GCP', 'Docker', 'Kubernetes', 'CI/CD'];
 
 const dates: Record<string, string> = repoDates;
 const repoName = (url: string) => url.match(/^https:\/\/github\.com\/Eric-Souza\/([^/]+)/)?.[1];

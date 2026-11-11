@@ -92,7 +92,7 @@ export type Industry =
 export type LanguageTag = 'TypeScript' | 'JavaScript' | 'Python' | 'AI';
 
 /** Filterable cloud and delivery work. 'CI/CD' means pipelines that build, test or deploy on push. */
-export type PlatformTag = 'AWS' | 'Azure' | 'GCP' | 'Docker' | 'CI/CD' | 'Vercel' | 'Netlify' | 'Firebase' | 'Heroku';
+export type PlatformTag = 'AWS' | 'Azure' | 'GCP' | 'Docker' | 'Kubernetes' | 'CI/CD' | 'Vercel' | 'Netlify' | 'Firebase' | 'Heroku';
 
 export type TechTag = LanguageTag | PlatformTag;
 
