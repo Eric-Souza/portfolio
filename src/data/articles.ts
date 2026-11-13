@@ -3,6 +3,24 @@ import type { Article } from './types';
 // Newest first. Dates are kept for ordering only; the cards don't show them.
 export const articles: Article[] = [
   {
+    id: 'pgvector-or-qdrant',
+    title: 'pgvector or Qdrant? I ran both behind the same RAG app, and graded the answers without a single reference answer',
+    publication: 'Medium',
+    date: 'Nov 2026',
+    url: 'https://medium.com/@eric.bh18souza/pgvector-or-qdrant-32cb2665b7e4',
+    teaser:
+      'Qdrant\'s server-side hybrid search beat Postgres full-text on hit@1, then tied it after the reranker, and the TruLens RAG triad found a cost problem RAGAS missed.',
+  },
+  {
+    id: 'profile-mcp-server',
+    title: 'I built an MCP server over my own career, so an AI assistant can check my experience against a job posting with evidence instead of guesses',
+    publication: 'Medium',
+    date: 'Nov 2026',
+    url: 'https://medium.com/@eric.bh18souza/i-built-an-mcp-server-over-my-own-career-so-an-ai-assistant-can-check-my-experience-against-a-job-7cb0d32af111',
+    teaser:
+      'Six read-only tools, a resume resource and a prompt over GitHub, Medium and a JSON profile, in TypeScript, on stdio and Streamable HTTP.',
+  },
+  {
     id: 'doc-extraction-finetune',
     title: 'I fine-tuned a 2B vision model on a gaming GPU to read Brazilian invoices',
     publication: 'Medium',
